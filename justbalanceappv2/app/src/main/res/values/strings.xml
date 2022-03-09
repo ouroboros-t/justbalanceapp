@@ -3,6 +3,9 @@
     <string name="app_name">Just Balance</string>
     <!--Title Screen-->
     <string name="title_button">Begin</string>
+    <string name="your_balances">Your Balances</string>
+    <string name="add_balance_button">Add</string>
+    <string name="edit_balance_button">Edit</string>
     <!--Balance Screen-->
 
     <!--Add Balance Screen-->
