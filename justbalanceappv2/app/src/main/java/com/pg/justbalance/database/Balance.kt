@@ -12,6 +12,9 @@ data class Balance (
     @PrimaryKey(autoGenerate = true)
     var balanceId: Long = 0L,
 
+    @ColumnInfo(name="balance_name")
+    var balanceName : String = "",
+
     @ColumnInfo(name = "starting_balance")
     val startingBalance : Double = 0.0,
 
