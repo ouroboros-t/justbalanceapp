@@ -16,6 +16,6 @@ class AddBalanceViewModelFactory (
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 
-                
+
 
 }

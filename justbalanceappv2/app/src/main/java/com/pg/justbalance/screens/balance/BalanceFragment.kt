@@ -37,10 +37,10 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
         //we can now directly update TextViews, Buttons, etc inside of the xml..
         //EXAMPLE INSIDE TEXT VIEW : android:text="@{@string/quote_format(gameViewModel.word)}"
 
-        //on Add button go to next screen
-        binding.addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
-        }
+        
+//        binding.addButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
+//        }
 
         //allow layout access to all of data in ViewModel
         binding.balanceViewModel = viewModel

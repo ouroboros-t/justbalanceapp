@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.pg.justbalance.R
 import com.pg.justbalance.database.Balance
+import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.databinding.AddBalanceLayoutBinding
 
@@ -24,7 +25,14 @@ class AddBalanceFragment: Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.add_balance_layout,container,false)
 
-        viewModel = ViewModelProvider(this).get(AddBalanceViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        val dataSource = BalanceDatabase.getInstance(application).balanceDatabaseDao
+
+
+        val viewModelFactory = AddBalanceViewModelFactory(dataSource,application)
+
+        val addBalanceViewModel = ViewModelProvider(this, viewModelFactory).get(AddBalanceViewModel::class.java)
+
 
         binding.lifecycleOwner = this
 

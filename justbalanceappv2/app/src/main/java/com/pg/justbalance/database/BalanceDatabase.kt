@@ -25,12 +25,12 @@ abstract class BalanceDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: BalanceDatabase? = null
 
-        fun getInstance(context: Context): BalanceDatabase? {
+        fun getInstance(context: Context): BalanceDatabase {
             synchronized(this){
                 var instance = INSTANCE
 
                 if(instance == null){
-                    Room.databaseBuilder(context.applicationContext,
+                    instance = Room.databaseBuilder(context.applicationContext,
                         BalanceDatabase::class.java,
                         "balance_database")
                         .addMigrations(MIGRATION_1_2)
