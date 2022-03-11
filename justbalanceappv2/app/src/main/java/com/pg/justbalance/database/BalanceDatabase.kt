@@ -8,7 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 
-@Database(entities = [Balance::class], version = 1)
+@Database(entities = [Balance::class], version = 2)
 abstract class BalanceDatabase: RoomDatabase() {
     //implementation is done by the RoomDatabase, that's why it's abstract class
     abstract val balanceDatabaseDao : BalanceDatabaseDao
@@ -33,7 +33,7 @@ abstract class BalanceDatabase: RoomDatabase() {
                     instance = Room.databaseBuilder(context.applicationContext,
                         BalanceDatabase::class.java,
                         "balance_database")
-                        .addMigrations(MIGRATION_1_2)
+                        .fallbackToDestructiveMigration()
                         .build()
                     INSTANCE = instance
                 }

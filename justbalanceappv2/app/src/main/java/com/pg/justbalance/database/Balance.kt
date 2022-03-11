@@ -16,10 +16,10 @@ data class Balance (
     var balanceName : String = "",
 
     @ColumnInfo(name = "starting_balance")
-    val startingBalance : Double = 0.0,
+    var startingBalance : Int = 0,
 
     //before any updates, currentBalance is same as starting Balance
     @ColumnInfo(name = "current_balance")
-    var currentBalance: Double = startingBalance
+    var currentBalance: Int = startingBalance
 
 )

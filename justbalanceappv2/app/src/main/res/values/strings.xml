@@ -1,17 +1,15 @@
 <resources>
 
-    <string name="app_name">Just Balance</string>
+    <string name="app_name"></string>
     <!--Title Screen-->
     <string name="title_button">Begin</string>
+    <!--Balance Screen-->
     <string name="your_balances">Your Balances</string>
     <string name="add_balance_button">Add</string>
     <string name="edit_balance_button">Edit</string>
+    <!--Add Balance Screen-->
     <string name="enter_balance_name_text">Enter Balance Name:</string>
     <string name="enter_balance_amount_text">Enter Balance Amount:</string>
-    <!--Balance Screen-->
-
-    <!--Add Balance Screen-->
-
     <!--Edit Balance Screen-->
 
 </resources>

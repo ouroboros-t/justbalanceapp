@@ -28,15 +28,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/balances_list"
-                    android:layout_width="419dp"
-                    android:layout_height="432dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/your_balances" />
+
+
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/balances_list"-->
+<!--                    android:layout_width="419dp"-->
+<!--                    android:layout_height="432dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/your_balances"-->
+<!--                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>-->
 
                 <TextView
                     android:id="@+id/your_balances"
@@ -47,11 +50,24 @@
                     android:layout_marginEnd="161dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/your_balances"
-                    app:layout_constraintBottom_toTopOf="@+id/balances_list"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/just_balance_logo"
                     tools:ignore="NotSibling" />
+
+                <TextView
+                    android:id="@+id/balance_name_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="333dp"
+                    android:layout_marginBottom="489dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -98,8 +114,7 @@
             app:layout_constraintHorizontal_bias="0.371"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/just_balance_logo"
-            app:layout_constraintVertical_bias="0.541"
-            />
+            app:layout_constraintVertical_bias="0.543" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

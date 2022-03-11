@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.databinding.AddBalanceLayoutBinding
+import com.pg.justbalance.screens.balance.BalanceViewModel
 
 class AddBalanceFragment: Fragment() {
 
     private lateinit var binding: AddBalanceLayoutBinding
-    private lateinit var viewModel: AddBalanceViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,15 +34,16 @@ class AddBalanceFragment: Fragment() {
 
         val addBalanceViewModel = ViewModelProvider(this, viewModelFactory).get(AddBalanceViewModel::class.java)
 
+        binding.addBalanceViewModel = addBalanceViewModel
 
         binding.lifecycleOwner = this
 
-//        binding.addBalanceConfirmButton.setOnClickListener {
-//            val balanceName = binding.balanceNameEditText.toString()
-//            val balanceAmount = Integer.parseInt(binding.balanceAmountEditText.toString()).toDouble()
-//
-//            viewModel.insert(Balance(balanceName = balanceName, startingBalance = balanceAmount, currentBalance = balanceAmount))
-//        }
+        binding.addBalanceConfirmButton.setOnClickListener {
+           val balanceName = binding.balanceNameEditText.toString()
+            //val balanceAmount = Integer.parseInt(binding.balanceAmountEditText.toString())
+            addBalanceViewModel.onAddBalance(balanceName, 500)
+            findNavController().navigate(R.id.action_addBalanceFragment_to_balanceFragment)
+        }
 
 
         return binding.root

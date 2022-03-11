@@ -27,5 +27,11 @@
     <fragment
         android:id="@+id/addBalanceFragment"
         android:name="com.pg.justbalance.screens.add.AddBalanceFragment"
-        android:label="AddBalanceFragment" />
+        android:label="AddBalanceFragment" >
+        <action
+            android:id="@+id/action_addBalanceFragment_to_balanceFragment"
+            app:destination="@id/balanceFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
 </navigation>

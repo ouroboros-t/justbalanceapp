@@ -4,7 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="addBalanceViewModel"
+            type="com.pg.justbalance.screens.add.AddBalanceViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,14 +18,15 @@
             android:layout_width="188dp"
             android:layout_height="46dp"
             android:layout_marginStart="115dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="21dp"
             android:layout_marginEnd="116dp"
-            android:layout_marginBottom="472dp"
+            android:layout_marginBottom="94dp"
             android:ems="10"
             android:hint="@string/enter_balance_amount_text"
             android:inputType="number"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/add_balance_confirm_button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/balance_name_editText" />
 
@@ -32,9 +35,9 @@
             android:layout_width="180dp"
             android:layout_height="43dp"
             android:layout_marginStart="115dp"
-            android:layout_marginTop="171dp"
+            android:layout_marginTop="224dp"
             android:layout_marginEnd="116dp"
-            android:layout_marginBottom="17dp"
+            android:layout_marginBottom="21dp"
             android:contentDescription="@string/enter_balance_name_text"
             android:ems="10"
             android:hint="@string/enter_balance_name_text"
@@ -50,14 +53,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="156dp"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="167dp"
-            android:layout_marginBottom="367dp"
+            android:layout_marginBottom="312dp"
             android:backgroundTint="@color/blue"
             android:text="@string/add_balance_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balance_amount_editText" />
+            app:layout_constraintTop_toBottomOf="@+id/balance_amount_editText"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
