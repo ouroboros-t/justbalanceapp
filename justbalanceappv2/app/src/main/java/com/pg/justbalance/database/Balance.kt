@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "balances_table")
 data class Balance (
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="balance_id")
     var balanceId: Long = 0L,
 
     @ColumnInfo(name="balance_name")

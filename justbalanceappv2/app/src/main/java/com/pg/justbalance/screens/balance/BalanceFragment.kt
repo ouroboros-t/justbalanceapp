@@ -52,6 +52,17 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
         //binding viewmodel to view directly?
         binding.lifecycleOwner = this
 
+        binding.dataSize.text = balanceViewModel.balances.value?.size.toString()
+
+        val adapter = BalanceAdapter()
+        binding.balancesList.adapter = adapter
+
+        balanceViewModel.balances.observe(viewLifecycleOwner, Observer {
+            it?.let{
+                adapter.data = it
+            }
+        })
+
 
         //get the viewModel (generate it upon launch)
         //viewModel = ViewModelProvider(this).get(BalanceViewModel::class.java)
@@ -68,9 +79,9 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
 //            it?.let { adapter.data = it }
 //        }
 
-            createDialog()
+           // createDialog()
 
-        balanceViewModel.showBalance()
+        //balanceViewModel.showBalance()
 
         binding.addButton.setOnClickListener {
             findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)

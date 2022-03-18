@@ -22,20 +22,15 @@ class AddBalanceViewModel(
     val viewModelJob = Job()
 
 
-    private suspend fun insert(balance: Balance){
-        withContext(Dispatchers.IO) {
-            database.insert(balance)
-        }
-    }
-
-    fun onAddBalance(balanceName: String, balanceAmount : Int) {
+  fun onAddBalance(balanceName: String, balanceAmount : Int) {
+        viewModelScope.launch {
             val newBalance = Balance()
             newBalance.balanceName = balanceName
             newBalance.startingBalance = balanceAmount
             newBalance.currentBalance = balanceAmount
 
-            balanceList.add(newBalance)
-
+            database.insert(newBalance)
+        }
     }
 
     override fun onCleared() {

@@ -29,17 +29,16 @@
                 android:layout_height="wrap_content">
 
 
-
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/balances_list"-->
-<!--                    android:layout_width="419dp"-->
-<!--                    android:layout_height="432dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/your_balances"-->
-<!--                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/balances_list"
+                    android:layout_width="384dp"
+                    android:layout_height="459dp"
+                    android:layout_marginTop="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/your_balances" />
 
                 <TextView
                     android:id="@+id/your_balances"
@@ -68,6 +67,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
+
+                <TextView
+                    android:id="@+id/dataSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="37dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginEnd="314dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toTopOf="@+id/balances_list"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

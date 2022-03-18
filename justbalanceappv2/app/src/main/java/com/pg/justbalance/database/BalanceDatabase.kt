@@ -8,7 +8,8 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 
-@Database(entities = [Balance::class], version = 2)
+
+@Database(entities = [Balance::class], version = 3)
 abstract class BalanceDatabase: RoomDatabase() {
     //implementation is done by the RoomDatabase, that's why it's abstract class
     abstract val balanceDatabaseDao : BalanceDatabaseDao

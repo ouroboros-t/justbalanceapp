@@ -10,9 +10,9 @@ import androidx.room.Query
 interface BalanceDatabaseDao {
 
     @Insert
-    fun insert(balance: Balance)
+    suspend fun insert(balance: Balance)
 
-    @Query("SELECT * FROM balances_table ORDER BY balanceId DESC")
+    @Query("SELECT * FROM balances_table ORDER BY balance_id DESC")
     fun getAllBalances(): LiveData<List<Balance>>
 
 }

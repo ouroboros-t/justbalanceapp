@@ -14,7 +14,7 @@ class BalanceViewModel (database: BalanceDatabaseDao, application: Application) 
     //FEATURE: UPDATE DEBTS, TRACK PAYMENTS MADE, LOG PAID OFF DEBTS
 
    // var addBalanceViewModel = AddBalanceViewModel(database, application)
-    val balances = database.getAllBalances()
+    var balances = database.getAllBalances()
 
     val balancesString = Transformations.map(balances){ balance ->
         val sb = StringBuilder()
