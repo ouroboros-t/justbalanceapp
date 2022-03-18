@@ -17,7 +17,6 @@ class AddBalanceViewModel(
     application: Application
 ): AndroidViewModel(application) {
     val balanceViewModel = BalanceViewModel(database,application)
-    val balanceList = balanceViewModel.balanceList
 
     val viewModelJob = Job()
 

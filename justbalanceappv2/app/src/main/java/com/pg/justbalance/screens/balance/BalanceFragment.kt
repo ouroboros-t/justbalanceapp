@@ -4,6 +4,7 @@ package com.pg.justbalance.screens.balance
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,12 +48,13 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
 
          balanceViewModel = ViewModelProvider(this, viewModelFactory).get(BalanceViewModel::class.java)
 
+        //we can now directly update TextViews, Buttons, etc inside of the xml..
+        //EXAMPLE INSIDE TEXT VIEW : android:text="@{@string/quote_format(gameViewModel.word)}"
         binding.balanceViewModel = balanceViewModel
 
         //binding viewmodel to view directly?
         binding.lifecycleOwner = this
 
-        binding.dataSize.text = balanceViewModel.balances.value?.size.toString()
 
         val adapter = BalanceAdapter()
         binding.balancesList.adapter = adapter
@@ -60,37 +62,15 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
         balanceViewModel.balances.observe(viewLifecycleOwner, Observer {
             it?.let{
                 adapter.data = it
+                Log.i("This is the data:", adapter.data.toString())
             }
         })
-
-
-        //get the viewModel (generate it upon launch)
-        //viewModel = ViewModelProvider(this).get(BalanceViewModel::class.java)
-
-        //we can now directly update TextViews, Buttons, etc inside of the xml..
-        //EXAMPLE INSIDE TEXT VIEW : android:text="@{@string/quote_format(gameViewModel.word)}"
-
-
-        //tell recyclerview about the adapter
-//        val adapter = BalanceAdapter()
-//        binding.balancesList.adapter = adapter
-//
-//        balanceViewModel.balances.observe(viewLifecycleOwner) {
-//            it?.let { adapter.data = it }
-//        }
-
-           // createDialog()
-
-        //balanceViewModel.showBalance()
 
         binding.addButton.setOnClickListener {
             findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
             //alertDialog?.show()
         }
-//AlertDialog.Builder(getActivity())
-//            .setMessage("Here is a message")
-//            .setPositiveButton(getString(R.string.ok)) { _,_ -> }
-//            .create()
+
 
         return binding.root
     }
@@ -103,23 +83,6 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
 
 
 
-
-
-    fun createDialog() {
-        val alertDialogBuilder = AlertDialog.Builder(activity)
-        val editText1 : EditText = EditText(activity)
-        val editText2 : EditText = EditText(activity)
-
-        alertDialogBuilder.setTitle("Hello There")
-        alertDialogBuilder.setView(editText1)
-        alertDialogBuilder.setView(editText2)
-        alertDialogBuilder.setPositiveButton("Add") { dialogInterface: DialogInterface, id: Int ->
-
-        }
-        alertDialogBuilder.setNegativeButton("Cancel", {dialogInterface: DialogInterface, id: Int ->})
-
-        alertDialog = alertDialogBuilder.create()
-    }
 
 
 

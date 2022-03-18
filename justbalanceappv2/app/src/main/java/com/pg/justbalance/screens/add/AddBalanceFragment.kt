@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -39,7 +40,7 @@ class AddBalanceFragment: Fragment() {
         binding.lifecycleOwner = this
 
         binding.addBalanceConfirmButton.setOnClickListener {
-           val balanceName = binding.balanceNameEditText.toString()
+           val balanceName = binding.balanceNameEditText.text.toString()
             //val balanceAmount = Integer.parseInt(binding.balanceAmountEditText.toString())
             addBalanceViewModel.onAddBalance(balanceName, 500)
             findNavController().navigate(R.id.action_addBalanceFragment_to_balanceFragment)
