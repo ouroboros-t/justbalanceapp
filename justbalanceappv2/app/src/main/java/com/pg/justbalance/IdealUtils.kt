@@ -11,4 +11,5 @@ package com.pg.justbalance
 //we need to go back and learn how to display doubles and format the edit text properly to display the right number..
         //work on edit text insert the correct number to database
         //work on formatting the number that's retreived from the database
-        
+
+//make list items clickable so that clicking on the pencil icon allows them to edit the entry
