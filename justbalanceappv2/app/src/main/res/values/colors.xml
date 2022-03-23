@@ -17,5 +17,7 @@
     <!--Text-->
     <color name="sassy_brown">#4E4637</color>
 
+    <color name="light_blue">#31A5C8</color>
+    <color name="off_white">#F1F2F4</color>
 
 </resources>

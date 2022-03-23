@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.math.BigDecimal
 
 class AddBalanceViewModel(
     val database: BalanceDatabaseDao,
@@ -26,8 +27,8 @@ class AddBalanceViewModel(
         viewModelScope.launch {
             val newBalance = Balance()
             newBalance.balanceName = balanceName
-            newBalance.startingBalance = balanceAmount
-            newBalance.currentBalance = balanceAmount
+            newBalance.startingBalance = balanceAmount.toString()
+            newBalance.currentBalance = balanceAmount.toString()
 
             database.insert(newBalance)
         }

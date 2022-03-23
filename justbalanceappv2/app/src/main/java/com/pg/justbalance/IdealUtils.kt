@@ -2,14 +2,17 @@ package com.pg.justbalance
 
 //NOTHING BUT IDEAS GO HERE:
 
+//---------------------------------TO DO--------------------------------
+
+
 //eventually want to enable a filter function so they can filter by id or by date added or by amount
-
 //we want to be able to edit instead
+//make list items clickable so that clicking on the pencil icon allows them to edit the entry
 
+//---------------------------------DONE----------------------------------
+//total balance textview
 //maybe add bottom navigation menu so adding can be in a cleaner place...
 
 //we need to go back and learn how to display doubles and format the edit text properly to display the right number..
-        //work on edit text insert the correct number to database
-        //work on formatting the number that's retreived from the database
-
-//make list items clickable so that clicking on the pencil icon allows them to edit the entry
+//work on edit text insert the correct number to database
+//work on formatting the number that's retreived from the database

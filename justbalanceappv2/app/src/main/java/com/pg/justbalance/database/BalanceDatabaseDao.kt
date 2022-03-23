@@ -15,4 +15,6 @@ interface BalanceDatabaseDao {
     @Query("SELECT * FROM balances_table ORDER BY balance_id DESC")
     fun getAllBalances(): LiveData<List<Balance>>
 
+    @Query("DELETE FROM balances_table")
+    fun deleteAll()
 }

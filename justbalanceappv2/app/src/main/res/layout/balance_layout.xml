@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/bgColor">
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -31,8 +32,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/balances_list"
-                    android:layout_width="371dp"
-                    android:layout_height="391dp"
+                    android:layout_width="391dp"
+                    android:layout_height="370dp"
                     android:layout_marginTop="8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -48,8 +49,8 @@
                     android:layout_marginStart="162dp"
                     android:layout_marginTop="42dp"
                     android:layout_marginEnd="161dp"
-                    android:layout_marginBottom="8dp"
                     android:text="@string/your_balances"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/just_balance_logo"
@@ -69,6 +70,37 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
+                <TextView
+                    android:id="@+id/total_balance_textview"
+                    android:layout_width="155dp"
+                    android:layout_height="31dp"
+                    android:layout_marginStart="19dp"
+                    android:layout_marginEnd="332dp"
+                    android:layout_marginBottom="93dp"
+                    android:text="Total Balance:"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/balances_list"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/total_balance_amount_textView"
+                    android:layout_width="88dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="140dp"
+                    android:layout_marginBottom="100dp"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/total_balance_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/balances_list"
+                    app:layout_constraintVertical_bias="1.0" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
@@ -87,34 +119,19 @@
             app:srcCompat="@drawable/just_balance_logo" />
 
         <Button
-            android:id="@+id/edit_button"
-            android:layout_width="112dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="6dp"
-            android:backgroundTint="@color/blue"
-            android:text="@string/edit_balance_button"
+            android:id="@+id/clear_button"
+            android:layout_width="69dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="169dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="22dp"
+            android:text="Clear"
+            android:textSize="6dp"
             app:layout_constraintBottom_toTopOf="@+id/scrollView2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/scrollView2"
-            app:layout_constraintTop_toBottomOf="@+id/just_balance_logo"
-            app:layout_constraintVertical_bias="0.541" />
+            app:layout_constraintStart_toEndOf="@+id/just_balance_logo"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/add_button"
-            android:layout_width="112dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="18dp"
-            android:backgroundTint="@color/blue"
-            android:text="@string/add_balance_button"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-            app:layout_constraintEnd_toStartOf="@+id/just_balance_logo"
-            app:layout_constraintHorizontal_bias="0.371"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/just_balance_logo"
-            app:layout_constraintVertical_bias="0.543" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

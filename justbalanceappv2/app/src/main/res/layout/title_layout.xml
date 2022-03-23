@@ -7,32 +7,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF">
-
-        <Button
-            android:id="@+id/title_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="158dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="159dp"
-            android:layout_marginBottom="328dp"
-            android:backgroundTint="@color/blue"
-            android:text="@string/title_button"
-            app:cornerRadius="6dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:background="?attr/bgColor">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="350dp"
-            android:layout_height="256dp"
+            android:layout_width="346dp"
+            android:layout_height="391dp"
             android:layout_marginTop="64dp"
-            android:layout_marginBottom="29dp"
-            app:layout_constraintBottom_toTopOf="@+id/title_button"
+            android:layout_marginBottom="276dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"

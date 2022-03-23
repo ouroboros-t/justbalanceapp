@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="bgColor" format="color"/>
+    <attr name="text" format="color"/>
+    <attr name="metaTextColor" format="color"/>
+    <attr name="bottomNavColor" format="color"/>
+    <attr name="iconColor" format="color"/>
+    <attr name="buttonColor" format="color"/>.
+</resources>

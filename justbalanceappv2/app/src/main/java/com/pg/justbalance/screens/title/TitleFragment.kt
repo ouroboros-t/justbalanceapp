@@ -21,10 +21,6 @@ class TitleFragment : Fragment() {
             R.layout.title_layout, container, false)
 
 
-        binding.titleButton.setOnClickListener {
-            findNavController().navigate(R.id.action_titleFragment_to_balanceFragment)
-        }
-
         return binding.root
     }
 }

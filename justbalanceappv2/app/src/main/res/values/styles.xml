@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--LIGHT THEME-->
+    <style name="LightTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="text">#292163</item>
+        <item name="metaTextColor">#444444</item>
+        <item name="bgColor">#F1F2F4</item>
+        <item name="bottomNavColor">#F1F2F4</item>
+        <item name="iconColor">#31A5C8</item>
+        <item name="errorTextColor">#CD2026</item>
+        <item name="android:background">?attr/bgColor</item>
+        <item name="buttonColor">#B87A86</item>
+    </style>
+
+
+    <!--DARK THEME-->
+    <style name="DarkTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="text">#F4EF79</item>
+        <item name="metaTextColor">#ffffff</item>
+        <item name="bgColor">#31A5C8</item>
+        <item name="bottomNavColor">#31A5C8</item>
+        <item name="iconColor">#292163</item>
+        <item name="errorTextColor">#CD2026</item>
+        <item name="android:background">?attr/bgColor</item>
+        <item name="buttonColor">#B87A86</item>
+    </style>
+</resources>

@@ -63,12 +63,18 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
             it?.let{
                 adapter.data = it
                 Log.i("This is the data:", adapter.data.toString())
+                binding.totalBalanceAmountTextView.text = balanceViewModel.showTotalBalance(adapter.data)
+                Log.i("This is the total:", balanceViewModel.showTotalBalance(it))
             }
         })
 
-        binding.addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
-            //alertDialog?.show()
+//        binding.addButton.setOnClickListener {
+//            findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
+//            //alertDialog?.show()
+//        }
+        binding.clearButton.setOnClickListener {
+            balanceViewModel.deleteFromDatabase()
+            Toast.makeText(application.applicationContext, "Data is gone for good :(", Toast.LENGTH_SHORT).show()
         }
 
 

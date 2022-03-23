@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 
 
-@Database(entities = [Balance::class], version = 4)
+@Database(entities = [Balance::class], version = 5)
 abstract class BalanceDatabase: RoomDatabase() {
     //implementation is done by the RoomDatabase, that's why it's abstract class
     abstract val balanceDatabaseDao : BalanceDatabaseDao
