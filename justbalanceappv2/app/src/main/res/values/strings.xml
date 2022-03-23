@@ -10,6 +10,9 @@
     <!--Add Balance Screen-->
     <string name="enter_balance_name_text">Enter Balance Name:</string>
     <string name="enter_balance_amount_text">Enter Balance Amount:</string>
+    <string name="balance_icon_title">Balances</string>
+    <string name="add_a_balance_icon_title">Add a Balance</string>
+    <string name="home_icon_title">Home</string>
     <!--Edit Balance Screen-->
 
 </resources>
