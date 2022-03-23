@@ -1,6 +1,7 @@
 package com.pg.justbalance.screens.add
 
 import android.app.Application
+import android.text.Editable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,7 +22,7 @@ class AddBalanceViewModel(
     val viewModelJob = Job()
 
 
-  fun onAddBalance(balanceName: String, balanceAmount : Int) {
+  fun onAddBalance(balanceName: String, balanceAmount: Double) {
         viewModelScope.launch {
             val newBalance = Balance()
             newBalance.balanceName = balanceName
@@ -38,5 +39,6 @@ class AddBalanceViewModel(
         }
 
     }
+fun Editable.parseToDouble() = trim().toString().toDoubleOrNull()?: 0.0
 
 

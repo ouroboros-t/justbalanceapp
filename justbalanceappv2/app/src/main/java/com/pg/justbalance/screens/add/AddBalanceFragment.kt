@@ -1,25 +1,26 @@
 package com.pg.justbalance.screens.add
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
-import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabase
-import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.databinding.AddBalanceLayoutBinding
-import com.pg.justbalance.screens.balance.BalanceViewModel
 
 class AddBalanceFragment: Fragment() {
 
     private lateinit var binding: AddBalanceLayoutBinding
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,8 +42,10 @@ class AddBalanceFragment: Fragment() {
 
         binding.addBalanceConfirmButton.setOnClickListener {
            val balanceName = binding.balanceNameEditText.text.toString()
-            //val balanceAmount = Integer.parseInt(binding.balanceAmountEditText.toString())
-            addBalanceViewModel.onAddBalance(balanceName, 500)
+            val balanceAmountET = binding.balanceAmountEditText
+            val balanceAmount: Double = binding.balanceAmountEditText.text.parseToDouble()
+
+            addBalanceViewModel.onAddBalance(balanceName, balanceAmount)
             findNavController().navigate(R.id.action_addBalanceFragment_to_balanceFragment)
         }
 

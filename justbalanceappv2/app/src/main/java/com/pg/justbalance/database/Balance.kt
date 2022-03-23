@@ -17,10 +17,10 @@ data class Balance (
     var balanceName : String = "",
 
     @ColumnInfo(name = "starting_balance")
-    var startingBalance : Int = 0,
+    var startingBalance : Double = 0.0,
 
     //before any updates, currentBalance is same as starting Balance
     @ColumnInfo(name = "current_balance")
-    var currentBalance: Int = startingBalance
+    var currentBalance: Double = startingBalance
 
 )
