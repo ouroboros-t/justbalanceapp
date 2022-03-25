@@ -28,12 +28,12 @@ class MainActivity : AppCompatActivity() {
                     ColorDrawable(
                         ContextCompat.getColor(
                             this,
-                            R.color.light_blue
+                            R.color.slate_blue
                         )
                     )
                 )
                 supportActionBar?.setTitle("")
-                bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.light_blue))
+                bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.slate_blue))
 
             }
 
