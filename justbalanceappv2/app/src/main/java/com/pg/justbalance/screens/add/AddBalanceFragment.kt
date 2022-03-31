@@ -50,6 +50,7 @@ class AddBalanceFragment : Fragment() {
 
                 val balanceAmount: Double = binding.balanceAmountEditText.text.parseToDouble()
                 addBalanceViewModel.onAddBalance(balanceName, balanceAmount)
+                findNavController().navigate(AddBalanceFragmentDirections.actionAddBalanceFragmentToBalanceFragment())
                 val message = "Wowowowowow"
                 Toast.makeText(application.applicationContext, message, Toast.LENGTH_SHORT).show()
                 binding.balanceNameEditText.text.clear()

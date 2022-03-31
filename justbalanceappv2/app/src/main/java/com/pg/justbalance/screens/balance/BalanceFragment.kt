@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.database.Balance
@@ -40,6 +41,7 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
         binding = DataBindingUtil.inflate(inflater,
             R.layout.balance_layout, container, false)
 
+
         val application = requireNotNull(this.activity).application
         val dataSource = BalanceDatabase.getInstance(application).balanceDatabaseDao
 
@@ -56,7 +58,9 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
         binding.lifecycleOwner = this
 
 
-        val adapter = BalanceAdapter()
+        val adapter = BalanceAdapter(BalanceAdapter.BalanceListener{
+            balanceId -> balanceViewModel.onBalanceItemClicked(balanceId)
+        })
         binding.balancesList.adapter = adapter
 
         balanceViewModel.balances.observe(viewLifecycleOwner, Observer {
@@ -77,9 +81,19 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
             Toast.makeText(application.applicationContext, "Data is gone for good :(", Toast.LENGTH_SHORT).show()
         }
 
+        balanceViewModel.navigateToBalanceInfo.observe(viewLifecycleOwner, Observer {
+            balance -> balance?.let {
+                    this.findNavController().navigate(BalanceFragmentDirections.actionBalanceFragmentToBalanceInfoFragment(balance))
+            //this.findNavController().navigate(R.id.action_balanceFragment_to_balanceInfoFragment)
+                   balanceViewModel.onBalanceItemInfoNavigated()
+            }
+        })
+
+
 
         return binding.root
     }
+
 //What do we want to do?
     //We want to a database to keep our balances (BalanceDatabase)
     //we want to hold our data somewhere else other than UI layer/fragment (Balance ViewModel)

@@ -15,9 +15,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val host: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment? ?: return
-        val navController = host.navController
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val isNightTheme = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         when (isNightTheme) {
@@ -48,17 +45,17 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
                 supportActionBar?.setTitle("")
+                supportActionBar?.elevation = 0f
                 bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.off_white))
         }
         }
 
-
-
-
-
-
+        val host: NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment? ?: return
+        val navController = host.navController
 
         fun setupBottomNavMenu(navController: NavController) {
+            val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
             bottomNav?.setupWithNavController(navController)
         }
         setupBottomNavMenu(navController)

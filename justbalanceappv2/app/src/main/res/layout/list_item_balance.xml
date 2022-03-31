@@ -1,57 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+    <data>
+            <variable
+                name="clickListener"
+                type="com.pg.justbalance.screens.balance.BalanceAdapter.BalanceListener" />
+            <variable
+                name="balance"
+                type="com.pg.justbalance.database.Balance" />
+    </data>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/balance_amount_textView"
-        app:layout_constraintStart_toStartOf="@+id/balance_amount_textView">
+        android:orientation="vertical"
+        android:onClick="@{() -> clickListener.onClick(balance)}">
 
-        <TextView
-            android:id="@+id/balance_name_textView"
-            android:layout_width="155dp"
-            android:layout_height="21dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="11dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/balance_amount_textView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Balance Name" />
+            app:layout_constraintStart_toStartOf="@+id/balance_amount_textView"
+            >
 
-        <TextView
-            android:id="@+id/balance_amount_textView"
-            android:layout_width="153dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="8dp"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintStart_toEndOf="@+id/balance_name_textView"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Balance Amount" />
+            <TextView
+                android:id="@+id/balance_name_textView"
+                android:layout_width="155dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/balance_amount_textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Balance Name"
+                app:balanceName="@{balance}"/>
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="42dp"
-            android:layout_height="22dp"
-            android:src="@drawable/pencil"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/balance_amount_textView"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/balance_amount_textView"
+                android:layout_width="153dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="8dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                app:layout_constraintStart_toEndOf="@+id/balance_name_textView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Balance Amount"
+                app:balanceAmount="@{balance}"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="42dp"
+                android:layout_height="22dp"
+                android:src="@drawable/pencil"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/balance_amount_textView"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

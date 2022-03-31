@@ -17,4 +17,9 @@ interface BalanceDatabaseDao {
 
     @Query("DELETE FROM balances_table")
     fun deleteAll()
+
+    @Query("SELECT * FROM balances_table WHERE balance_id = :key")
+    fun getBalanceWithId(key: Long): LiveData<Balance>
+
+
 }

@@ -1,5 +1,6 @@
 package com.pg.justbalance.screens.balance
 
+import android.app.LauncherActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pg.justbalance.R
 import com.pg.justbalance.database.Balance
+import com.pg.justbalance.databinding.ListItemBalanceBinding
 import com.pg.justbalance.decimalFormatDouble
 
-class BalanceAdapter : RecyclerView.Adapter<BalanceAdapter.ViewHolder>() {
+class BalanceAdapter(val clickListener: BalanceListener) : RecyclerView.Adapter<BalanceAdapter.ViewHolder>() {
 
     var data = listOf<Balance>()
         set(value) {
@@ -23,22 +25,20 @@ class BalanceAdapter : RecyclerView.Adapter<BalanceAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item)
+        holder.bind(clickListener,item)
     }
 
     override fun getItemCount() = data.size
 
 
     //access to the ViewHolder comes from the 'from' function, which inflates and controls the layout
-    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder private constructor(val binding: ListItemBalanceBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        var stringBuffer = StringBuffer()
-        //this defines what goes on the recycler view
-        val balanceName: TextView = itemView.findViewById(R.id.balance_name_textView)
-        val balanceAmount: TextView = itemView.findViewById(R.id.balance_amount_textView)
-        fun bind(item: Balance) {
-            balanceName.text = item.balanceName
-            balanceAmount.text = item.currentBalance
+        fun bind(clickListener: BalanceListener,item: Balance) {
+            //binding the textviews via the binding adapters instead of findViewById
+            binding.balance = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
 
         companion object {
@@ -46,12 +46,17 @@ class BalanceAdapter : RecyclerView.Adapter<BalanceAdapter.ViewHolder>() {
                 //create layout inflater based on the parent view:
                 //important to use the right context
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.list_item_balance, parent, false)
+                val binding = ListItemBalanceBinding.inflate(layoutInflater, parent, false)
+                //val view = layoutInflater.inflate(R.layout.list_item_balance, parent, false)
                 //make a viewholder
-                return ViewHolder(view)
+                return ViewHolder(binding)
             }
         }
 
+    }
+
+    class BalanceListener(val clickListener: (balanceId: Long) -> Unit){
+        fun onClick(balance: Balance) = clickListener(balance.balanceId)
     }
 
 

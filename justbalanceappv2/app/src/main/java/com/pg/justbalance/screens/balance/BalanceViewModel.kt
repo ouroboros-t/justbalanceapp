@@ -28,6 +28,22 @@ class BalanceViewModel (database: BalanceDatabaseDao, application: Application) 
     val balance : LiveData<Balance>
         get() = _balance
 
+   var _navigateToBalanceInfo = MutableLiveData<Long?>()
+    val navigateToBalanceInfo
+        get() = _navigateToBalanceInfo
+
+    fun onBalanceItemClicked(id: Long) {
+        _navigateToBalanceInfo.value = id
+    }
+
+    fun onBalanceItemInfoNavigated() {
+        _navigateToBalanceInfo.value = null
+    }
+
+
+
+
+
    fun deleteFromDatabase(){
         viewModelScope.launch(Dispatchers.IO) {
             database.deleteAll()

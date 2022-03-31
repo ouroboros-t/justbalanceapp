@@ -23,6 +23,9 @@
             app:destination="@id/addBalanceFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_balanceFragment_to_balanceInfoFragment"
+            app:destination="@id/balanceInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBalanceFragment"
@@ -33,5 +36,19 @@
             app:destination="@id/balanceFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_addBalanceFragment_to_balanceFragment2"
+            app:destination="@id/balanceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/balanceInfoFragment"
+        android:name="com.pg.justbalance.screens.info.BalanceInfoFragment"
+        android:label="BalanceInfoFragment" >
+        <argument
+            android:name="balanceId"
+            app:argType="long"/>
+        <action
+            android:id="@+id/action_balanceInfoFragment_to_balanceFragment"
+            app:destination="@id/balanceFragment" />
     </fragment>
 </navigation>
