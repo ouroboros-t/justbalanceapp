@@ -23,6 +23,11 @@ class BalanceInfoViewModel(
     }
 
 
+    private val _navigateToPaymentScreen = MutableLiveData<Boolean?>()
+        val navigateToPaymentScreen: LiveData<Boolean?>
+            get()=_navigateToPaymentScreen
+
+
     private val _navigateToBalances = MutableLiveData<Boolean?>()
 
     val navigateToBalances: LiveData<Boolean?>

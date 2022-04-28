@@ -56,27 +56,43 @@
             android:layout_marginBottom="390dp"
             android:text="TextView"
             android:textSize="20sp"
+            app:balanceAmount="@{balanceInfoViewModel.balance}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balanceName"
-            app:balanceAmount="@{balanceInfoViewModel.balance}"/>
+            app:layout_constraintTop_toBottomOf="@+id/balanceName" />
 
 
         <Button
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="148dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="184dp"
-            android:onClick="@{() -> balanceInfoViewModel.onClose()}"
             android:backgroundTint="?attr/buttonColor"
+            android:onClick="@{() -> balanceInfoViewModel.onClose()}"
             android:text="Close"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balanceAmount" />
+
+        <Button
+            android:id="@+id/paymentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="85dp"
+            android:layout_marginEnd="120dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="?attr/buttonColor"
+            android:text="@string/record_payment"
+            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/balanceAmount" />
     </androidx.constraintlayout.widget.ConstraintLayout>

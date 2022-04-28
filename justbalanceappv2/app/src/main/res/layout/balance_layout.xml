@@ -35,7 +35,7 @@
                     android:layout_height="367dp"
                     android:layout_marginTop="8dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@+id/total_balance_textview"
+                    app:layout_constraintBottom_toTopOf="@+id/your_balances"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/your_balances" />
@@ -51,7 +51,7 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/just_balance_logo"
+                    app:layout_constraintTop_toBottomOf="parent"
                     tools:ignore="NotSibling" />
 
                 <TextView
@@ -72,17 +72,19 @@
 
         <Button
             android:id="@+id/clear_button"
-            android:layout_width="23dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="169dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginBottom="22dp"
+            android:layout_width="36dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="93dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="131dp"
+            android:layout_marginBottom="61dp"
             android:background="@drawable/trash"
             android:labelFor="@id/clear_button"
             app:layout_constraintBottom_toTopOf="@+id/scrollView2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/total_balance_textview"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/total_balance_textview"
@@ -104,11 +106,11 @@
             android:layout_height="22dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="13dp"
-            android:layout_marginEnd="243dp"
+            android:layout_marginEnd="283dp"
             android:layout_marginBottom="25dp"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-            app:layout_constraintEnd_toStartOf="@+id/clear_button"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/total_balance_textview" />
 

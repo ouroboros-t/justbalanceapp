@@ -11,6 +11,18 @@ package com.pg.justbalance
 //alert dialog for changing an amount: "This will change the starting amount of your balance. Did you want to report a payment instead?"
         //report payment -> nav to report payment screen, no -> make starting amount editable
 
+//splash screen!
+//recyclerview component to show most recent payments/all "payments"
+
+//button to record a payment
+//need to model a payment?
+    --do I need to change the database to save payments or establish a new database that saves payments only with the same balanceId..?
+    //payment id would be the same as the balanceId, and there could be multiple payments per balanceId...
+    //Ik how to set one up using PostgreSQL but I'm not sure about Room...
+
+
+
+
 //---------------------------------DONE----------------------------------
 //make list items clickable so that clicking on the pencil icon allows them to edit the entry
 //total balance textview
