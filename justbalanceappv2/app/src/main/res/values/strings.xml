@@ -13,6 +13,7 @@
     <string name="balance_icon_title">Balances</string>
     <string name="add_a_balance_icon_title">Add a Balance</string>
     <string name="home_icon_title">Home</string>
+    <string name="record_payment">Record Payment</string>
     <!--Edit Balance Screen-->
 
 </resources>

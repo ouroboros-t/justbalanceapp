@@ -3,16 +3,12 @@ package com.pg.justbalance.screens.add
 import android.app.Application
 import android.text.Editable
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.screens.balance.BalanceViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.math.BigDecimal
 
 class AddBalanceViewModel(
     val database: BalanceDatabaseDao,
@@ -23,14 +19,14 @@ class AddBalanceViewModel(
     val viewModelJob = Job()
 
 
-  fun onAddBalance(balanceName: String, balanceAmount: Double) {
+  fun addBalance(balanceName: String, balanceAmount: Double) {
         viewModelScope.launch {
             val newBalance = Balance()
             newBalance.balanceName = balanceName
             newBalance.startingBalance = balanceAmount.toString()
             newBalance.currentBalance = balanceAmount.toString()
 
-            database.insert(newBalance)
+            database.insertToBalancesTable(newBalance)
         }
     }
 

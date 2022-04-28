@@ -5,17 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.AddBalanceLayoutBinding
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 class AddBalanceFragment : Fragment() {
 
@@ -49,9 +45,9 @@ class AddBalanceFragment : Fragment() {
                 balanceName = binding.balanceNameEditText.text.toString()
 
                 val balanceAmount: Double = binding.balanceAmountEditText.text.parseToDouble()
-                addBalanceViewModel.onAddBalance(balanceName, balanceAmount)
-                findNavController().navigate(AddBalanceFragmentDirections.actionAddBalanceFragmentToBalanceFragment())
-                val message = "Wowowowowow"
+                addBalanceViewModel.addBalance(balanceName, balanceAmount)
+                //findNavController().navigate(AddBalanceFragmentDirections.actionAddBalanceFragmentToBalanceFragment())
+                val message = "Balance Sucessfully Added"
                 Toast.makeText(application.applicationContext, message, Toast.LENGTH_SHORT).show()
                 binding.balanceNameEditText.text.clear()
                 binding.balanceAmountEditText.text.clear()
