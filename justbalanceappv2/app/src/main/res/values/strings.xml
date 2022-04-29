@@ -11,7 +11,7 @@
     <string name="total_balance">Total Balance: %.2f"</string>
 
     <!--RecyclerView-->
-    <string name="balance_amount">: %.2f</string>
+    <string name="balance_amount">: %.2d</string>
 
     <!--Add Balance Screen-->
     <string name="enter_balance_name_text">Enter Balance Name:</string>
@@ -30,7 +30,16 @@
 
     <!--Balance Info-->
     <string name="record_payment">Record Payment</string>
-    <!--Edit Balance Screen-->
+    <string name="your_payments_text">Your Payments</string>
+    <string name="no_payments_yet">No Payments Yet</string>
+    <string name="balance_info_current_amount">Current Balance: %.2f</string>
+    <string name="balance_info_starting_amount">Starting Balance: %.2f</string>
+
+    <!--Payment Screen-->
+    <string name="payment_amount_required">Payment Amount (Required)</string>
+
+
+
     <!--___________ACTION BAR___________-->
     <string name="action_bar">Add a Balance</string>
 

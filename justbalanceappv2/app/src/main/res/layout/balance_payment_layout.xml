@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
             <variable
@@ -9,7 +11,90 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".info.BalancePaymentFragment">
+    <TextView
+        app:paymentAmount="@{balancePaymentViewModel.payment}"
+        android:id="@+id/Payment_Info_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/belleza"
+        android:text="@string/balance_title"
+        android:textColor="?attr/text"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        app:paymentDate="@{balancePaymentViewModel.payment}"
+        android:id="@+id/Payment_Info_Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/belleza"
+        android:text="@string/balance_title"
+        android:textColor="?attr/text"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Payment_Info_Title" />
 
+    <Button
+        android:id="@+id/record_payment_button"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:height="48dp"
+        android:backgroundTint="@color/light_year_purple"
+        android:letterSpacing="0"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/record_payment"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/buzz_blue"
+        android:fontFamily="@font/belleza"
+        android:textSize="20dp"
+        app:iconPadding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Payment_Info_Date" />
+    <Button
+
+        android:id="@+id/close_button"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:height="48dp"
+        android:backgroundTint="@color/light_year_purple"
+        android:letterSpacing="0"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="Close"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/buzz_blue"
+        android:fontFamily="@font/belleza"
+        android:textSize="20dp"
+        app:iconPadding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_payment_button" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/supernova_white_divider"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/close_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    android:onClick="@{() -> balanceInfoViewModel.onClose()}"-->
 </layout>

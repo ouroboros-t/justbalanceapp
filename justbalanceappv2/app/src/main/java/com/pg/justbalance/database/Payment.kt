@@ -1,6 +1,7 @@
 package com.pg.justbalance.database
 
 import androidx.room.*
+import java.util.*
 import kotlin.reflect.KClass
 
 
@@ -17,5 +18,8 @@ class Payment {
 
     @ColumnInfo(name = "payment_amount")
     var paymentAmount: Double = 0.0
+
+    @ColumnInfo(name = "payment_date")
+    var paymentDate: String = ""
 
 }

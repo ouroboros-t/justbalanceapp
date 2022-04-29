@@ -11,9 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
-import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceInfoLayoutBinding
+import com.pg.justbalance.screens.payment.BalancePaymentAdapter
 
 class BalanceInfoFragment : Fragment() {
     override fun onCreateView(
@@ -34,10 +34,16 @@ class BalanceInfoFragment : Fragment() {
         val balanceInfoViewModel =
             ViewModelProvider(this, viewModelFactory).get(BalanceInfoViewModel::class.java)
 
-
         binding.balanceInfoViewModel = balanceInfoViewModel
 
         binding.lifecycleOwner = this
+
+
+        val adapter = BalancePaymentAdapter(BalancePaymentAdapter.PaymentListener{
+                paymentID -> balanceInfoViewModel.onPaymentItemClicked(paymentID)
+        })
+
+        binding.paymentsList.adapter = adapter
 
         balanceInfoViewModel.navigateToBalances.observe(viewLifecycleOwner, Observer {
             if(it==true){
@@ -47,6 +53,10 @@ class BalanceInfoFragment : Fragment() {
                 balanceInfoViewModel.doneNavigating()
             }
         })
+
+        binding.recordPaymentButton.setOnClickListener {
+            findNavController().navigate(R.id.action_balanceInfoFragment_to_balanceRecordPaymentFragment)
+        }
 
         return binding.root
     }

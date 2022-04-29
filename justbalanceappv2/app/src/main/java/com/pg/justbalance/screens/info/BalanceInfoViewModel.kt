@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabaseDao
+import com.pg.justbalance.database.Payment
 
 class BalanceInfoViewModel(
     private val balanceId: Long = 0L,
@@ -41,6 +42,29 @@ class BalanceInfoViewModel(
     fun onClose(){
         _navigateToBalances.value = true
     }
+
+    var payments = database.getAllPayments()
+
+    fun addPayment(balanceId: Long, paymentAmount: Double){
+
+    }
+
+    private val _payment = MutableLiveData<Payment>()
+    val payment : LiveData<Payment>
+        get() = _payment
+
+    var _navigateToPaymentInfo = MutableLiveData<Long?>()
+    val navigateToPaymentInfo
+        get() = _navigateToPaymentInfo
+
+    fun onPaymentItemClicked(id: Long) {
+        _navigateToPaymentInfo.value = id
+    }
+
+    fun onPaymentItemInfoNavigated() {
+        _navigateToPaymentInfo.value = null
+    }
+
 
 
 }
