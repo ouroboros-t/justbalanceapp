@@ -4,8 +4,9 @@
     <!--Title Screen-->
     <string name="title_button">Begin</string>
     <!--Balance Screen-->
+    <string name="balance_title">Just Balance</string>
     <string name="your_balances">Your Balances</string>
-    <string name="add_balance_button">Add</string>
+    <string name="add_balance_button">Add a Balance</string>
     <string name="edit_balance_button">Edit</string>
     <!--Add Balance Screen-->
     <string name="enter_balance_name_text">Enter Balance Name:</string>

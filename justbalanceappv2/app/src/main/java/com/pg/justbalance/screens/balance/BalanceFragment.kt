@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -25,7 +26,7 @@ import com.pg.justbalance.screens.add.AddBalanceViewModel
 import com.pg.justbalance.screens.add.AddBalanceViewModelFactory
 
 
-class BalanceFragment : androidx.fragment.app.Fragment() {
+class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) {
     //inflate layout
     //hookupViewModel to fragment
 
@@ -71,15 +72,17 @@ class BalanceFragment : androidx.fragment.app.Fragment() {
                 Log.i("This is the total:", balanceViewModel.showTotalBalance(it))
             }
         })
+        if(binding.balancesList.isEmpty()){
+            binding.youHavent.visibility = View.GONE
+        }
 
-//        binding.addButton.setOnClickListener {
-//            findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
-//            //alertDialog?.show()
-//        }
-        binding.clearButton.setOnClickListener {
+        binding.button.setOnClickListener {
+            findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
             balanceViewModel.deleteFromDatabase()
             Toast.makeText(application.applicationContext, "Data is gone for good :(", Toast.LENGTH_SHORT).show()
+            //alertDialog?.show()
         }
+
 
         balanceViewModel.navigateToBalanceInfo.observe(viewLifecycleOwner, Observer {
             balance -> balance?.let {

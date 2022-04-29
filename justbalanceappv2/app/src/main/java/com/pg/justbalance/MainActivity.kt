@@ -25,12 +25,12 @@ class MainActivity : AppCompatActivity() {
                     ColorDrawable(
                         ContextCompat.getColor(
                             this,
-                            R.color.slate_blue
+                            R.color.main_blue
                         )
                     )
                 )
                 supportActionBar?.setTitle("")
-                bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.slate_blue))
+                bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.off_white))
 
             }
 
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     ColorDrawable(
                         ContextCompat.getColor(
                             this,
-                            R.color.off_white
+                            R.color.main_blue
                         )
                     )
                 )
