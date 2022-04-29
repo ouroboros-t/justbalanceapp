@@ -13,87 +13,235 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".info.BalanceInfoFragment">
+        <TextView
+            app:balanceName="@{balanceInfoViewModel.balance}"
+            android:id="@+id/Balance_Info_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/belleza"
+            android:text="@string/balance_title"
+            android:textColor="?attr/text"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            app:startingBalance="@{balanceInfoViewModel.balance}"
+            android:id="@+id/Balance_Info_Starting_Balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/belleza"
+            android:text="@string/balance_title"
+            android:textColor="?attr/text"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Balance_Info_Title" />
+        <TextView
+            app:currentBalance="@{balanceInfoViewModel.balance}"
+            android:id="@+id/Balance_Info_Current_Balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/belleza"
+            android:text="@string/balance_title"
+            android:textColor="?attr/text"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Balance_Info_Starting_Balance" />
+
+        <Button
+            android:id="@+id/record_payment_button"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:height="48dp"
+            android:backgroundTint="@color/light_year_purple"
+            android:letterSpacing="0"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/record_payment"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/buzz_blue"
+            android:fontFamily="@font/belleza"
+            android:textSize="20dp"
+            app:iconPadding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Balance_Info_Current_Balance" />
+        <Button
+            android:onClick="@{() -> balanceInfoViewModel.onClose()}"
+            android:id="@+id/close_button"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:height="48dp"
+            android:backgroundTint="@color/light_year_purple"
+            android:letterSpacing="0"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Close"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/buzz_blue"
+            android:fontFamily="@font/belleza"
+            android:textSize="20dp"
+            app:iconPadding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/record_payment_button" />
+
+        <TextView
+            android:id="@+id/your_payments_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/your_payments_text"
+            android:textColor="?attr/balanceTextColor"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/close_button"
+            />
+
+
+        <TextView
+            android:id="@+id/total_balance_amount_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.734"
+            app:layout_constraintStart_toEndOf="@+id/your_payments_text"
+            app:layout_constraintTop_toBottomOf="@+id/close_button"
+            tools:text="Total Balance Amount" />
+
+        <TextView
+            android:id="@+id/you_havent"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:text="@string/no_payments_yet"
+            android:textColor="?attr/metaTextColor"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/your_payments_text" />
 
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="81dp"
-            android:layout_height="85dp"
-            android:layout_marginStart="165dp"
-            android:layout_marginTop="108dp"
-            android:layout_marginEnd="165dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/balanceName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/dollar" />
-
-        <TextView
-            android:id="@+id/balanceName"
-            android:layout_width="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="172dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="181dp"
-            android:layout_marginBottom="5dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/balanceAmount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:balanceName="@{balanceInfoViewModel.balance}" />
-
-        <TextView
-            android:id="@+id/balanceAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="173dp"
-            android:layout_marginTop="31dp"
-            android:layout_marginEnd="180dp"
-            android:layout_marginBottom="390dp"
-            android:text="TextView"
-            android:textSize="20sp"
-            app:balanceAmount="@{balanceInfoViewModel.balance}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balanceName" />
-
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="148dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="184dp"
-            android:backgroundTint="?attr/buttonColor"
-            android:onClick="@{() -> balanceInfoViewModel.onClose()}"
-            android:text="Close"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balanceAmount" />
-
-        <Button
-            android:id="@+id/paymentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="85dp"
-            android:layout_marginEnd="120dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="?attr/buttonColor"
-            android:text="@string/record_payment"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/supernova_white_divider"
+            app:layout_constraintBottom_toTopOf="@+id/paymentsList"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balanceAmount" />
+            app:layout_constraintTop_toBottomOf="@+id/you_havent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/paymentsList"
+            android:layout_width="0dp"
+            android:layout_height="451dp"
+            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/you_havent" />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView2"-->
+<!--            android:layout_width="81dp"-->
+<!--            android:layout_height="85dp"-->
+<!--            android:layout_marginStart="165dp"-->
+<!--            android:layout_marginTop="108dp"-->
+<!--            android:layout_marginEnd="165dp"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/balanceName"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/dollar" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/balanceName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="172dp"-->
+<!--            android:layout_marginTop="36dp"-->
+<!--            android:layout_marginEnd="181dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:text="TextView"-->
+<!--            android:textSize="20sp"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/balanceAmount"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.333"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imageView2"-->
+<!--            app:balanceName="@{balanceInfoViewModel.balance}" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/balanceAmount"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="173dp"-->
+<!--            android:layout_marginTop="31dp"-->
+<!--            android:layout_marginEnd="180dp"-->
+<!--            android:layout_marginBottom="390dp"-->
+<!--            android:text="TextView"-->
+<!--            android:textSize="20sp"-->
+<!--            app:balanceAmount="@{balanceInfoViewModel.balance}"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.333"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/balanceName" />-->
+
+
+<!--        <Button-->
+<!--            android:id="@+id/button2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="148dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_marginBottom="184dp"-->
+<!--            android:backgroundTint="?attr/buttonColor"-->
+<!--            android:onClick="@{() -> balanceInfoViewModel.onClose()}"-->
+<!--            android:text="Close"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.498"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/balanceAmount" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/paymentButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="120dp"-->
+<!--            android:layout_marginTop="85dp"-->
+<!--            android:layout_marginEnd="120dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:backgroundTint="?attr/buttonColor"-->
+<!--            android:text="@string/record_payment"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/button2"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/balanceAmount" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

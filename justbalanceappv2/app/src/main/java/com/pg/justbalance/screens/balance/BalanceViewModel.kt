@@ -56,14 +56,14 @@ class BalanceViewModel (database: BalanceDatabaseDao, application: Application) 
         viewModelJob.cancel()
     }
 
-    fun showTotalBalance(balances: List<Balance>):String{
+    fun showTotalBalance(balances: List<Balance>):BigDecimal{
         var total : BigDecimal = BigDecimal.ZERO
         for(balance in balances){
             total += BigDecimal(balance.currentBalance)
         }
         val totalFormatted = decimalFormatDouble(total)
         totalBalance = total.toString()
-        return totalBalance
+        return total
     }
 
 

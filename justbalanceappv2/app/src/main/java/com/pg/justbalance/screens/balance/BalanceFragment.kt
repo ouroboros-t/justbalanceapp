@@ -25,6 +25,7 @@ import com.pg.justbalance.R
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceLayoutBinding
+import com.pg.justbalance.decimalFormatDouble
 import com.pg.justbalance.screens.add.AddBalanceViewModel
 import com.pg.justbalance.screens.add.AddBalanceViewModelFactory
 
@@ -72,8 +73,8 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
             it?.let{
                 adapter.data = it
                 Log.i("This is the data:", adapter.data.toString())
-               binding.totalBalanceAmountTextView.text = balanceViewModel.showTotalBalance(adapter.data)
-                Log.i("This is the total:", balanceViewModel.showTotalBalance(it))
+               binding.totalBalanceAmountTextView.text = decimalFormatDouble(balanceViewModel.showTotalBalance(adapter.data))
+                Log.i("This is the total:", balanceViewModel.showTotalBalance(it).toString())
             }
         })
         if(binding.balancesList.isEmpty()){

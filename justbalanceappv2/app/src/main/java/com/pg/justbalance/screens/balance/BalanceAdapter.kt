@@ -1,15 +1,10 @@
 package com.pg.justbalance.screens.balance
 
-import android.app.LauncherActivity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.pg.justbalance.R
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.databinding.ListItemBalanceBinding
-import com.pg.justbalance.decimalFormatDouble
 
 class BalanceAdapter(val clickListener: BalanceListener) : RecyclerView.Adapter<BalanceAdapter.ViewHolder>() {
 
