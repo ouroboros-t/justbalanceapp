@@ -91,6 +91,7 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
 
         balanceViewModel.navigateToBalanceInfo.observe(viewLifecycleOwner, Observer {
             balance -> balance?.let {
+                    Log.i("HEre", balance.toString())
                     this.findNavController().navigate(BalanceFragmentDirections.actionBalanceFragmentToBalanceInfoFragment(balance))
             //this.findNavController().navigate(R.id.action_balanceFragment_to_balanceInfoFragment)
                    balanceViewModel.onBalanceItemInfoNavigated()

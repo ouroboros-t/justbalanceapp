@@ -1,12 +1,13 @@
 package com.pg.justbalance.screens.info
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.database.Payment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BalanceInfoViewModel(
     private val balanceId: Long = 0L,
@@ -14,8 +15,9 @@ class BalanceInfoViewModel(
 ) : ViewModel() {
 
     val database = dataSource
-
+    val viewModelJob = Job()
     private val balance = MediatorLiveData<Balance>()
+
 
     fun getBalance() = balance
 
@@ -43,6 +45,13 @@ class BalanceInfoViewModel(
         _navigateToBalances.value = true
     }
 
+    suspend fun deleteFromDatabase(balanceId: Long){
+        withContext(Dispatchers.IO) {
+                database.deleteBalanceWithId(balanceId)
+        }
+    }
+
+
     var payments = database.getAllPayments()
 
     fun addPayment(balanceId: Long, paymentAmount: Double){
@@ -65,6 +74,10 @@ class BalanceInfoViewModel(
         _navigateToPaymentInfo.value = null
     }
 
-
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
 }
+

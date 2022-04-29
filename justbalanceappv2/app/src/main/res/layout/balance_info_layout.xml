@@ -74,6 +74,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Balance_Info_Current_Balance" />
         <Button
+            android:id="@+id/delete_button"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:height="48dp"
+            android:backgroundTint="@color/light_year_purple"
+            android:letterSpacing="0"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Delete Balance"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/buzz_blue"
+            android:fontFamily="@font/belleza"
+            android:textSize="20dp"
+            app:iconPadding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/record_payment_button" />
+        <Button
             android:onClick="@{() -> balanceInfoViewModel.onClose()}"
             android:id="@+id/close_button"
             android:layout_width="360dp"
@@ -93,7 +113,7 @@
             android:textSize="20dp"
             app:iconPadding="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/record_payment_button" />
+            app:layout_constraintTop_toBottomOf="@+id/delete_button" />
 
         <TextView
             android:id="@+id/your_payments_text"

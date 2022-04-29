@@ -22,6 +22,9 @@ interface BalanceDatabaseDao {
     @Query("SELECT * FROM balances_table WHERE balance_id = :key")
     fun getBalanceWithId(key: Long): LiveData<Balance>
 
+    @Query("DELETE FROM balances_table WHERE balance_id = :key")
+    fun deleteBalanceWithId(key: Long)
+
     @Query("SELECT * FROM payment_table WHERE balance_id = :key")
     fun getPaymentsOfSpecificBalance(key:Long): LiveData<Payment>
 
@@ -29,6 +32,6 @@ interface BalanceDatabaseDao {
     fun getAllPayments(): LiveData<List<Payment>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertIntoPaymentsTable(){}
+    suspend fun insertIntoPaymentsTable(payment: Payment){}
 
 }

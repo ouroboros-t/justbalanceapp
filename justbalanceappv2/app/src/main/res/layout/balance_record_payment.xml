@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+<variable
+    name="balanceRecordPaymentViewModel"
+    type="com.pg.justbalance.screens.payment.BalanceRecordPaymentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +39,7 @@
             android:ems="10"
             android:fontFamily="@font/belleza"
             android:hint="Enter Payment Amount"
-            android:inputType="textEmailAddress"
+            android:inputType="numberDecimal"
             android:paddingLeft="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
@@ -63,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/enter_new_email_address_box"
             tools:visibility="gone" />
         <Button
-            android:id="@+id/update_email_address_button"
+            android:id="@+id/confirm_record_payment"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="24dp"

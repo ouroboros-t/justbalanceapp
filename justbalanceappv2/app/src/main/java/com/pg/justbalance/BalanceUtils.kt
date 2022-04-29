@@ -5,8 +5,10 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 
 fun decimalFormatDouble(item: BigDecimal): String{
-    var decimalFormat = DecimalFormat("#.00")
+    var decimalFormat = DecimalFormat("0.00")
     decimalFormat.roundingMode = RoundingMode.DOWN
     val formattedItem = decimalFormat.format(item)
     return "$ ${formattedItem}"
 }
+
+//todo: dateformatter
