@@ -21,6 +21,8 @@ class BalanceViewModel (database: BalanceDatabaseDao, application: Application) 
     //a different thread, so use coroutines
         val viewModelJob = Job()
 
+    var totalBalance : String = ""
+
    var database = database
 
     //we need to use this somewhere..right?
@@ -60,7 +62,8 @@ class BalanceViewModel (database: BalanceDatabaseDao, application: Application) 
             total += BigDecimal(balance.currentBalance)
         }
         val totalFormatted = decimalFormatDouble(total)
-        return total.toString()
+        totalBalance = total.toString()
+        return totalBalance
     }
 
 

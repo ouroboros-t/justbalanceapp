@@ -8,6 +8,11 @@
     <string name="your_balances">Your Balances</string>
     <string name="add_balance_button">Add a Balance</string>
     <string name="edit_balance_button">Edit</string>
+    <string name="total_balance">Total Balance: %.2f"</string>
+
+    <!--RecyclerView-->
+    <string name="balance_amount">: %.2f</string>
+
     <!--Add Balance Screen-->
     <string name="enter_balance_name_text">Enter Balance Name:</string>
     <string name="enter_balance_amount_text">Enter Balance Amount:</string>

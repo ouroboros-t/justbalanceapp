@@ -11,10 +11,5 @@
         android:title="@string/balance_icon_title" >
     </item>
 
-    <item
-        android:id="@+id/addBalanceFragment"
-        android:icon="@drawable/add"
-        android:title="@string/add_a_balance_icon_title" >
-    </item>
 
 </menu>

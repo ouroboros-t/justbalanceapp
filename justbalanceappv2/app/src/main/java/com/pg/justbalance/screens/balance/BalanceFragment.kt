@@ -72,7 +72,7 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
             it?.let{
                 adapter.data = it
                 Log.i("This is the data:", adapter.data.toString())
-                binding.totalBalanceAmountTextView.text = balanceViewModel.showTotalBalance(adapter.data)
+               binding.totalBalanceAmountTextView.text = balanceViewModel.showTotalBalance(adapter.data)
                 Log.i("This is the total:", balanceViewModel.showTotalBalance(it))
             }
         })
@@ -82,8 +82,8 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
 
         binding.button.setOnClickListener {
             findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
-            balanceViewModel.deleteFromDatabase()
-            Toast.makeText(application.applicationContext, "Data is gone for good :(", Toast.LENGTH_SHORT).show()
+//            balanceViewModel.deleteFromDatabase()
+//            Toast.makeText(application.applicationContext, "Data is gone for good :(", Toast.LENGTH_SHORT).show()
             //alertDialog?.show()
         }
 

@@ -133,6 +133,7 @@ class AddBalanceFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if(binding.enterBalanceAmount.text.isEmpty()){
                     binding.balanceAmountError.visibility = View.VISIBLE
+                    binding.balanceAmountError.text = getString(R.string.balance_amount_error)
                 }else{
                     binding.balanceNameError.visibility = View.GONE
                     binding.addBalanceButton.enableAddBalanceButton()
