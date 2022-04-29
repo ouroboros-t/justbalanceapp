@@ -47,5 +47,30 @@
         <action
             android:id="@+id/action_balanceInfoFragment_to_balanceFragment"
             app:destination="@id/balanceFragment" />
+        <action
+            android:id="@+id/action_balanceInfoFragment_to_balancePaymentFragment"
+            app:destination="@id/balancePaymentFragment" />
+        <action
+            android:id="@+id/action_balanceInfoFragment_to_balanceRecordPaymentFragment"
+            app:destination="@id/balanceRecordPaymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/balancePaymentFragment"
+        android:name="com.pg.justbalance.screens.payment.BalancePaymentFragment"
+        android:label="BalancePaymentFragment" >
+        <action
+            android:id="@+id/action_balancePaymentFragment_to_balanceInfoFragment"
+            app:destination="@id/balanceInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/balanceRecordPaymentFragment"
+        android:name="com.pg.justbalance.screens.payment.BalanceRecordPaymentFragment"
+        android:label="BalanceRecordPaymentFragment" >
+        <action
+            android:id="@+id/action_balanceRecordPaymentFragment_to_balanceInfoFragment"
+            app:destination="@id/balanceInfoFragment" />
+        <action
+            android:id="@+id/action_balanceRecordPaymentFragment_to_balanceFragment"
+            app:destination="@id/balanceFragment" />
     </fragment>
 </navigation>

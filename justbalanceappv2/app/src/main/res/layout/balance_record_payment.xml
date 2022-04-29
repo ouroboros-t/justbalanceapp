@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/new_email_address_required_text"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/belleza"
+            android:text="Payment Amount (Required)"
+            android:textColor="?attr/metaTextColor"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/enter_new_email_address_box"
+            android:layout_width="0dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edit_text_border"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:fontFamily="@font/belleza"
+            android:hint="Enter Payment Amount"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.571"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_email_address_required_text" />
+        <TextView
+            android:id="@+id/email_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/belleza"
+            android:text="Payment amount required."
+            android:textColor="?attr/errorTextColor"
+            android:textSize="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enter_new_email_address_box"
+            tools:visibility="gone" />
+        <Button
+            android:id="@+id/update_email_address_button"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:width="343dp"
+            android:height="48dp"
+            android:backgroundTint="@color/light_year_purple"
+            android:fontFamily="@font/belleza"
+            android:letterSpacing="0"
+            android:text="Record Payment"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/buzz_blue"
+            android:textSize="20dp"
+            app:iconPadding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_error" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

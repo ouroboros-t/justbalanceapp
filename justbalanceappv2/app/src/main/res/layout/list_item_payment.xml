@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="com.pg.justbalance.screens.payment.BalancePaymentAdapter.PaymentListener" />
+        <variable
+            name="payment"
+            type="com.pg.justbalance.database.Payment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:onClick="@{() -> clickListener.onClick(payment)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/balance_amount_textView"
+            app:layout_constraintStart_toStartOf="@+id/balance_amount_textView"
+            >
+
+            <TextView
+                android:id="@+id/payment_amount_textView"
+                android:layout_width="155dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/belleza"
+                app:paymentAmount="@{payment}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/balance_amount_textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Balance Name" />
+
+            <TextView
+                android:id="@+id/balance_amount_textView"
+                android:layout_width="153dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="8dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/belleza"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                app:layout_constraintStart_toEndOf="@+id/payment_amount_textView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Balance Amount"
+                app:paymentDate="@{payment}"/>
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="42dp"
+                android:layout_height="22dp"
+                android:src="@drawable/dollar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/balance_amount_textView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/supernova_white_divider" />
+
+    </LinearLayout>
+</layout>
