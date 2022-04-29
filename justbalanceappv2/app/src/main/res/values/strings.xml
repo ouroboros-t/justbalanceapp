@@ -11,10 +11,22 @@
     <!--Add Balance Screen-->
     <string name="enter_balance_name_text">Enter Balance Name:</string>
     <string name="enter_balance_amount_text">Enter Balance Amount:</string>
+    <string name="balance_name_required_text">Balance Name (Required)</string>
+    <string name="balance_amount_required_text">Balance Amount (Required)</string>
+    <string name="balance_error">Balance name required</string>
+    <string name="balance_amount_error">Balance amount required</string>
+
+
+
+    <!--Bottom Navigation-->
     <string name="balance_icon_title">Balances</string>
     <string name="add_a_balance_icon_title">Add a Balance</string>
     <string name="home_icon_title">Home</string>
+
+    <!--Balance Info-->
     <string name="record_payment">Record Payment</string>
     <!--Edit Balance Screen-->
+    <!--___________ACTION BAR___________-->
+    <string name="action_bar">Add a Balance</string>
 
 </resources>

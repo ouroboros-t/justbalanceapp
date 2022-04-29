@@ -3,6 +3,7 @@ package com.pg.justbalance.screens.balance
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -58,6 +61,7 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
         //binding viewmodel to view directly?
         binding.lifecycleOwner = this
 
+        setActionBarToBeEmpty()
 
         val adapter = BalanceAdapter(BalanceAdapter.BalanceListener{
             balanceId -> balanceViewModel.onBalanceItemClicked(balanceId)
@@ -95,6 +99,18 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
 
 
         return binding.root
+    }
+    fun setActionBarToBeEmpty(){
+        (context as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (context as AppCompatActivity).supportActionBar!!.title = ""
+        (context as AppCompatActivity).supportActionBar!!.setBackgroundDrawable(
+            ColorDrawable(
+                ContextCompat.getColor(
+                    requireActivity().baseContext,
+                    R.color.main_blue
+                )
+            )
+        )
     }
 
 //What do we want to do?

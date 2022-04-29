@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -9,59 +9,162 @@
             type="com.pg.justbalance.screens.add.AddBalanceViewModel" />
     </data>
 
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/bgColor">
 
-        <EditText
-            android:id="@+id/balance_amount_editText"
-            android:layout_width="188dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="115dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginBottom="94dp"
-            android:ems="10"
-            android:hint="@string/enter_balance_amount_text"
-            android:inputType="numberDecimal"
-            app:layout_constraintBottom_toTopOf="@+id/add_balance_confirm_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balance_name_editText" />
 
-        <EditText
-            android:id="@+id/balance_name_editText"
-            android:layout_width="180dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="107dp"
-            android:layout_marginTop="180dp"
-            android:layout_marginEnd="124dp"
-            android:layout_marginBottom="15dp"
-            android:contentDescription="@string/enter_balance_name_text"
-            android:ems="10"
-            android:hint="@string/enter_balance_name_text"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/balance_amount_editText"
+        <TextView
+            android:id="@+id/balance_name_required_text"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/belleza"
+            android:text="@string/balance_name_required_text"
+            android:textColor="?attr/metaTextColor"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/add_balance_confirm_button"
+        <EditText
+            android:id="@+id/enter_balance_name"
+            android:layout_width="0dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edit_text_border"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:fontFamily="@font/belleza"
+            android:hint="@string/enter_balance_name_text"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.571"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balance_name_required_text" />
+
+
+        <TextView
+            android:id="@+id/balance_name_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="156dp"
-            android:layout_marginEnd="167dp"
-            android:layout_marginBottom="312dp"
-            android:backgroundTint="?attr/buttonColor"
-            android:text="@string/add_balance_button"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/belleza"
+            android:text="@string/balance_error"
+            android:textColor="?attr/errorTextColor"
+            android:textSize="20dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balance_amount_editText"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/enter_balance_name"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/balance_amount_required_text"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/belleza"
+            android:text="@string/balance_amount_required_text"
+            android:textColor="?attr/metaTextColor"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balance_name_error" />
+
+        <EditText
+            android:id="@+id/enter_balance_amount"
+            android:layout_width="0dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edit_text_border"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:fontFamily="@font/belleza"
+            android:hint="Enter Balance Amount"
+            android:inputType="numberDecimal"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.571"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balance_amount_required_text" />
+
+        <TextView
+            android:id="@+id/balance_amount_error"
+            android:layout_width="372dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/belleza"
+            android:text=""
+            android:textColor="?attr/errorTextColor"
+            android:textSize="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enter_balance_amount"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/supernova_white_divider"
+            app:layout_constraintBottom_toTopOf="@+id/add_balance_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balance_amount_error" />
+
+        <Button
+            android:id="@+id/add_balance_button"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:width="343dp"
+            android:height="48dp"
+            android:backgroundTint="@color/light_year_purple"
+            android:fontFamily="@font/belleza"
+            android:text="@string/add_balance_button"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/buzz_blue"
+            android:textSize="20dp"
+            app:iconPadding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
