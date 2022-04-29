@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "954951608968",
+    "project_id": "justbalance-ff574",
+    "storage_bucket": "justbalance-ff574.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954951608968:android:05d1e819084c7f7aa58d3d",
+        "android_client_info": {
+          "package_name": "com.pg.justbalance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954951608968-5s9h08smpqncf03pll9l5tlu5ncm3vv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4hlFQeprt30e5ZcgNzhATKBa6UCRcBTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954951608968-5s9h08smpqncf03pll9l5tlu5ncm3vv8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
