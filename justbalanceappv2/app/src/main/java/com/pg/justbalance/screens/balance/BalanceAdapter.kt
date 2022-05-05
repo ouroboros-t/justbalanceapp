@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.databinding.ListItemBalanceBinding
 
-class BalanceAdapter(val clickListener: BalanceListener) : RecyclerView.Adapter<BalanceAdapter.ViewHolder>() {
+class BalanceAdapter(private val clickListener: BalanceListener, private val balanceList: MutableList<Balance>) : RecyclerView.Adapter<BalanceAdapter.ViewHolder>() {
 
     var data = listOf<Balance>()
         set(value) {
@@ -19,11 +19,11 @@ class BalanceAdapter(val clickListener: BalanceListener) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item = balanceList[position]
         holder.bind(clickListener,item)
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = balanceList.size
 
 
     //access to the ViewHolder comes from the 'from' function, which inflates and controls the layout
