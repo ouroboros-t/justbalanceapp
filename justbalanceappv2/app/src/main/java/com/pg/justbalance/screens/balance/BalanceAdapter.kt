@@ -20,7 +20,7 @@ class BalanceAdapter(private val clickListener: BalanceListener, private val bal
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = balanceList[position]
-        holder.bind(clickListener,item)
+        //holder.bind(clickListener,item)
     }
 
     override fun getItemCount() = balanceList.size
@@ -29,12 +29,12 @@ class BalanceAdapter(private val clickListener: BalanceListener, private val bal
     //access to the ViewHolder comes from the 'from' function, which inflates and controls the layout
     class ViewHolder private constructor(val binding: ListItemBalanceBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: BalanceListener,item: Balance) {
-            //binding the textviews via the binding adapters instead of findViewById
-            binding.balance = item
-            binding.clickListener = clickListener
-            binding.executePendingBindings()
-        }
+//        fun bind(clickListener: BalanceListener,item: Balance) {
+//            //binding the textviews via the binding adapters instead of findViewById
+//            binding.balance = item
+//            binding.clickListener = clickListener
+//            binding.executePendingBindings()
+//        }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {

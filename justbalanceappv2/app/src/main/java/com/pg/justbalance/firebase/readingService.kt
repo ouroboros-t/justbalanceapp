@@ -4,15 +4,20 @@ import android.util.Log
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.pg.justbalance.database.Payment
+import com.pg.justbalance.doStuff
 import com.pg.justbalance.models.BalanceModel
 import com.pg.justbalance.screens.balance.BalanceFirestoreAdapter
+import com.pg.justbalance.screens.balance.BalanceViewModel
 import com.pg.justbalance.screens.payment.BalancePaymentAdapter
 import java.util.*
 
 class readingService(
 ) : readingServiceInterface {
-    var balanceList = mutableListOf<BalanceModel>()
-    override val balanceAdapter = BalanceFirestoreAdapter(balanceList)
+    override var balanceList = mutableListOf<BalanceModel>()
+    //var balanceViewModel = BalanceViewModel()
+    override val balanceAdapter = BalanceFirestoreAdapter(balanceList, BalanceFirestoreAdapter.BalanceFirestoreListener {
+        balanceId -> doStuff(balanceId)
+    })
     override val paymentAdapter: BalancePaymentAdapter
         get() = TODO("Not yet implemented")
 
@@ -54,6 +59,11 @@ class readingService(
                 }
             })
     }
+
+   override fun empty(): Boolean{
+        return balanceList.isNullOrEmpty()
+    }
+
 
     override fun readPayments(balanceId: String) {
         db.collection("balances")

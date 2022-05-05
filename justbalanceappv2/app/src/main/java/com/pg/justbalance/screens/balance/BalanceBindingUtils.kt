@@ -5,26 +5,27 @@ import androidx.databinding.BindingAdapter
 import com.pg.justbalance.R
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.decimalFormatDouble
+import com.pg.justbalance.models.BalanceModel
 
 class BalanceBindingUtils {
     companion object {
         @JvmStatic
         @BindingAdapter("balanceName")
-        fun TextView.setBalanceName(item: Balance?) {
+        fun TextView.setBalanceName(item: BalanceModel?) {
             item?.let {
                 text = item.balanceName
             }
         }
         @JvmStatic
         @BindingAdapter("balanceAmount")
-        fun TextView.setBalanceAmount(item: Balance?) {
+        fun TextView.setBalanceAmount(item: BalanceModel?) {
             item?.let {
                 text = decimalFormatDouble(item.currentBalance.toBigDecimal())
             }
         }
         @JvmStatic
         @BindingAdapter("startingBalance")
-        fun TextView.setStartingBalance(item: Balance?) {
+        fun TextView.setStartingBalance(item: BalanceModel?) {
             item?.let {
 
                 text =
@@ -33,7 +34,7 @@ class BalanceBindingUtils {
         }
         @JvmStatic
         @BindingAdapter("currentBalance")
-        fun TextView.setCurrentBalance(item: Balance?) {
+        fun TextView.setCurrentBalance(item: BalanceModel?) {
             item?.let {
                 text =  "Current Balance: ${decimalFormatDouble(item.currentBalance.toBigDecimal())}"
             }

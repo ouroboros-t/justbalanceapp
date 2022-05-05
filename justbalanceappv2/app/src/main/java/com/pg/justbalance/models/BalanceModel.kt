@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import com.google.firebase.firestore.PropertyName
 
 class BalanceModel {
-    var balanceId: Long = 0L
+    var balanceId: String = ""
 
     @PropertyName("balanceName")
     var balanceName : String = ""

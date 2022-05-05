@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.R
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceInfoLayoutBinding
@@ -39,7 +40,7 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
 
         val arguments = BalanceInfoFragmentArgs.fromBundle(requireArguments())
 
-        val dataSource = BalanceDatabase.getInstance(application).balanceDatabaseDao
+        val dataSource = FirebaseFirestore.getInstance()
         val viewModelFactory = BalanceViewModelFactory(arguments.balanceId, dataSource)
 
         balanceInfoViewModel =
@@ -61,11 +62,11 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
             createAlert()
             alertDialog?.show()
         }
-        balanceInfoViewModel.payments.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.data = it
-            }
-        })
+//        balanceInfoViewModel.payments.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                adapter.data = it
+//            }
+//        })
 
         balanceInfoViewModel.navigateToBalances.observe(viewLifecycleOwner, Observer {
             if (it == true) {
@@ -96,7 +97,7 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
                     run {
                         // updates the documents date used
                         lifecycleScope.launch {
-                            balanceInfoViewModel.deleteFromDatabase(arguments.balanceId)
+                            //balanceInfoViewModel.deleteFromDatabase(arguments.balanceId)
                             findNavController().navigate(R.id.action_balanceInfoFragment_to_balanceFragment)
                             Toast.makeText(
                                 activity,
