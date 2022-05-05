@@ -1,8 +1,13 @@
 package com.pg.justbalance
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.pg.justbalance.database.Balance
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+
 
 fun decimalFormatDouble(item: BigDecimal): String{
     var decimalFormat = DecimalFormat("0.00")
@@ -12,3 +17,4 @@ fun decimalFormatDouble(item: BigDecimal): String{
 }
 
 //todo: dateformatter
+

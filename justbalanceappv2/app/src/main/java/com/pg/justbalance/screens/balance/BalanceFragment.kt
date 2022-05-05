@@ -21,6 +21,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.pg.justbalance.R
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabase
@@ -63,20 +66,24 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
         binding.lifecycleOwner = this
 
         setActionBarToBeEmpty()
+        val balanceList = mutableListOf<Balance>()
 
-        val adapter = BalanceAdapter(BalanceAdapter.BalanceListener{
-            balanceId -> balanceViewModel.onBalanceItemClicked(balanceId)
-        })
+
+//        val adapter = BalanceAdapter(BalanceAdapter.BalanceListener{
+//            balanceId -> balanceViewModel.onBalanceItemClicked(balanceId)
+//        }, balanceList)
+        val adapter = balanceViewModel.getAdapter()
         binding.balancesList.adapter = adapter
 
-        balanceViewModel.balances.observe(viewLifecycleOwner, Observer {
-            it?.let{
-                adapter.data = it
-                Log.i("This is the data:", adapter.data.toString())
-               binding.totalBalanceAmountTextView.text = decimalFormatDouble(balanceViewModel.showTotalBalance(adapter.data))
-                Log.i("This is the total:", balanceViewModel.showTotalBalance(it).toString())
-            }
-        })
+        balanceViewModel.readFromDatabase()
+//        balanceViewModel.balances.observe(viewLifecycleOwner, Observer {
+//            it?.let{
+//                adapter.data = it
+//                Log.i("This is the data:", adapter.data.toString())
+//               binding.totalBalanceAmountTextView.text = decimalFormatDouble(balanceViewModel.showTotalBalance(adapter.data))
+//                Log.i("This is the total:", balanceViewModel.showTotalBalance(it).toString())
+//            }
+//        })
         if(binding.balancesList.isEmpty()){
             binding.youHavent.visibility = View.GONE
         }
