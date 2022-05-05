@@ -6,27 +6,37 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabaseDao
+import com.pg.justbalance.firebase.writingService
+import com.pg.justbalance.firebase.writingServiceInterface
 import com.pg.justbalance.screens.balance.BalanceViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class AddBalanceViewModel(
     val database: BalanceDatabaseDao,
-    application: Application
+    application: Application,
+    private val service : writingServiceInterface = writingService()
 ): AndroidViewModel(application) {
     val balanceViewModel = BalanceViewModel(database,application)
+
 
     val viewModelJob = Job()
 
 
   fun addBalance(balanceName: String, balanceAmount: Double) {
         viewModelScope.launch {
-            val newBalance = Balance()
-            newBalance.balanceName = balanceName
-            newBalance.startingBalance = balanceAmount.toString()
-            newBalance.currentBalance = balanceAmount.toString()
-
-            database.insertToBalancesTable(newBalance)
+            val balance = hashMapOf<String, Any?>(
+                "balanceName" to balanceName,
+                "startingBalance" to balanceAmount,
+                "currentBalance" to balanceAmount
+            )
+//            val newBalance = Balance()
+//            newBalance.balanceName = balanceName
+//            newBalance.startingBalance = balanceAmount.toString()
+//            newBalance.currentBalance = balanceAmount.toString()
+//
+//            database.insertToBalancesTable(newBalance)
+            service.addBalanceToDatabase(balance)
         }
     }
 
