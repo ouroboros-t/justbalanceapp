@@ -6,8 +6,8 @@ import com.google.firebase.firestore.EventListener
 import com.pg.justbalance.database.Payment
 import com.pg.justbalance.doStuff
 import com.pg.justbalance.models.BalanceModel
+import com.pg.justbalance.models.PaymentModel
 import com.pg.justbalance.screens.balance.BalanceFirestoreAdapter
-import com.pg.justbalance.screens.balance.BalanceViewModel
 import com.pg.justbalance.screens.payment.BalancePaymentAdapter
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.*
@@ -15,6 +15,7 @@ import java.util.*
 class readingService(
 ) : readingServiceInterface {
     private lateinit var listener: ListenerRegistration
+    var payment = PaymentModel()
     //todo: remove
     override var balanceList = mutableListOf<BalanceModel>()
 
@@ -31,7 +32,7 @@ class readingService(
     var paymentList = mutableListOf<Payment>()
 
     override suspend fun readBalances(): MutableList<BalanceModel> = suspendCancellableCoroutine { continuation ->
-        var list = mutableListOf<BalanceModel>()
+        var listBalance = mutableListOf<BalanceModel>()
         var query = db.collection("balances")
 
            listener = query.addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -48,13 +49,14 @@ class readingService(
                         if (documentChange.type == DocumentChange.Type.ADDED) {
                             val balance = documentChange.document.toObject(BalanceModel::class.java)
                             balance.balanceId = documentChange.document.id
-                            list.add(balance)
-                            list.sortBy {
+                            payment.balanceId = documentChange.document.id
+                            listBalance.add(balance)
+                            listBalance.sortBy {
                                 it.balanceName.lowercase(Locale.getDefault())
                             }
                         }
                     listener.remove()
-                    return continuation.resumeWith(Result.success(list))
+                    return continuation.resumeWith(Result.success(listBalance))
                 }
             })
 
@@ -65,26 +67,31 @@ class readingService(
     }
 
 
-    override fun readPayments(balanceId: String) {
-        db.collection("balances")
+    override suspend fun readPayments(balanceId: String): MutableList<PaymentModel> = suspendCancellableCoroutine {
+        continuation ->
+        var listPayment = mutableListOf<PaymentModel>()
+        var query = db.collection("balances")
             .document(balanceId).collection("payments")
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+
+            listener = query.addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(
                     value: QuerySnapshot?,
                     error: FirebaseFirestoreException?
                 ) {
                     if (error != null) {
                         Log.e("Firestore error", error.message.toString())
-                        return
+                        listener.remove()
+                        return continuation.resumeWith(Result.failure(error))
                     }
                     for (documentChange in value?.documentChanges!!)
                         if (documentChange.type == DocumentChange.Type.ADDED) {
-                            val payment = documentChange.document.toObject(Payment::class.java)
+                            payment = documentChange.document.toObject(PaymentModel::class.java)
                             //todo: change payment model to have id be string instead of long
-                            //payment.paymentId = documentChange.document.id
-                            paymentList.add(payment)
+                            payment.paymentId = documentChange.document.id
+                            listPayment.add(payment)
                         }
-                    paymentAdapter.notifyDataSetChanged()
+                    listener.remove()
+                    return continuation.resumeWith(Result.success(listPayment))
                 }
             })
     }
