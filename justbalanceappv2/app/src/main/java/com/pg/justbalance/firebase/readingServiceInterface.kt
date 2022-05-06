@@ -10,7 +10,7 @@ interface readingServiceInterface {
     val balanceAdapter: BalanceFirestoreAdapter
     val paymentAdapter: BalancePaymentAdapter
     val db: FirebaseFirestore
-    fun readBalances()
+    suspend fun readBalances() : MutableList<BalanceModel>
     fun readPayments(balanceId: String)
     fun empty(): Boolean
     var balanceList : MutableList<BalanceModel>

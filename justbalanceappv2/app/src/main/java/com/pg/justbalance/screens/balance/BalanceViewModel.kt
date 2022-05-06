@@ -1,6 +1,7 @@
 package com.pg.justbalance.screens.balance
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -17,29 +18,35 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-class BalanceViewModel (
-                        private val readingService: readingServiceInterface = readingService()) : ViewModel(){
+class BalanceViewModel(
+    private val readingService: readingServiceInterface = readingService()
+) : ViewModel() {
     private var hasRan = false
+
+    private val _balances = MutableLiveData<MutableList<BalanceModel>>()
+    val balances: LiveData<MutableList<BalanceModel>> = _balances
+
+
     //EVENTUALLY USE LIVE DATA
     //FEATURE: UPDATE DEBTS, TRACK PAYMENTS MADE, LOG PAID OFF DEBTS
 
-   // var addBalanceViewModel = AddBalanceViewModel(database, application)
-   // var balances = database.getAllBalances()
+    // var addBalanceViewModel = AddBalanceViewModel(database, application)
+    // var balances = database.getAllBalances()
 
     //as the list gets bigger and bigger, you'll want these processes to run in the background/on
     //a different thread, so use coroutines
-        val viewModelJob = Job()
+    val viewModelJob = Job()
 
-    var totalBalance : String = ""
+    var totalBalance: String = ""
 
-   //var database = database
+    //var database = database
 
     //we need to use this somewhere..right?
     private val _balance = MutableLiveData<BalanceModel>()
-    val balance : LiveData<BalanceModel>
+    val balance: LiveData<BalanceModel>
         get() = _balance
 
-   var _navigateToBalanceInfo = MutableLiveData<String?>()
+    var _navigateToBalanceInfo = MutableLiveData<String?>()
     val navigateToBalanceInfo
         get() = _navigateToBalanceInfo
 
@@ -51,19 +58,21 @@ class BalanceViewModel (
         _navigateToBalanceInfo.value = null
     }
 
-    fun runService(){
-        if(!hasRan) {
-            readingService.readBalances()
+    fun runService() {
+        viewModelScope.launch {
+            if (!hasRan) {
+                _balances.postValue(readingService.readBalances())
+            }
+            hasRan = true
         }
-        hasRan = true
-    }
-    fun balanceListIsEmpty():Boolean{
-       return readingService.empty()
     }
 
+    fun balanceListIsEmpty(): Boolean {
+        return readingService.empty()
+    }
 
 
-//   fun deleteFromDatabase(){
+    //   fun deleteFromDatabase(){
 //        viewModelScope.launch(Dispatchers.IO) {
 //            database.deleteAll()
 //        }
@@ -73,9 +82,9 @@ class BalanceViewModel (
         viewModelJob.cancel()
     }
 
-    fun showTotalBalance(balances: List<Balance>):BigDecimal{
-        var total : BigDecimal = BigDecimal.ZERO
-        for(balance in balances){
+    fun showTotalBalance(balances: List<Balance>): BigDecimal {
+        var total: BigDecimal = BigDecimal.ZERO
+        for (balance in balances) {
             total += BigDecimal(balance.currentBalance)
         }
         val totalFormatted = decimalFormatDouble(total)
@@ -84,9 +93,10 @@ class BalanceViewModel (
     }
 
     fun getAdapter(): BalanceFirestoreAdapter {
-        return  readingService.balanceAdapter
+        return readingService.balanceAdapter
     }
-    fun getList(): MutableList<BalanceModel>{
+
+    fun getList(): MutableList<BalanceModel> {
         return readingService.balanceList
     }
 

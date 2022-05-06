@@ -72,8 +72,15 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
         setActionBarToBeEmpty()
         balanceViewModel.runService()
 
-        val adapter = balanceViewModel.getAdapter()
-        binding.balancesList.adapter = adapter
+        balanceViewModel.balances.observe(viewLifecycleOwner, Observer {
+            balancesList ->
+            binding.balancesList.adapter  = BalanceFirestoreAdapter(balancesList, BalanceFirestoreAdapter.BalanceFirestoreListener {
+                balanceId -> balanceViewModel.onBalanceItemClicked(balanceId)
+                Log.i("Hello", balanceId)
+            })
+        })
+
+
 
         //binding.totalBalanceAmountTextView.text = decimalFormatDouble(balanceViewModel.showTotalBalance(adapter.data))
         binding.youHavent.visibility = View.GONE

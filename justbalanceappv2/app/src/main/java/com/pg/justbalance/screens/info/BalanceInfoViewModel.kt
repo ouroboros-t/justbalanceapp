@@ -1,6 +1,8 @@
 package com.pg.justbalance.screens.info
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.database.Balance
@@ -11,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class BalanceInfoViewModel(
     private val balanceId: String= "",
@@ -20,14 +23,20 @@ class BalanceInfoViewModel(
     val database = dataSource
     val viewModelJob = Job()
     private val balance =  MediatorLiveData<BalanceModel>()
+    private val _balanceModel = MutableLiveData<BalanceModel>()
+        val balanceModel : LiveData<BalanceModel> = _balanceModel
 
 
-    fun getBalance() = balance
+    fun getBalance() = balanceModel
 
     init{
-        val ref = database.collection("balances").document(balanceId)
-        ref as LiveData<BalanceModel>
-      balance.addSource(ref, balance::setValue)
+         database.collection("balances").document(balanceId).addSnapshotListener { value, error ->
+             if (error != null) {
+                 Log.e("Firestore error", error.message.toString())
+             }
+             _balanceModel.postValue(value?.toObject(BalanceModel::class.java))
+         }
+
     }
 
 
