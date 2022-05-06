@@ -48,17 +48,17 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
 
         binding.balanceInfoViewModel = balanceInfoViewModel
 
+
         binding.lifecycleOwner = this
 
-
-        val adapter = BalancePaymentAdapter(BalancePaymentAdapter.PaymentListener { paymentID ->
+        balanceInfoViewModel.payments.observe(viewLifecycleOwner, Observer {
+            paymentList ->
+            binding.paymentsList.adapter = BalancePaymentAdapter(paymentList,BalancePaymentAdapter.PaymentListener { paymentID ->
             balanceInfoViewModel.onPaymentItemClicked(paymentID)
         })
-
-        binding.paymentsList.adapter = adapter
+        })
 
         binding.deleteButton.setOnClickListener {
-            //todo: create alert asking if sure...
             createAlert()
             alertDialog?.show()
         }
@@ -85,7 +85,6 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
     }
 
     private fun createAlert() {
-
         val alert = AlertDialog.Builder(activity)
         val arguments = BalanceInfoFragmentArgs.fromBundle(requireArguments())
         alert.setMessage("Pressing Ok Will Permanently Remove This Balance!")
@@ -97,7 +96,7 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
                     run {
                         // updates the documents date used
                         lifecycleScope.launch {
-                            //balanceInfoViewModel.deleteFromDatabase(arguments.balanceId)
+                            balanceInfoViewModel.deleteFromDatabase(arguments.balanceId)
                             findNavController().navigate(R.id.action_balanceInfoFragment_to_balanceFragment)
                             Toast.makeText(
                                 activity,
@@ -108,6 +107,7 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
                     }
                 }
             )
+            .setNegativeButton("Cancel", DialogInterface.OnClickListener{ dialogInterface, i -> })
         alertDialog = alert.create()
     }
 }

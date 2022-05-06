@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
+import com.pg.justbalance.balanceCorrectId
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceLayoutBinding
 import com.pg.justbalance.models.BalanceModel
