@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/titleFragment"
         android:icon="@drawable/home"
-        android:title="@string/home_icon_title"
-        app:iconTint="@color/blue">
+        android:title="@string/home_icon_title" >
     </item>
     <item
         android:id="@+id/balanceFragment"
         android:icon="@drawable/dollar"
-        android:title="@string/balance_icon_title"
-        app:iconTint="@color/blue">
+        android:title="@string/balance_icon_title" >
     </item>
 
 

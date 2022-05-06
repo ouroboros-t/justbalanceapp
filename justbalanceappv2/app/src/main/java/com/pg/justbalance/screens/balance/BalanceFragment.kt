@@ -71,29 +71,12 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
 
         setActionBarToBeEmpty()
         balanceViewModel.runService()
-        val balanceList = mutableListOf<BalanceModel>()
 
-
-//        val adapter = BalanceAdapter(BalanceAdapter.BalanceListener{
-//            balanceId -> balanceViewModel.onBalanceItemClicked(balanceId)
-//        }, balanceList)
         val adapter = balanceViewModel.getAdapter()
         binding.balancesList.adapter = adapter
 
-
-//        balanceViewModel.balances.observe(viewLifecycleOwner, Observer {
-//            it?.let{
-//                adapter.data = it
-//                Log.i("This is the data:", adapter.data.toString())
-//               binding.totalBalanceAmountTextView.text = decimalFormatDouble(balanceViewModel.showTotalBalance(adapter.data))
-//                Log.i("This is the total:", balanceViewModel.showTotalBalance(it).toString())
-//            }
-//        })
-        if(balanceViewModel.balanceListIsEmpty()){
-            binding.youHavent.visibility = View.GONE
-        }else{
-            binding.youHavent.visibility = View.VISIBLE
-        }
+        //binding.totalBalanceAmountTextView.text = decimalFormatDouble(balanceViewModel.showTotalBalance(adapter.data))
+        binding.youHavent.visibility = View.GONE
 
         binding.button.setOnClickListener {
             findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
