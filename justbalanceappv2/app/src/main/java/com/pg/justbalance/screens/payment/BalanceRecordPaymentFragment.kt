@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
+
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceRecordPaymentBinding
 import com.pg.justbalance.screens.add.parseToDouble
-import com.pg.justbalance.screens.info.BalanceInfoFragmentArgs
 
 class BalanceRecordPaymentFragment : Fragment(R.layout.balance_record_payment){
     private lateinit var binding: BalanceRecordPaymentBinding
@@ -43,17 +43,18 @@ class BalanceRecordPaymentFragment : Fragment(R.layout.balance_record_payment){
         val application = requireNotNull(this.activity).application
         val dataSource = BalanceDatabase.getInstance(application).balanceDatabaseDao
 
-        val viewModelFactory = BalanceRecordPaymentViewModelFactory(dataSource,application)
+       // val viewModelFactory = BalanceRecordPaymentViewModelFactory(dataSource,application)
 
         balanceRecordPaymentViewModel =
-            ViewModelProvider(this, viewModelFactory).get(BalanceRecordPaymentViewModel::class.java)
+            ViewModelProvider(this).get(BalanceRecordPaymentViewModel::class.java)
 
         binding.balanceRecordPaymentViewModel = balanceRecordPaymentViewModel
 
         setupActionBar()
         binding.confirmRecordPayment.setOnClickListener {
+
             val paymentAmount = binding.enterNewEmailAddressBox.text.parseToDouble()
-            balanceRecordPaymentViewModel.addPayment(paymentAmount)
+            balanceRecordPaymentViewModel.addPayment(paymentAmount )
         }
 
         return binding.root

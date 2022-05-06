@@ -8,7 +8,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.database.Payment
+import com.pg.justbalance.firebase.deleteService
+import com.pg.justbalance.firebase.deleteServiceInterface
+import com.pg.justbalance.firebase.readingService
+import com.pg.justbalance.firebase.readingServiceInterface
 import com.pg.justbalance.models.BalanceModel
+import com.pg.justbalance.models.PaymentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -17,7 +22,9 @@ import java.util.*
 
 class BalanceInfoViewModel(
     private val balanceId: String= "",
-    dataSource: FirebaseFirestore
+    dataSource: FirebaseFirestore,
+    private val readingService: readingServiceInterface = readingService(),
+    private val deleteService: deleteServiceInterface = deleteService()
 ) : ViewModel() {
 
     val database = dataSource
@@ -26,6 +33,8 @@ class BalanceInfoViewModel(
     private val _balanceModel = MutableLiveData<BalanceModel>()
         val balanceModel : LiveData<BalanceModel> = _balanceModel
 
+    private val _payments = MutableLiveData<MutableList<PaymentModel>>()
+    val payments: LiveData<MutableList<PaymentModel>> = _payments
 
     fun getBalance() = balanceModel
 
@@ -39,6 +48,17 @@ class BalanceInfoViewModel(
 
     }
 
+    fun readingService(){
+        viewModelScope.launch {
+            readingService.readPayments(balanceId)
+        }
+    }
+
+    private var _balanceId= MutableLiveData<String>()
+    val balanceCorrectId : LiveData<String> = _balanceId
+    fun getId(){
+        _balanceId.value = balanceId
+    }
 
     private val _navigateToPaymentScreen = MutableLiveData<Boolean?>()
         val navigateToPaymentScreen: LiveData<Boolean?>
@@ -59,11 +79,11 @@ class BalanceInfoViewModel(
         _navigateToBalances.value = true
     }
 
-//    suspend fun deleteFromDatabase(balanceId: Long){
-//        withContext(Dispatchers.IO) {
-//                database.deleteBalanceWithId(balanceId)
-//        }
-//    }
+fun deleteFromDatabase(balanceId: String){
+       viewModelScope.launch {
+           deleteService.deleteService(balanceId)
+       }
+    }
 
 
    // var payments = database.getAllPayments()
@@ -72,15 +92,15 @@ class BalanceInfoViewModel(
 
     }
 
-    private val _payment = MutableLiveData<Payment>()
-    val payment : LiveData<Payment>
+    private val _payment = MutableLiveData<PaymentModel>()
+    val payment : LiveData<PaymentModel>
         get() = _payment
 
-    var _navigateToPaymentInfo = MutableLiveData<Long?>()
+    var _navigateToPaymentInfo = MutableLiveData<String?>()
     val navigateToPaymentInfo
         get() = _navigateToPaymentInfo
 
-    fun onPaymentItemClicked(id: Long) {
+    fun onPaymentItemClicked(id: String) {
         _navigateToPaymentInfo.value = id
     }
 

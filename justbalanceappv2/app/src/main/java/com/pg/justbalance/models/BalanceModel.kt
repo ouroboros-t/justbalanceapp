@@ -1,6 +1,5 @@
 package com.pg.justbalance.models
 
-import androidx.room.ColumnInfo
 import com.google.firebase.firestore.PropertyName
 
 class BalanceModel {
