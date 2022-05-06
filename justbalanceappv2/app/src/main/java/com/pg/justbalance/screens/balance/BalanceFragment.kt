@@ -2,38 +2,23 @@ package com.pg.justbalance.screens.balance
 
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.pg.justbalance.R
-import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceLayoutBinding
-import com.pg.justbalance.decimalFormatDouble
-import com.pg.justbalance.firebase.readingService
 import com.pg.justbalance.models.BalanceModel
 import com.pg.justbalance.screens.add.AddBalanceViewModel
-import com.pg.justbalance.screens.add.AddBalanceViewModelFactory
 import com.pg.justbalance.screens.info.BalanceViewModelFactory
 
 

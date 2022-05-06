@@ -32,18 +32,6 @@ class readingService(
     override suspend fun readBalances(): MutableList<BalanceModel> = suspendCancellableCoroutine { continuation ->
         var list = mutableListOf<BalanceModel>()
         db.collection("balances")
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    val balance = document.toObject(Balance::class.java)
-//                    balanceList.add(balance)
-//                    balanceAdapter.notifyDataSetChanged()
-//                    Log.d("TAG", "${document.id} => ${document.data}")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w("TAG", "Error getting documents.", exception)
-//            }
-            // .orderBy("dateUsed", Query.Direction.DESCENDING)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(
                     value: QuerySnapshot?,
