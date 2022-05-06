@@ -14,6 +14,7 @@ import java.util.*
 
 class readingService(
 ) : readingServiceInterface {
+    private lateinit var listener: ListenerRegistration
     //todo: remove
     override var balanceList = mutableListOf<BalanceModel>()
 
@@ -31,14 +32,16 @@ class readingService(
 
     override suspend fun readBalances(): MutableList<BalanceModel> = suspendCancellableCoroutine { continuation ->
         var list = mutableListOf<BalanceModel>()
-        db.collection("balances")
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+        var query = db.collection("balances")
+
+           listener = query.addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(
                     value: QuerySnapshot?,
                     error: FirebaseFirestoreException?
                 ) {
                     if (error != null) {
                         Log.e("Firestore error", error.message.toString())
+                        listener.remove()
                         return continuation.resumeWith(Result.failure(error))
                     }
                     for (documentChange in value?.documentChanges!!)
@@ -50,9 +53,11 @@ class readingService(
                                 it.balanceName.lowercase(Locale.getDefault())
                             }
                         }
+                    listener.remove()
                     return continuation.resumeWith(Result.success(list))
                 }
             })
+
     }
 
    override fun empty(): Boolean{
