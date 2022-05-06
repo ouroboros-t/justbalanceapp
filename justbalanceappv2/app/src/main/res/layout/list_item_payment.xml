@@ -9,7 +9,7 @@
             type="com.pg.justbalance.screens.payment.BalancePaymentAdapter.PaymentListener" />
         <variable
             name="payment"
-            type="com.pg.justbalance.database.Payment" />
+            type="com.pg.justbalance.models.PaymentModel" />
     </data>
 
     <LinearLayout
