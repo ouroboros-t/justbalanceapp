@@ -43,7 +43,7 @@
         android:label="BalanceInfoFragment" >
         <argument
             android:name="balanceId"
-            app:argType="long"/>
+            app:argType="string"/>
         <action
             android:id="@+id/action_balanceInfoFragment_to_balanceFragment"
             app:destination="@id/balanceFragment" />

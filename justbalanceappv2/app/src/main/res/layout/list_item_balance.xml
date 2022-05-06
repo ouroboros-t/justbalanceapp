@@ -6,10 +6,10 @@
     <data>
             <variable
                 name="clickListener"
-                type="com.pg.justbalance.screens.balance.BalanceAdapter.BalanceListener" />
+                type="com.pg.justbalance.screens.balance.BalanceFirestoreAdapter.BalanceFirestoreListener" />
             <variable
                 name="balance"
-                type="com.pg.justbalance.database.Balance" />
+                type="com.pg.justbalance.models.BalanceModel" />
     </data>
 
     <LinearLayout

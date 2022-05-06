@@ -17,7 +17,6 @@ class AddBalanceViewModel(
     application: Application,
     private val service : writingServiceInterface = writingService()
 ): AndroidViewModel(application) {
-    val balanceViewModel = BalanceViewModel(database,application)
 
 
     val viewModelJob = Job()

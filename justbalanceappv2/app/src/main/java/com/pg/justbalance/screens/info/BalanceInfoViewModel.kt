@@ -1,28 +1,33 @@
 package com.pg.justbalance.screens.info
 
 import androidx.lifecycle.*
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.database.Payment
+import com.pg.justbalance.models.BalanceModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class BalanceInfoViewModel(
-    private val balanceId: Long = 0L,
-    dataSource: BalanceDatabaseDao
+    private val balanceId: String= "",
+    dataSource: FirebaseFirestore
 ) : ViewModel() {
 
     val database = dataSource
     val viewModelJob = Job()
-    private val balance = MediatorLiveData<Balance>()
+    private val balance =  MediatorLiveData<BalanceModel>()
 
 
     fun getBalance() = balance
 
     init{
-      balance.addSource(database.getBalanceWithId(balanceId), balance::setValue)
+        val ref = database.collection("balances").document(balanceId)
+        ref as LiveData<BalanceModel>
+      balance.addSource(ref, balance::setValue)
     }
 
 
@@ -45,14 +50,14 @@ class BalanceInfoViewModel(
         _navigateToBalances.value = true
     }
 
-    suspend fun deleteFromDatabase(balanceId: Long){
-        withContext(Dispatchers.IO) {
-                database.deleteBalanceWithId(balanceId)
-        }
-    }
+//    suspend fun deleteFromDatabase(balanceId: Long){
+//        withContext(Dispatchers.IO) {
+//                database.deleteBalanceWithId(balanceId)
+//        }
+//    }
 
 
-    var payments = database.getAllPayments()
+   // var payments = database.getAllPayments()
 
     fun addPayment(balanceId: Long, paymentAmount: Double){
 

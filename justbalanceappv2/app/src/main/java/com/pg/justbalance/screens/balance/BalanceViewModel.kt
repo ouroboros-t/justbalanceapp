@@ -11,24 +11,20 @@ import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.decimalFormatDouble
 import com.pg.justbalance.firebase.readingService
 import com.pg.justbalance.firebase.readingServiceInterface
+import com.pg.justbalance.models.BalanceModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-class BalanceViewModel (database: BalanceDatabaseDao, application: Application,
-                        private val readingService: readingServiceInterface = readingService()) : AndroidViewModel(application){
+class BalanceViewModel (
+                        private val readingService: readingServiceInterface = readingService()) : ViewModel(){
+    private var hasRan = false
     //EVENTUALLY USE LIVE DATA
     //FEATURE: UPDATE DEBTS, TRACK PAYMENTS MADE, LOG PAID OFF DEBTS
-    var query: Query = FirebaseFirestore.getInstance()
-        .collection("balances")
-        .limit(50)
-    var options: FirestoreRecyclerOptions<Balance> = FirestoreRecyclerOptions.Builder<Balance>()
-        .setQuery(query, Balance::class.java)
-        .build()
 
    // var addBalanceViewModel = AddBalanceViewModel(database, application)
-    var balances = database.getAllBalances()
+   // var balances = database.getAllBalances()
 
     //as the list gets bigger and bigger, you'll want these processes to run in the background/on
     //a different thread, so use coroutines
@@ -36,18 +32,18 @@ class BalanceViewModel (database: BalanceDatabaseDao, application: Application,
 
     var totalBalance : String = ""
 
-   var database = database
+   //var database = database
 
     //we need to use this somewhere..right?
-    private val _balance = MutableLiveData<Balance>()
-    val balance : LiveData<Balance>
+    private val _balance = MutableLiveData<BalanceModel>()
+    val balance : LiveData<BalanceModel>
         get() = _balance
 
-   var _navigateToBalanceInfo = MutableLiveData<Long?>()
+   var _navigateToBalanceInfo = MutableLiveData<String?>()
     val navigateToBalanceInfo
         get() = _navigateToBalanceInfo
 
-    fun onBalanceItemClicked(id: Long) {
+    fun onBalanceItemClicked(id: String) {
         _navigateToBalanceInfo.value = id
     }
 
@@ -55,17 +51,23 @@ class BalanceViewModel (database: BalanceDatabaseDao, application: Application,
         _navigateToBalanceInfo.value = null
     }
 
-    fun readFromDatabase(){
-        readingService.readBalances()
-    }
-
-
-
-   fun deleteFromDatabase(){
-        viewModelScope.launch(Dispatchers.IO) {
-            database.deleteAll()
+    fun runService(){
+        if(!hasRan) {
+            readingService.readBalances()
         }
+        hasRan = true
     }
+    fun balanceListIsEmpty():Boolean{
+       return readingService.empty()
+    }
+
+
+
+//   fun deleteFromDatabase(){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            database.deleteAll()
+//        }
+//    }
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
@@ -83,6 +85,9 @@ class BalanceViewModel (database: BalanceDatabaseDao, application: Application,
 
     fun getAdapter(): BalanceFirestoreAdapter {
         return  readingService.balanceAdapter
+    }
+    fun getList(): MutableList<BalanceModel>{
+        return readingService.balanceList
     }
 
 
