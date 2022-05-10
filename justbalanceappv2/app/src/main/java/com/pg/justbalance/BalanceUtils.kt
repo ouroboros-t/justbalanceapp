@@ -1,5 +1,7 @@
 package com.pg.justbalance
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -17,9 +19,23 @@ fun decimalFormatDouble(item: BigDecimal): String{
     return "$ ${formattedItem}"
 }
 
+fun decimalFormatDoubleCurrentBalance(item: BigDecimal): String{
+    var decimalFormat = DecimalFormat("0.00")
+    decimalFormat.roundingMode = RoundingMode.DOWN
+    val formattedItem = decimalFormat.format(item)
+    return "Current Balance: $ ${formattedItem}"
+}
+
+private var _id= MutableLiveData<String?>()
+    val id : LiveData<String?> = _id
+
 //todo: dateformatter
 
 fun doStuff(id: String){
     val balanceViewModel = BalanceViewModel()
     balanceViewModel.onBalanceItemClicked(id)
+}
+
+fun keepBalanceId(id: String){
+   _id.postValue(id)
 }

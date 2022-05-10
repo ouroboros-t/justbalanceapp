@@ -1,6 +1,7 @@
 package com.pg.justbalance.screens.payment
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,11 +11,13 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class BalanceRecordPaymentViewModel
-    (val service: writingServiceInterface = writingService(),
-private val balanceId: String= "")
+    (val service: writingServiceInterface = writingService(), )
     : ViewModel() {
 
-    fun addPayment(paymentAmount: Double){
+    private var _successOrFailToAddPayment = MutableLiveData<Boolean>()
+    val successOrFailToAddPayment: LiveData<Boolean> = _successOrFailToAddPayment
+
+    fun addPayment(paymentAmount: Double, balanceId: String){
         val date = Date()
         viewModelScope.launch {
            val payment = hashMapOf<String, Any?>(
@@ -23,20 +26,17 @@ private val balanceId: String= "")
                 "balanceId" to balanceId
            )
             Log.i("TAG", balanceId)
-            service.recordPayment(payment, balanceId)
-
-//            val newPayment = Payment()
-//            newPayment.paymentAmount = paymentAmount
-//            newPayment.paymentDate = date.toString()
-//            database.insertIntoPaymentsTable(newPayment)
-//            Log.i("HERE", newPayment.balanceId.toString())
-//            Log.i("HERE", newPayment.paymentId.toString())
-//            Log.i("HERE", newPayment.paymentAmount.toString())
-//            Log.i("HERE", newPayment.paymentDate)
+            service.recordPayment(payment, balanceId).addOnCompleteListener {
+                task->
+                if(task.isSuccessful){
+                    _successOrFailToAddPayment.postValue(true)
+                }else{
+                    _successOrFailToAddPayment.postValue(false)
+                }
+            }
         }
 
     }
-
 
     var _navigateToBalanceInfo = MutableLiveData<Long?>()
     val navigateToBalanceInfo

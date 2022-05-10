@@ -1,5 +1,6 @@
 package com.pg.justbalance.screens.payment
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +25,8 @@ class BalancePaymentAdapter(private val paymentList: MutableList<PaymentModel>, 
     //access to the ViewHolder comes from the 'from' function, which inflates and controls the layout
     class ViewHolder private constructor(val binding: ListItemPaymentBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: BalancePaymentAdapter.PaymentListener, item: PaymentModel) {
+        fun bind(clickListener: PaymentListener, item: PaymentModel) {
+
             //binding the textviews via the binding adapters instead of findViewById
             binding.payment = item
             binding.clickListener = clickListener
@@ -33,12 +35,8 @@ class BalancePaymentAdapter(private val paymentList: MutableList<PaymentModel>, 
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
-                //create layout inflater based on the parent view:
-                //important to use the right context
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemPaymentBinding.inflate(layoutInflater, parent, false)
-                //val view = layoutInflater.inflate(R.layout.list_item_balance, parent, false)
-                //make a viewholder
                 return ViewHolder(binding)
             }
         }

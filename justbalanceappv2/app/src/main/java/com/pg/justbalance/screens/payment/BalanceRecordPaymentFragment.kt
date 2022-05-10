@@ -10,11 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
-
-import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceRecordPaymentBinding
 import com.pg.justbalance.screens.add.parseToDouble
 
@@ -26,9 +25,13 @@ class BalanceRecordPaymentFragment : Fragment(R.layout.balance_record_payment){
         setHasOptionsMenu(true)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val arguments = BalanceRecordPaymentFragmentArgs.fromBundle(requireArguments())
+        val action = BalanceRecordPaymentFragmentDirections.actionBalanceRecordPaymentFragmentToBalanceInfoFragment(
+            arguments.balanceId
+        )
         when (item.getItemId()) {
             android.R.id.home ->
-                findNavController().navigate(R.id.action_balanceRecordPaymentFragment_to_balanceFragment)
+            findNavController().navigate(action)
         }
         return true
     }
@@ -40,11 +43,7 @@ class BalanceRecordPaymentFragment : Fragment(R.layout.balance_record_payment){
         binding =  DataBindingUtil.inflate(inflater, R.layout.balance_record_payment,
             container, false)
 
-        val application = requireNotNull(this.activity).application
-        val dataSource = BalanceDatabase.getInstance(application).balanceDatabaseDao
-
-       // val viewModelFactory = BalanceRecordPaymentViewModelFactory(dataSource,application)
-
+        val arguments = BalanceRecordPaymentFragmentArgs.fromBundle(requireArguments())
         balanceRecordPaymentViewModel =
             ViewModelProvider(this).get(BalanceRecordPaymentViewModel::class.java)
 
@@ -52,11 +51,19 @@ class BalanceRecordPaymentFragment : Fragment(R.layout.balance_record_payment){
 
         setupActionBar()
         binding.confirmRecordPayment.setOnClickListener {
-
             val paymentAmount = binding.enterNewEmailAddressBox.text.parseToDouble()
-            balanceRecordPaymentViewModel.addPayment(paymentAmount )
-        }
+            balanceRecordPaymentViewModel.addPayment(paymentAmount, arguments.balanceId)
+            balanceRecordPaymentViewModel.successOrFailToAddPayment.observe(viewLifecycleOwner, Observer {
+                if(it == true) {
+                    val action =
+                        BalanceRecordPaymentFragmentDirections.actionBalanceRecordPaymentFragmentToBalanceInfoFragment(
+                            arguments.balanceId
+                        )
+                    findNavController().navigate(action)
+                }
+            })
 
+        }
         return binding.root
     }
 

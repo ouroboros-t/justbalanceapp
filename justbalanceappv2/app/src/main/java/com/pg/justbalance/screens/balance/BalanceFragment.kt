@@ -23,7 +23,8 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
     //inflate layout
     //hookupViewModel to fragment
 
-    var alertDialog : AlertDialog? = null
+    var alertDialog: AlertDialog? = null
+
     //enable databinding in gradle (module) scripts:
     private lateinit var balanceViewModel: BalanceViewModel
     private lateinit var binding: BalanceLayoutBinding
@@ -32,17 +33,12 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.balance_layout, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.balance_layout, container, false
+        )
 
-
-        val application = requireNotNull(this.activity).application
-        val dataSource = BalanceDatabase.getInstance(application).balanceDatabaseDao
-
-
-        //val viewModelFactory = BalanceViewModelFactory(dataSource,application)
-
-         balanceViewModel = ViewModelProvider(this).get(BalanceViewModel::class.java)
+        balanceViewModel = ViewModelProvider(this).get(BalanceViewModel::class.java)
 
         //we can now directly update TextViews, Buttons, etc inside of the xml..
         //EXAMPLE INSIDE TEXT VIEW : android:text="@{@string/quote_format(gameViewModel.word)}"
@@ -54,35 +50,42 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
         setActionBarToBeEmpty()
         balanceViewModel.runService()
 
-        balanceViewModel.balances.observe(viewLifecycleOwner, Observer {
-            balancesList ->
-            binding.balancesList.adapter  = BalanceFirestoreAdapter(balancesList, BalanceFirestoreAdapter.BalanceFirestoreListener {
-                balanceId -> balanceViewModel.onBalanceItemClicked(balanceId)
-                Log.i("Hello", balanceId)
-            })
+
+
+        balanceViewModel.balances.observe(viewLifecycleOwner, Observer { balancesList ->
+            if(balancesList.isNotEmpty()){
+                binding.youHavent.visibility = View.GONE
+            }
+            binding.totalBalanceAmountTextView.text = balanceViewModel.showTotalBalance(balancesList)
+            binding.balancesList.adapter = BalanceFirestoreAdapter(
+                balancesList,
+
+                BalanceFirestoreAdapter.BalanceFirestoreListener { balanceId ->
+                    balanceViewModel.onBalanceItemClicked(balanceId)
+                    Log.i("Hello", balanceId)
+                })
+
         })
 
-
-
-        //binding.totalBalanceAmountTextView.text = decimalFormatDouble(balanceViewModel.showTotalBalance(adapter.data))
-        binding.youHavent.visibility = View.GONE
 
         binding.button.setOnClickListener {
             findNavController().navigate(R.id.action_balanceFragment_to_addBalanceFragment)
         }
 
-
-        balanceViewModel.navigateToBalanceInfo.observe(viewLifecycleOwner, Observer {
-            balance -> balance?.let {
-                    Log.i("HEre", balance.toString())
-                    this.findNavController().navigate(BalanceFragmentDirections.actionBalanceFragmentToBalanceInfoFragment(balance))
-                   balanceViewModel.onBalanceItemInfoNavigated()
+        balanceViewModel.navigateToBalanceInfo.observe(viewLifecycleOwner, Observer { balance ->
+            balance?.let {
+                Log.i("HEre", balance.toString())
+                this.findNavController().navigate(
+                    BalanceFragmentDirections.actionBalanceFragmentToBalanceInfoFragment(balance)
+                )
+                balanceViewModel.onBalanceItemInfoNavigated()
             }
         })
 
         return binding.root
     }
-    fun setActionBarToBeEmpty(){
+
+    fun setActionBarToBeEmpty() {
         (context as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (context as AppCompatActivity).supportActionBar!!.title = ""
         (context as AppCompatActivity).supportActionBar!!.setBackgroundDrawable(

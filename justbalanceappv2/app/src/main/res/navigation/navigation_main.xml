@@ -66,6 +66,9 @@
         android:id="@+id/balanceRecordPaymentFragment"
         android:name="com.pg.justbalance.screens.payment.BalanceRecordPaymentFragment"
         android:label="BalanceRecordPaymentFragment" >
+        <argument
+            android:name="balanceId"
+            app:argType="string"/>
         <action
             android:id="@+id/action_balanceRecordPaymentFragment_to_balanceInfoFragment"
             app:destination="@id/balanceInfoFragment" />

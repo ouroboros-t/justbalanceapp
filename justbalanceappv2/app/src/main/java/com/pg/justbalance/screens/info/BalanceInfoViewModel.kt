@@ -8,6 +8,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.database.Balance
 import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.database.Payment
+import com.pg.justbalance.decimalFormatDouble
+import com.pg.justbalance.decimalFormatDoubleCurrentBalance
 import com.pg.justbalance.firebase.deleteService
 import com.pg.justbalance.firebase.deleteServiceInterface
 import com.pg.justbalance.firebase.readingService
@@ -26,10 +28,18 @@ class BalanceInfoViewModel(
     private val readingService: readingServiceInterface = readingService(),
     private val deleteService: deleteServiceInterface = deleteService()
 ) : ViewModel() {
+    var hasRan= false
 
     val database = dataSource
     val viewModelJob = Job()
     private val balance =  MediatorLiveData<BalanceModel>()
+
+
+    private var _currentBalDouble = MutableLiveData<Double>()
+        val currentBalDouble : LiveData<Double> = _currentBalDouble
+
+    private var _currentBalanceString = MutableLiveData<String>()
+            val currentBalanceString: LiveData<String> = _currentBalanceString
     private val _balanceModel = MutableLiveData<BalanceModel>()
         val balanceModel : LiveData<BalanceModel> = _balanceModel
 
@@ -48,16 +58,36 @@ class BalanceInfoViewModel(
 
     }
 
-    fun readingService(){
+    fun readingService(balanceId: String){
         viewModelScope.launch {
-            readingService.readPayments(balanceId)
+            if(!hasRan) {
+                Log.i("Balance id: ", balanceId)
+               _payments.postValue(readingService.readPayments(balanceId))
+            }
+            hasRan = true
+        }
+    }
+    fun calculateCurrentBalance(list: MutableList<PaymentModel>, balanceId: String){
+        var currentBalance = 0.0
+        viewModelScope.launch {
+                currentBalance =
+                    readingService.calculateCurrentBalance(balanceId).toString().toDouble()
+                Log.i("currentBalance:", currentBalance.toString())
+                list.forEach { payment ->
+                    currentBalance -= payment.paymentAmount
+                    _currentBalDouble.value = currentBalance
+                    Log.i("balance", currentBalance.toString())
+                    _currentBalanceString.value =
+                        decimalFormatDoubleCurrentBalance(currentBalance.toBigDecimal())
+                }
         }
     }
 
-    private var _balanceId= MutableLiveData<String>()
-    val balanceCorrectId : LiveData<String> = _balanceId
-    fun getId(){
-        _balanceId.value = balanceId
+    //todo: this doesn't work -> putting this inside of fun above will cause it to constantly update
+    fun updateCurrentBalance(balanceId: String, bal: Double){
+
+           // readingService.updateCurrentBalance(balanceId, bal)
+
     }
 
     private val _navigateToPaymentScreen = MutableLiveData<Boolean?>()
@@ -83,13 +113,6 @@ fun deleteFromDatabase(balanceId: String){
        viewModelScope.launch {
            deleteService.deleteService(balanceId)
        }
-    }
-
-
-   // var payments = database.getAllPayments()
-
-    fun addPayment(balanceId: Long, paymentAmount: Double){
-
     }
 
     private val _payment = MutableLiveData<PaymentModel>()

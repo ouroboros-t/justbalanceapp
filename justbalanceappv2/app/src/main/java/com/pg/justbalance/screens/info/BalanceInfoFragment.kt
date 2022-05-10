@@ -3,11 +3,15 @@ package com.pg.justbalance.screens.info
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.R
 import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceInfoLayoutBinding
+import com.pg.justbalance.decimalFormatDouble
 import com.pg.justbalance.screens.payment.BalancePaymentAdapter
 import kotlinx.coroutines.launch
 
@@ -36,8 +41,6 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
                 container, false
             )
 
-        val application = requireNotNull(this.activity).application
-
         val arguments = BalanceInfoFragmentArgs.fromBundle(requireArguments())
 
         val dataSource = FirebaseFirestore.getInstance()
@@ -48,25 +51,39 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
 
         binding.balanceInfoViewModel = balanceInfoViewModel
 
-
+        setActionBarToBeEmpty()
         binding.lifecycleOwner = this
 
-        balanceInfoViewModel.payments.observe(viewLifecycleOwner, Observer {
-            paymentList ->
-            binding.paymentsList.adapter = BalancePaymentAdapter(paymentList,BalancePaymentAdapter.PaymentListener { paymentID ->
-            balanceInfoViewModel.onPaymentItemClicked(paymentID)
+        balanceInfoViewModel.readingService(arguments.balanceId)
+
+        balanceInfoViewModel.payments.observe(viewLifecycleOwner, Observer { paymentList ->
+            if (paymentList.isNotEmpty()) {
+                binding.youHavent.visibility = View.GONE
+            }
+            balanceInfoViewModel.calculateCurrentBalance(paymentList, arguments.balanceId)
+            balanceInfoViewModel.currentBalanceString.observe(
+                viewLifecycleOwner,
+                Observer { string ->
+                    binding.BalanceInfoCurrentBalance.text = string
+                })
+            //todo: this doesn't work -> does not update
+//            balanceInfoViewModel.currentBalDouble.observe(viewLifecycleOwner, Observer {
+//                double ->
+//                balanceInfoViewModel.updateCurrentBalance(arguments.balanceId, double)
+//            })
+
+            binding.paymentsList.adapter = BalancePaymentAdapter(
+                paymentList,
+                BalancePaymentAdapter.PaymentListener { paymentID ->
+                    balanceInfoViewModel.onPaymentItemClicked(paymentID)
+                })
         })
-        })
+
 
         binding.deleteButton.setOnClickListener {
             createAlert()
             alertDialog?.show()
         }
-//        balanceInfoViewModel.payments.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                adapter.data = it
-//            }
-//        })
 
         balanceInfoViewModel.navigateToBalances.observe(viewLifecycleOwner, Observer {
             if (it == true) {
@@ -78,7 +95,11 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
         })
 
         binding.recordPaymentButton.setOnClickListener {
-            findNavController().navigate(R.id.action_balanceInfoFragment_to_balanceRecordPaymentFragment)
+            val place =
+                BalanceInfoFragmentDirections.actionBalanceInfoFragmentToBalanceRecordPaymentFragment(
+                    arguments.balanceId
+                )
+            findNavController().navigate(place)
         }
 
         return binding.root
@@ -107,7 +128,20 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
                     }
                 }
             )
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener{ dialogInterface, i -> })
+            .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, i -> })
         alertDialog = alert.create()
+    }
+
+    fun setActionBarToBeEmpty() {
+        (context as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        (context as AppCompatActivity).supportActionBar!!.title = ""
+        (context as AppCompatActivity).supportActionBar!!.setBackgroundDrawable(
+            ColorDrawable(
+                ContextCompat.getColor(
+                    requireActivity().baseContext,
+                    R.color.main_blue
+                )
+            )
+        )
     }
 }

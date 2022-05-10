@@ -23,24 +23,14 @@ class BalancePaymentFragment: Fragment(R.layout.balance_payment_layout) {
         binding = DataBindingUtil.inflate(inflater,
             R.layout.balance_payment_layout, container, false)
 
-        val application = requireNotNull(this.activity).application
-        val dataSource = BalanceDatabase.getInstance(application).balanceDatabaseDao
 
-        val viewModelFactory = BalancePaymentViewModelFactory(dataSource,application)
 
         balancePaymentViewModel =
-            ViewModelProvider(this, viewModelFactory).get(BalancePaymentViewModel::class.java)
+            ViewModelProvider(this).get(BalancePaymentViewModel::class.java)
 
         binding.balancePaymentViewModel = balancePaymentViewModel
 
         binding.lifecycleOwner = this
-
-
-
-        /*val adapter = BalanceAdapter(BalanceAdapter.BalanceListener{
-            balanceId -> balanceViewModel.onBalanceItemClicked(balanceId)
-        })*/
-
 
         return binding.root
     }

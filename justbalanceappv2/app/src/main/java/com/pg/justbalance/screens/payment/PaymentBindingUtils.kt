@@ -2,10 +2,9 @@ package com.pg.justbalance.screens.payment
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-
-import com.pg.justbalance.database.Payment
 import com.pg.justbalance.decimalFormatDouble
 import com.pg.justbalance.models.PaymentModel
+import java.text.SimpleDateFormat
 
 class PaymentBindingUtils {
     companion object{
@@ -19,8 +18,10 @@ class PaymentBindingUtils {
         @JvmStatic
         @BindingAdapter("paymentDate")
         fun TextView.setPaymentDate(item: PaymentModel?) {
+            val sdf = SimpleDateFormat("MMM d, yyyy")
+            val currentDate = sdf.format(item?.paymentDate)
             item?.let {
-                text = item.paymentDate.toString()
+                text = currentDate
             }
         }
 

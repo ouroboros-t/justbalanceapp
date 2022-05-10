@@ -4,25 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.pg.justbalance.database.BalanceDatabaseDao
 import com.pg.justbalance.database.Payment
 import com.pg.justbalance.models.PaymentModel
 
-class BalancePaymentViewModel (
-        val database: BalanceDatabaseDao,
-        application: Application)
-        : AndroidViewModel(application) {
-
-
-    //TODO: Hookup to database. Delete individual payments here
-    //var payments = database.getAllPayments()
-
-    fun addPayment(balanceId: Long, paymentAmount: Double){
-
-    }
-
-
-
+class BalancePaymentViewModel ()
+        : ViewModel() {
 
     private val _payment = MutableLiveData<PaymentModel>()
     val payment : LiveData<PaymentModel>
