@@ -20,7 +20,7 @@
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/just_balance_logo" />
+            app:srcCompat="@drawable/jbnewlogobluebg" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
