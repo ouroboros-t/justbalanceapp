@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="150dp"
             android:fontFamily="@font/belleza"
             android:text="@string/balance_title"
             android:textColor="?attr/text"
@@ -46,10 +46,11 @@
 
         <Button
             android:id="@+id/delete_payment_button"
-            android:layout_width="360dp"
+            android:layout_width="310dp"
             android:layout_height="60dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:height="48dp"
             android:backgroundTint="@color/orange"
             android:fontFamily="@font/belleza"
@@ -62,20 +63,23 @@
             android:textColor="@color/buzz_blue"
             android:textSize="20dp"
             app:iconPadding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Payment_Info_Date" />
 
         <Button
 
             android:id="@+id/close_button"
-            android:layout_width="360dp"
+            android:layout_width="310dp"
             android:layout_height="60dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:height="48dp"
             android:backgroundTint="@color/off_white"
             android:fontFamily="@font/belleza"
             android:letterSpacing="0"
+            android:onClick="@{() -> balancePaymentViewModel.onClose()}"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="Close"
@@ -83,8 +87,8 @@
             android:textAllCaps="false"
             android:textColor="@color/buzz_blue"
             android:textSize="20dp"
-            android:onClick="@{() -> balancePaymentViewModel.onClose()}"
             app:iconPadding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/delete_payment_button" />
 

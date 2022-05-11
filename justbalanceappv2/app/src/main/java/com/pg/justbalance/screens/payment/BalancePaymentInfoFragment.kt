@@ -93,7 +93,7 @@ class BalancePaymentInfoFragment : Fragment(R.layout.balance_payment_layout) {
                             )
                             Toast.makeText(
                                 activity,
-                                "Balance successfully deleted",
+                                "Payment successfully deleted",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
