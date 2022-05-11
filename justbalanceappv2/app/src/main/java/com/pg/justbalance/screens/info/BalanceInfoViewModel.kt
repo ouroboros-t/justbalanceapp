@@ -23,105 +23,41 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class BalanceInfoViewModel(
-    private val balanceId: String= "",
+    private val balanceId: String = "",
     dataSource: FirebaseFirestore,
     private val readingService: readingServiceInterface = readingService(),
     private val deleteService: deleteServiceInterface = deleteService()
 ) : ViewModel() {
-    var hasRan= false
+    var hasRan = false
 
     val database = dataSource
     val viewModelJob = Job()
-    private val balance =  MediatorLiveData<BalanceModel>()
-
 
     private var _currentBalDouble = MutableLiveData<Double>()
-        val currentBalDouble : LiveData<Double> = _currentBalDouble
+    val currentBalDouble: LiveData<Double> = _currentBalDouble
 
     private var _currentBalanceString = MutableLiveData<String>()
-            val currentBalanceString: LiveData<String> = _currentBalanceString
-    private val _balanceModel = MutableLiveData<BalanceModel>()
-        val balanceModel : LiveData<BalanceModel> = _balanceModel
+    val currentBalanceString: LiveData<String> = _currentBalanceString
 
     private val _payments = MutableLiveData<MutableList<PaymentModel>>()
     val payments: LiveData<MutableList<PaymentModel>> = _payments
 
+    private val _balanceModel = MutableLiveData<BalanceModel>()
+    val balanceModel: LiveData<BalanceModel> = _balanceModel
+
     fun getBalance() = balanceModel
 
-    init{
-         database.collection("balances").document(balanceId).addSnapshotListener { value, error ->
-             if (error != null) {
-                 Log.e("Firestore error", error.message.toString())
-             }
-             _balanceModel.postValue(value?.toObject(BalanceModel::class.java))
-         }
-
-    }
-
-    fun readingService(balanceId: String){
-        viewModelScope.launch {
-            if(!hasRan) {
-                Log.i("Balance id: ", balanceId)
-               _payments.postValue(readingService.readPayments(balanceId))
+    init {
+        database.collection("balances").document(balanceId).addSnapshotListener { value, error ->
+            if (error != null) {
+                Log.e("Firestore error", error.message.toString())
             }
-            hasRan = true
+            _balanceModel.postValue(value?.toObject(BalanceModel::class.java))
         }
     }
-    fun calculateCurrentBalance(list: MutableList<PaymentModel>, balanceId: String){
-        var currentBalance = 0.0
-        viewModelScope.launch {
-                currentBalance =
-                    readingService.calculateCurrentBalance(balanceId).toString().toDouble()
-                Log.i("currentBalance:", currentBalance.toString())
-                list.forEach { payment ->
-                    currentBalance -= payment.paymentAmount
-                    _currentBalDouble.value = currentBalance
-                    Log.i("balance", currentBalance.toString())
-                    _currentBalanceString.value =
-                        decimalFormatDoubleCurrentBalance(currentBalance.toBigDecimal())
-                }
-        }
-    }
-
-    //todo: this doesn't work -> putting this inside of fun above will cause it to constantly update
-    fun updateCurrentBalance(balanceId: String, bal: Double){
-
-           // readingService.updateCurrentBalance(balanceId, bal)
-
-    }
-
-    private val _navigateToPaymentScreen = MutableLiveData<Boolean?>()
-        val navigateToPaymentScreen: LiveData<Boolean?>
-            get()=_navigateToPaymentScreen
-
-
-    private val _navigateToBalances = MutableLiveData<Boolean?>()
-
-    val navigateToBalances: LiveData<Boolean?>
-        get()=_navigateToBalances
-
-
-    fun doneNavigating(){
-        _navigateToBalances.value = null
-    }
-
-    fun onClose(){
-        _navigateToBalances.value = true
-    }
-
-fun deleteFromDatabase(balanceId: String){
-       viewModelScope.launch {
-           deleteService.deleteService(balanceId)
-       }
-    }
-
-    private val _payment = MutableLiveData<PaymentModel>()
-    val payment : LiveData<PaymentModel>
-        get() = _payment
 
     var _navigateToPaymentInfo = MutableLiveData<String?>()
-    val navigateToPaymentInfo
-        get() = _navigateToPaymentInfo
+    val navigateToPaymentInfo = _navigateToPaymentInfo
 
     fun onPaymentItemClicked(id: String) {
         _navigateToPaymentInfo.value = id
@@ -130,6 +66,62 @@ fun deleteFromDatabase(balanceId: String){
     fun onPaymentItemInfoNavigated() {
         _navigateToPaymentInfo.value = null
     }
+
+    fun readingService(balanceId: String) {
+        viewModelScope.launch {
+            if (!hasRan) {
+                Log.i("Balance id: ", balanceId)
+                _payments.postValue(readingService.readPayments(balanceId))
+            }
+            hasRan = true
+        }
+    }
+
+    fun calculateCurrentBalance(list: MutableList<PaymentModel>, balanceId: String) {
+        var currentBalance = 0.0
+        viewModelScope.launch {
+            currentBalance =
+                readingService.calculateCurrentBalance(balanceId).toString().toDouble()
+            Log.i("currentBalance:", currentBalance.toString())
+            list.forEach { payment ->
+                currentBalance -= payment.paymentAmount
+                _currentBalDouble.value = currentBalance
+                Log.i("balance", currentBalance.toString())
+                _currentBalanceString.value =
+                    decimalFormatDoubleCurrentBalance(currentBalance.toBigDecimal())
+            }
+        }
+    }
+
+    //todo: this doesn't work -> putting this inside of fun above will cause it to constantly update
+    fun updateCurrentBalance(balanceId: String, bal: Double) {
+
+        // readingService.updateCurrentBalance(balanceId, bal)
+
+    }
+
+
+    private val _navigateToBalances = MutableLiveData<Boolean?>()
+    val navigateToBalances: LiveData<Boolean?> = _navigateToBalances
+
+
+    fun doneNavigating() {
+        _navigateToBalances.value = null
+    }
+
+    fun onClose() {
+        _navigateToBalances.value = true
+    }
+
+    fun deleteFromDatabase(balanceId: String) {
+        viewModelScope.launch {
+            deleteService.deleteService(balanceId)
+        }
+    }
+
+    private val _payment = MutableLiveData<PaymentModel>()
+    val payment: LiveData<PaymentModel> = _payment
+
 
     override fun onCleared() {
         super.onCleared()

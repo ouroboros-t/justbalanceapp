@@ -38,8 +38,4 @@ class BalanceRecordPaymentViewModel
 
     }
 
-    var _navigateToBalanceInfo = MutableLiveData<Long?>()
-    val navigateToBalanceInfo
-        get() = _navigateToBalanceInfo
-
 }

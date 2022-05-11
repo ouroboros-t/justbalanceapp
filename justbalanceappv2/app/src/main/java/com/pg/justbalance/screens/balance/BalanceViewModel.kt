@@ -32,12 +32,12 @@ class BalanceViewModel(
 
     //we need to use this somewhere..right?
     private val _balance = MutableLiveData<BalanceModel>()
-    val balance: LiveData<BalanceModel>
-        get() = _balance
+    val balance: LiveData<BalanceModel> = _balance
+
 
     var _navigateToBalanceInfo = MutableLiveData<String?>()
-    val navigateToBalanceInfo
-        get() = _navigateToBalanceInfo
+    val navigateToBalanceInfo = _navigateToBalanceInfo
+
 
     fun onBalanceItemClicked(id: String) {
         _navigateToBalanceInfo.value = id

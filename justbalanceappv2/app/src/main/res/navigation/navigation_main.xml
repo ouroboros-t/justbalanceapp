@@ -48,18 +48,24 @@
             android:id="@+id/action_balanceInfoFragment_to_balanceFragment"
             app:destination="@id/balanceFragment" />
         <action
-            android:id="@+id/action_balanceInfoFragment_to_balancePaymentFragment"
-            app:destination="@id/balancePaymentFragment" />
+            android:id="@+id/action_balanceInfoFragment_to_balancePaymentInfoFragment"
+            app:destination="@id/balancePaymentInfoFragment" />
         <action
             android:id="@+id/action_balanceInfoFragment_to_balanceRecordPaymentFragment"
             app:destination="@id/balanceRecordPaymentFragment" />
     </fragment>
     <fragment
-        android:id="@+id/balancePaymentFragment"
-        android:name="com.pg.justbalance.screens.payment.BalancePaymentFragment"
-        android:label="BalancePaymentFragment" >
+        android:id="@+id/balancePaymentInfoFragment"
+        android:name="com.pg.justbalance.screens.payment.BalancePaymentInfoFragment"
+        android:label="BalancePaymentInfoFragment" >
+        <argument
+            android:name="paymentId"
+            app:argType="string"/>
+        <argument
+            android:name="balanceId"
+            app:argType="string"/>
         <action
-            android:id="@+id/action_balancePaymentFragment_to_balanceInfoFragment"
+            android:id="@+id/action_balancePaymentInfoFragment_to_balanceInfoFragment"
             app:destination="@id/balanceInfoFragment" />
     </fragment>
     <fragment

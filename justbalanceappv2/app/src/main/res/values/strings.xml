@@ -38,7 +38,8 @@
     <!--Payment Screen-->
     <string name="payment_amount_required">Payment Amount (Required)</string>
 
-
+    <!--Payment Info-->
+    <string name="delete_payment">Delete Payment</string>
 
     <!--___________ACTION BAR___________-->
     <string name="action_bar">Add a Balance</string>

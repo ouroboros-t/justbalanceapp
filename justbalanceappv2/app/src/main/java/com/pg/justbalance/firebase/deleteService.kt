@@ -14,4 +14,10 @@ class deleteService: deleteServiceInterface {
                 deleteService(balanceId)
             }
     }
+
+    override fun deletePayment(paymentId: String, balanceId: String){
+        firestore.collection("balances").document(balanceId)
+            .collection("payments").document(paymentId).delete()
+    }
+
 }
