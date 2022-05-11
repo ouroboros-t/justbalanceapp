@@ -128,13 +128,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:text="@string/your_payments_text"
             android:textColor="?attr/balanceTextColor"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/close_button"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/close_button" />
 
 
         <TextView
@@ -168,7 +167,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="7dp"
             android:background="@drawable/supernova_white_divider"
@@ -179,18 +177,22 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/paymentsList"
-            android:layout_width="0dp"
-            android:layout_height="451dp"
+            android:layout_width="389dp"
+            android:layout_height="297dp"
             android:layout_margin="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/you_havent" />
+            app:layout_constraintTop_toBottomOf="@+id/you_havent"
+            app:layout_constraintVertical_bias="0.0"
+            />
 
-<!--        <ImageView-->
+        <!--        <ImageView-->
 <!--            android:id="@+id/imageView2"-->
 <!--            android:layout_width="81dp"-->
 <!--            android:layout_height="85dp"-->
