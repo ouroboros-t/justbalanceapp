@@ -69,6 +69,9 @@ class readingService(
                             payment = documentChange.document.toObject(PaymentModel::class.java)
                             payment.paymentId = documentChange.document.id
                             listPayment.add(payment)
+                            listPayment.sortByDescending {
+                                it.paymentDate
+                            }
 
                         }
                     listener.remove()

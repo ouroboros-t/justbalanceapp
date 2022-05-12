@@ -57,11 +57,11 @@ class BalanceViewModel(
     }
 
     fun showTotalBalance(balances: List<BalanceModel>): String {
-        var total: BigDecimal = BigDecimal.ZERO
+        var total = 0.0
         for (balance in balances) {
-            total += BigDecimal(balance.currentBalance)
+            total += balance.currentBalance
         }
-        val totalFormatted = decimalFormatDouble(total)
+        val totalFormatted = decimalFormatDouble(total.toBigDecimal())
         totalBalance = total.toString()
         return totalFormatted
     }

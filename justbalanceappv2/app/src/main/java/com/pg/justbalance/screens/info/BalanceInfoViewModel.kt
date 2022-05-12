@@ -60,10 +60,7 @@ class BalanceInfoViewModel(
 
     fun readingService(balanceId: String) {
         viewModelScope.launch {
-            if (!hasRan) {
                 _payments.postValue(readingService.readPayments(balanceId))
-            }
-            hasRan = true
         }
     }
 
@@ -72,17 +69,20 @@ class BalanceInfoViewModel(
         viewModelScope.launch {
             startingBalance =
                 readingService.getStartingBalance(balanceId).toString().toDouble()
-            list.forEach { payment ->
-                startingBalance -= payment.paymentAmount
-                val currentBalance = startingBalance
-                updateCurrentBalance(balanceId, currentBalance)
-                _currentBalanceString.value =
-                    decimalFormatDoubleCurrentBalance(currentBalance.toBigDecimal())
+            if(list.isEmpty()){
+                updateCurrentBalance(balanceId, startingBalance)
+            }else {
+                list.forEach { payment ->
+                    startingBalance -= payment.paymentAmount
+                    val currentBalance = startingBalance
+                    updateCurrentBalance(balanceId, currentBalance)
+                    _currentBalanceString.value =
+                        decimalFormatDoubleCurrentBalance(currentBalance.toBigDecimal())
+                }
             }
         }
     }
 
-    //todo: this doesn't work -> putting this inside of fun above will cause it to constantly update
     fun updateCurrentBalance(balanceId: String, bal: Double) {
         readingService.updateCurrentBalance(balanceId, bal)
     }

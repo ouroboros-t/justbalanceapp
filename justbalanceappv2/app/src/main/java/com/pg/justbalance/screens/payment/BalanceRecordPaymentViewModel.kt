@@ -35,9 +35,11 @@ class BalanceRecordPaymentViewModel
             service.recordPayment(payment, balanceId)
                 .addOnSuccessListener {
                     _successData.postValue(it)
+                    Log.i("successData", _successData.value.toString())
                 }
                 .addOnFailureListener {
                     _errorData.postValue(it)
+                    Log.i("errorData", _errorData.value.toString())
                 }
         }
 

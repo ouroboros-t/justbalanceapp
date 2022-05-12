@@ -60,6 +60,13 @@ class BalanceRecordPaymentFragment : Fragment(R.layout.balance_record_payment) {
         binding.confirmRecordPayment.setOnClickListener {
             val paymentAmount = binding.enterNewEmailAddressBox.text.parseToDouble()
             balanceRecordPaymentViewModel.addPayment(paymentAmount, arguments.balanceId)
+            val action =
+                BalanceRecordPaymentFragmentDirections.actionBalanceRecordPaymentFragmentToBalanceInfoFragment(
+                    arguments.balanceId
+                )
+            findNavController().navigate(action)
+            val message = "Payment successfully added."
+            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }
@@ -67,6 +74,7 @@ class BalanceRecordPaymentFragment : Fragment(R.layout.balance_record_payment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val arguments = BalanceRecordPaymentFragmentArgs.fromBundle(requireArguments())
         balanceRecordPaymentViewModel.successData.observe(viewLifecycleOwner, Observer {
+            Log.i("successData", it.toString())
             if (it != null) {
                 val action =
                     BalanceRecordPaymentFragmentDirections.actionBalanceRecordPaymentFragmentToBalanceInfoFragment(
