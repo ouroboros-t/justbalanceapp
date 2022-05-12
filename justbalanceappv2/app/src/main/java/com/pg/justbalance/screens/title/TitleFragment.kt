@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.TitleLayoutBinding
 
@@ -17,8 +16,10 @@ class TitleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: TitleLayoutBinding = DataBindingUtil.inflate(inflater,
-            R.layout.title_layout, container, false)
+        val binding: TitleLayoutBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.title_layout, container, false
+        )
 
 
         return binding.root

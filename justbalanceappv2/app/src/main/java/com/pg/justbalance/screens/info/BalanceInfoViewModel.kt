@@ -70,7 +70,6 @@ class BalanceInfoViewModel(
     fun readingService(balanceId: String) {
         viewModelScope.launch {
             if (!hasRan) {
-                Log.i("Balance id: ", balanceId)
                 _payments.postValue(readingService.readPayments(balanceId))
             }
             hasRan = true
@@ -82,11 +81,9 @@ class BalanceInfoViewModel(
         viewModelScope.launch {
             currentBalance =
                 readingService.calculateCurrentBalance(balanceId).toString().toDouble()
-            Log.i("currentBalance:", currentBalance.toString())
             list.forEach { payment ->
                 currentBalance -= payment.paymentAmount
                 _currentBalDouble.value = currentBalance
-                Log.i("balance", currentBalance.toString())
                 _currentBalanceString.value =
                     decimalFormatDoubleCurrentBalance(currentBalance.toBigDecimal())
             }

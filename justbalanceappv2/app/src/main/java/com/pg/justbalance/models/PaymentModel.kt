@@ -7,7 +7,6 @@ class PaymentModel {
 
     var paymentId: String = ""
 
-    //needs to be foreign key constraint
     @PropertyName("balanceId")
     var balanceId: String = ""
 
@@ -15,5 +14,5 @@ class PaymentModel {
     var paymentAmount: Double = 0.0
 
     @PropertyName("paymentDate")
-    var paymentDate: Date?= null
+    var paymentDate: Date? = null
 }

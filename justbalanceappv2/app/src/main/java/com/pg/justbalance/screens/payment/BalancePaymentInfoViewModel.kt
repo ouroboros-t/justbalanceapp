@@ -9,45 +9,43 @@ import com.pg.justbalance.firebase.deleteService
 import com.pg.justbalance.firebase.deleteServiceInterface
 import com.pg.justbalance.models.PaymentModel
 
-class BalancePaymentInfoViewModel (
+class BalancePaymentInfoViewModel(
     private val paymentId: String = "",
     private val balanceId: String = "",
     dataSource: FirebaseFirestore
-        )
-        : ViewModel() {
+) : ViewModel() {
     private val service: deleteServiceInterface = deleteService()
     private val _payment = MutableLiveData<PaymentModel>()
-    val paymentModel : LiveData<PaymentModel> = _payment
+    val paymentModel: LiveData<PaymentModel> = _payment
     val database = dataSource
 
     fun getPayment() = paymentModel
 
-    init{
+    init {
         database.collection("balances").document(balanceId)
             .collection("payments").document(paymentId)
             .addSnapshotListener { value, error ->
-            if (error != null) {
-                Log.e("Firestore error", error.message.toString())
+                if (error != null) {
+                    Log.e("Firestore error", error.message.toString())
+                }
+                _payment.postValue(value?.toObject(PaymentModel::class.java))
             }
-                Log.i("hi", _payment.value.toString())
-            _payment.postValue(value?.toObject(PaymentModel::class.java))
-        }
 
     }
 
     private var _navigateToBalanceInfo = MutableLiveData<Boolean?>()
-            val navigateToBalanceInfo: LiveData<Boolean?> = _navigateToBalanceInfo
+    val navigateToBalanceInfo: LiveData<Boolean?> = _navigateToBalanceInfo
 
-    fun doneNavigating(){
+    fun doneNavigating() {
         _navigateToBalanceInfo.value = null
     }
 
-    fun onClose(){
+    fun onClose() {
         _navigateToBalanceInfo.value = true
     }
 
     fun deleteFromDatabase(balanceId: String, paymentId: String) {
-            service.deletePayment(paymentId, balanceId)
+        service.deletePayment(paymentId, balanceId)
     }
 
 

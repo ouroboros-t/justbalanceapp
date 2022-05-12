@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pg.justbalance.database.Balance
 import com.pg.justbalance.decimalFormatDouble
 import com.pg.justbalance.firebase.readingService
 import com.pg.justbalance.firebase.readingServiceInterface
@@ -21,8 +20,6 @@ class BalanceViewModel(
     private val _balances = MutableLiveData<MutableList<BalanceModel>>()
     val balances: LiveData<MutableList<BalanceModel>> = _balances
 
-    // var balances = database.getAllBalances()
-
     //as the list gets bigger and bigger, you'll want these processes to run in the background/on
     //a different thread, so use coroutines
     val viewModelJob = Job()
@@ -31,8 +28,6 @@ class BalanceViewModel(
 
 
     //we need to use this somewhere..right?
-    private val _balance = MutableLiveData<BalanceModel>()
-    val balance: LiveData<BalanceModel> = _balance
 
 
     var _navigateToBalanceInfo = MutableLiveData<String?>()
@@ -55,6 +50,7 @@ class BalanceViewModel(
             hasRan = true
         }
     }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

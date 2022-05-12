@@ -15,17 +15,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
-import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceLayoutBinding
 
 
 class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) {
-    //inflate layout
-    //hookupViewModel to fragment
-
-    var alertDialog: AlertDialog? = null
-
-    //enable databinding in gradle (module) scripts:
     private lateinit var balanceViewModel: BalanceViewModel
     private lateinit var binding: BalanceLayoutBinding
     override fun onCreateView(
@@ -53,16 +46,16 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
 
 
         balanceViewModel.balances.observe(viewLifecycleOwner, Observer { balancesList ->
-            if(balancesList.isNotEmpty()){
+            if (balancesList.isNotEmpty()) {
                 binding.youHavent.visibility = View.GONE
             }
-            binding.totalBalanceAmountTextView.text = balanceViewModel.showTotalBalance(balancesList)
+            binding.totalBalanceAmountTextView.text =
+                balanceViewModel.showTotalBalance(balancesList)
             binding.balancesList.adapter = BalanceFirestoreAdapter(
                 balancesList,
 
                 BalanceFirestoreAdapter.BalanceFirestoreListener { balanceId ->
                     balanceViewModel.onBalanceItemClicked(balanceId)
-                    Log.i("Hello", balanceId)
                 })
 
         })
@@ -74,7 +67,6 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
 
         balanceViewModel.navigateToBalanceInfo.observe(viewLifecycleOwner, Observer { balance ->
             balance?.let {
-                Log.i("HEre", balance.toString())
                 this.findNavController().navigate(
                     BalanceFragmentDirections.actionBalanceFragmentToBalanceInfoFragment(balance)
                 )

@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
-import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.AddBalanceLayoutBinding
 
 class AddBalanceFragment : Fragment() {

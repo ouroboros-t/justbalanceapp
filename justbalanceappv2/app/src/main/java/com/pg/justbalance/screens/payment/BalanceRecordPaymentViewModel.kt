@@ -5,17 +5,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.DocumentReference
 import com.pg.justbalance.firebase.writingService
 import com.pg.justbalance.firebase.writingServiceInterface
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.util.*
 
 class BalanceRecordPaymentViewModel
     (val service: writingServiceInterface = writingService(), )
     : ViewModel() {
 
-    private var _successOrFailToAddPayment = MutableLiveData<Boolean>()
-    val successOrFailToAddPayment: LiveData<Boolean> = _successOrFailToAddPayment
+
+    private var _successData= MutableLiveData<DocumentReference?>()
+    val successData: LiveData<DocumentReference?> = _successData
+    private var _errorData = MutableLiveData<Exception?>()
+    val errorData: LiveData<Exception?> = _errorData
+
 
     fun addPayment(paymentAmount: Double, balanceId: String){
         val date = Date()
@@ -26,16 +32,19 @@ class BalanceRecordPaymentViewModel
                 "balanceId" to balanceId
            )
             Log.i("TAG", balanceId)
-            service.recordPayment(payment, balanceId).addOnCompleteListener {
-                task->
-                if(task.isSuccessful){
-                    _successOrFailToAddPayment.postValue(true)
-                }else{
-                    _successOrFailToAddPayment.postValue(false)
+            service.recordPayment(payment, balanceId)
+                .addOnSuccessListener {
+                    _successData.postValue(it)
                 }
-            }
+                .addOnFailureListener {
+                    _errorData.postValue(it)
+                }
         }
 
+    }
+    fun resetData(){
+        _successData.value = null
+        _errorData.value = null
     }
 
 }

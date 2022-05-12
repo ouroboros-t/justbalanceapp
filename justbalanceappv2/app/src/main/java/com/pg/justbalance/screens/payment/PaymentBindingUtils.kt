@@ -7,7 +7,7 @@ import com.pg.justbalance.models.PaymentModel
 import java.text.SimpleDateFormat
 
 class PaymentBindingUtils {
-    companion object{
+    companion object {
         @JvmStatic
         @BindingAdapter("paymentAmount")
         fun TextView.setPaymentAmount(item: PaymentModel?) {
@@ -15,6 +15,7 @@ class PaymentBindingUtils {
                 text = decimalFormatDouble(item.paymentAmount.toBigDecimal())
             }
         }
+
         @JvmStatic
         @BindingAdapter("paymentDate")
         fun TextView.setPaymentDate(item: PaymentModel?) {

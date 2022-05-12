@@ -20,10 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.R
-import com.pg.justbalance.database.BalanceDatabase
 import com.pg.justbalance.databinding.BalanceInfoLayoutBinding
-import com.pg.justbalance.decimalFormatDouble
-import com.pg.justbalance.models.PaymentModel
 import com.pg.justbalance.screens.payment.BalancePaymentAdapter
 import kotlinx.coroutines.launch
 
@@ -57,8 +54,7 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
 
         balanceInfoViewModel.readingService(arguments.balanceId)
 
-        balanceInfoViewModel.payments.observe(viewLifecycleOwner, Observer {
-                paymentList ->
+        balanceInfoViewModel.payments.observe(viewLifecycleOwner, Observer { paymentList ->
 
             if (paymentList.isNotEmpty()) {
                 binding.youHavent.visibility = View.GONE
@@ -77,7 +73,6 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
             binding.paymentsList.adapter = BalancePaymentAdapter(
                 paymentList,
                 BalancePaymentAdapter.PaymentListener { paymentID ->
-                    Log.i("Here:", paymentID)
                     balanceInfoViewModel.onPaymentItemClicked(paymentID)
                 })
 
@@ -85,18 +80,19 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
         })
 
 
-        balanceInfoViewModel.navigateToPaymentInfo.observe(viewLifecycleOwner, Observer {
-            paymentId ->
-            Log.i("navigatePaymentInfo:", balanceInfoViewModel.navigateToPaymentInfo.value.toString())
-            paymentId?.let {
-                Log.i("Here is payment:", paymentId.toString())
-                Log.i("Here is balanceId:", arguments.balanceId)
-                this.findNavController().navigate(
-                    BalanceInfoFragmentDirections.actionBalanceInfoFragmentToBalancePaymentInfoFragment(paymentId, arguments.balanceId)
-                )
-                 balanceInfoViewModel.onPaymentItemInfoNavigated()
-            }
-        })
+        balanceInfoViewModel.navigateToPaymentInfo.observe(
+            viewLifecycleOwner,
+            Observer { paymentId ->
+                paymentId?.let {
+                    this.findNavController().navigate(
+                        BalanceInfoFragmentDirections.actionBalanceInfoFragmentToBalancePaymentInfoFragment(
+                            paymentId,
+                            arguments.balanceId
+                        )
+                    )
+                    balanceInfoViewModel.onPaymentItemInfoNavigated()
+                }
+            })
 
 
 

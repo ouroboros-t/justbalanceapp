@@ -3,7 +3,6 @@ package com.pg.justbalance.screens.payment
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.BalancePaymentLayoutBinding
-import com.pg.justbalance.screens.info.BalanceInfoFragmentArgs
 import kotlinx.coroutines.launch
 
 class BalancePaymentInfoFragment : Fragment(R.layout.balance_payment_layout) {
@@ -38,8 +36,6 @@ class BalancePaymentInfoFragment : Fragment(R.layout.balance_payment_layout) {
         val arguments = BalancePaymentInfoFragmentArgs.fromBundle(requireArguments())
         val dataSource = FirebaseFirestore.getInstance()
 
-        Log.i("arguments:payment", arguments.paymentId)
-        Log.i("balance:payment", arguments.balanceId)
         val viewModelFactory =
             BalancePaymentInfoViewModelFactory(arguments.paymentId, arguments.balanceId, dataSource)
 

@@ -16,6 +16,7 @@ class BalanceBindingUtils {
                 text = item.balanceName
             }
         }
+
         @JvmStatic
         @BindingAdapter("balanceAmount")
         fun TextView.setBalanceAmount(item: BalanceModel?) {
@@ -23,6 +24,7 @@ class BalanceBindingUtils {
                 text = decimalFormatDouble(item.currentBalance.toBigDecimal())
             }
         }
+
         @JvmStatic
         @BindingAdapter("startingBalance")
         fun TextView.setStartingBalance(item: BalanceModel?) {
@@ -32,16 +34,16 @@ class BalanceBindingUtils {
                     "Starting Balance: ${decimalFormatDouble(item.startingBalance.toBigDecimal())}"
             }
         }
+
         @JvmStatic
         @BindingAdapter("currentBalance")
         fun TextView.setCurrentBalance(item: BalanceModel?) {
             item?.let {
-                text =  "Current Balance: ${decimalFormatDouble(item.currentBalance.toBigDecimal())}"
+                text = "Current Balance: ${decimalFormatDouble(item.currentBalance.toBigDecimal())}"
             }
         }
 
     }
-
 
 
 }

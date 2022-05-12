@@ -11,9 +11,12 @@ class writingService : writingServiceInterface {
         db.collection("balances").add(balance)
     }
 
-   override fun recordPayment(payment: HashMap<String, Any?>, balanceId: String?): Task<DocumentReference> {
-      val task =  db.collection("balances").document(balanceId!!)
+    override fun recordPayment(
+        payment: HashMap<String, Any?>,
+        balanceId: String?
+    ): Task<DocumentReference> {
+        val task = db.collection("balances").document(balanceId!!)
             .collection("payments").add(payment)
-       return task
+        return task
     }
 }
