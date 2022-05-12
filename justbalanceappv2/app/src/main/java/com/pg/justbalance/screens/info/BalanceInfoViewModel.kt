@@ -2,13 +2,7 @@ package com.pg.justbalance.screens.info
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pg.justbalance.database.Balance
-import com.pg.justbalance.database.BalanceDatabaseDao
-import com.pg.justbalance.database.Payment
-import com.pg.justbalance.decimalFormatDouble
 import com.pg.justbalance.decimalFormatDoubleCurrentBalance
 import com.pg.justbalance.firebase.deleteService
 import com.pg.justbalance.firebase.deleteServiceInterface
@@ -16,11 +10,8 @@ import com.pg.justbalance.firebase.readingService
 import com.pg.justbalance.firebase.readingServiceInterface
 import com.pg.justbalance.models.BalanceModel
 import com.pg.justbalance.models.PaymentModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.*
 
 class BalanceInfoViewModel(
     private val balanceId: String = "",
@@ -77,13 +68,14 @@ class BalanceInfoViewModel(
     }
 
     fun calculateCurrentBalance(list: MutableList<PaymentModel>, balanceId: String) {
-        var currentBalance = 0.0
+        var startingBalance = 0.0
         viewModelScope.launch {
-            currentBalance =
-                readingService.calculateCurrentBalance(balanceId).toString().toDouble()
+            startingBalance =
+                readingService.getStartingBalance(balanceId).toString().toDouble()
             list.forEach { payment ->
-                currentBalance -= payment.paymentAmount
-                _currentBalDouble.value = currentBalance
+                startingBalance -= payment.paymentAmount
+                val currentBalance = startingBalance
+                updateCurrentBalance(balanceId, currentBalance)
                 _currentBalanceString.value =
                     decimalFormatDoubleCurrentBalance(currentBalance.toBigDecimal())
             }
@@ -92,9 +84,7 @@ class BalanceInfoViewModel(
 
     //todo: this doesn't work -> putting this inside of fun above will cause it to constantly update
     fun updateCurrentBalance(balanceId: String, bal: Double) {
-
-        // readingService.updateCurrentBalance(balanceId, bal)
-
+        readingService.updateCurrentBalance(balanceId, bal)
     }
 
 

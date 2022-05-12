@@ -77,10 +77,10 @@ class readingService(
             })
         }
 
-    override suspend fun calculateCurrentBalance(balanceId: String): Any? =
+    override suspend fun getStartingBalance(balanceId: String): Any? =
         suspendCancellableCoroutine { continuation ->
             var query = db.collection("balances")
-            var currentBalance: Double? = 0.0
+            var startingBalance: Double? = 0.0
 
             listener = query.addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(
@@ -89,7 +89,7 @@ class readingService(
                 ) {
                     value?.documents?.forEach { ds ->
                         if (balanceId == ds.id) {
-                            currentBalance = ds.toObject(BalanceModel::class.java)?.currentBalance
+                            startingBalance = ds.toObject(BalanceModel::class.java)?.startingBalance
                         }
                     }
                     if (error != null) {
@@ -98,7 +98,7 @@ class readingService(
                         return continuation.resumeWith(Result.failure(error))
                     }
                     listener.remove()
-                    return continuation.resumeWith(Result.success(currentBalance))
+                    return continuation.resumeWith(Result.success(startingBalance))
                 }
             })
 
