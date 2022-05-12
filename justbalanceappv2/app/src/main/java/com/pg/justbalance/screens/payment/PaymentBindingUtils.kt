@@ -20,9 +20,8 @@ class PaymentBindingUtils {
         @BindingAdapter("paymentDate")
         fun TextView.setPaymentDate(item: PaymentModel?) {
             val sdf = SimpleDateFormat("MMM d, yyyy")
-            val currentDate = item?.paymentDate
             item?.let {
-                text = currentDate.toString()
+                text = sdf.format(it.paymentDate!!)
             }
         }
 
