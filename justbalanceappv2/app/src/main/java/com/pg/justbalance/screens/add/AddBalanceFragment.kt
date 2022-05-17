@@ -13,13 +13,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.AddBalanceLayoutBinding
 
 class AddBalanceFragment : Fragment() {
-
+    private lateinit var addBalanceViewModel: AddBalanceViewModel
     private lateinit var binding: AddBalanceLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +43,7 @@ class AddBalanceFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.add_balance_layout, container, false)
 
 
-        val addBalanceViewModel =
+         addBalanceViewModel =
             ViewModelProvider(this).get(AddBalanceViewModel::class.java)
 
         binding.addBalanceViewModel = addBalanceViewModel
@@ -61,13 +62,32 @@ class AddBalanceFragment : Fragment() {
             var balanceAmount: Double = binding.enterBalanceAmount.text.parseToDouble()
 
             addBalanceViewModel.addBalance(balanceName, balanceAmount)
-            findNavController().navigate(AddBalanceFragmentDirections.actionAddBalanceFragmentToBalanceFragment())
-            val message = "Balance Sucessfully Added"
-            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+            //this below is useful for when firestore isn't working, and balances don't add.
+//            findNavController().navigate(AddBalanceFragmentDirections.actionAddBalanceFragmentToBalanceFragment())
+//            val message = "Balance Sucessfully Added"
+//            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        addBalanceViewModel.success.observe(viewLifecycleOwner, Observer {
+            if(it!=null){
+                findNavController().navigate(AddBalanceFragmentDirections.actionAddBalanceFragmentToBalanceFragment())
+                val message = "Balance Sucessfully Added"
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+            }
+        })
+        addBalanceViewModel.failure.observe(viewLifecycleOwner, Observer {
+            if(it!=null) {
+                val message = "Balance FAILED to add."
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+            }
+            })
+        super.onViewCreated(view, savedInstanceState)
+    }
+
 
     private fun setupActionBar() {
         (context as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)

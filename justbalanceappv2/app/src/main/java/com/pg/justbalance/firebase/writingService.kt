@@ -7,8 +7,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class writingService : writingServiceInterface {
     override var db = FirebaseFirestore.getInstance()
 
-    override fun addBalanceToDatabase(balance: HashMap<String, Any?>) {
-        db.collection("balances").add(balance)
+    override fun addBalanceToDatabase(balance: HashMap<String, Any?>): Task<DocumentReference> {
+      return  db.collection("balances").add(balance)
     }
 
     override fun recordPayment(

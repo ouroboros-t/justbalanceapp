@@ -60,13 +60,14 @@ class BalanceRecordPaymentFragment : Fragment(R.layout.balance_record_payment) {
         binding.confirmRecordPayment.setOnClickListener {
             val paymentAmount = binding.enterNewEmailAddressBox.text.parseToDouble()
             balanceRecordPaymentViewModel.addPayment(paymentAmount, arguments.balanceId)
-            val action =
-                BalanceRecordPaymentFragmentDirections.actionBalanceRecordPaymentFragmentToBalanceInfoFragment(
-                    arguments.balanceId
-                )
-            findNavController().navigate(action)
-            val message = "Payment successfully added."
-            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+            //this is here for when firestore isn't adding.
+//            val action =
+//                BalanceRecordPaymentFragmentDirections.actionBalanceRecordPaymentFragmentToBalanceInfoFragment(
+//                    arguments.balanceId
+//                )
+//            findNavController().navigate(action)
+//            val message = "Payment successfully added."
+//            Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }
