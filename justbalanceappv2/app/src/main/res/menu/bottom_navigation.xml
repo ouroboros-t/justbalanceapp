@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/titleFragment"
-        android:icon="@drawable/homepng"
-        android:title="@string/home_icon_title" >
-    </item>
-    <item
         android:id="@+id/balanceFragment"
         android:icon="@drawable/money"
         android:title="@string/balance_icon_title" >
     </item>
-
-
 </menu>
