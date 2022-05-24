@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        //val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val isNightTheme = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         when (isNightTheme) {
             Configuration.UI_MODE_NIGHT_YES -> {
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
                 supportActionBar?.setTitle("")
-                bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.off_white))
+              //  bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.off_white))
 
             }
 
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 supportActionBar?.setTitle("")
                 supportActionBar?.elevation = 0f
-                bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.off_white))
+                //bottomNav.setBackgroundColor(ContextCompat.getColor(this,R.color.off_white))
         }
         }
 
@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         val navController = host.navController
 
         fun setupBottomNavMenu(navController: NavController) {
-            val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
-            bottomNav?.setupWithNavController(navController)
+//            val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+//            bottomNav?.setupWithNavController(navController)
         }
         setupBottomNavMenu(navController)
     }
