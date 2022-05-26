@@ -181,7 +181,7 @@
             android:height="48dp"
             android:backgroundTint="@color/light_year_purple"
             android:fontFamily="@font/belleza"
-            android:text="@string/login_button"
+            android:text="@string/create_jb_Account"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/buzz_blue"

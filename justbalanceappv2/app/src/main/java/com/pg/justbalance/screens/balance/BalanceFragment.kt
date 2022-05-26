@@ -11,16 +11,19 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.BalanceLayoutBinding
+import com.pg.justbalance.sharedViewModels.UserViewModel
 
 
 class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) {
     private lateinit var balanceViewModel: BalanceViewModel
     private lateinit var binding: BalanceLayoutBinding
+    private val userViewModel: UserViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +46,17 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
         setActionBarToBeEmpty()
         balanceViewModel.runService()
 
+
+        val navController = findNavController()
+        userViewModel.getUser()
+        userViewModel.user.observe(viewLifecycleOwner, Observer{ user ->
+                if(user != null){
+
+                }else{
+                    navController.navigate(R.id.loginFragment)
+                }
+
+        })
 
 
         balanceViewModel.balances.observe(viewLifecycleOwner, Observer { balancesList ->
