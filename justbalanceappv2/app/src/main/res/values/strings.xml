@@ -58,5 +58,21 @@
     <string name="email_not_verified_error">Email must be verified to login.\n</string>
     <string name="resend_email_verification_error">Resend verification email.</string>
 
+    <!--___________CREATE ACCOUNT SCREEN___________-->
+    <string name="password_length_warning">Passwords must have a minimum of 8 characters and contain uppercase and lowercase letters and a number.</string>
+    <string name="team_name_required">Team Name (Required)</string>
+    <string-array name="teams_array">
+        <item>None</item>
+        <item>Android</item>
+        <item>iOS</item>
+
+    </string-array>
+    <string name="terms_and_conditions_text">By registering, I confirm that I am\nat least 18 years old and have\nread
+        and agree to the <a href="https://termsandconditions.pg.com/en-us/">Terms and\nConditions</a>
+        and <a href="https://www.pg.com/privacy/english/privacy_notice.shtml">Privacy Policy</a>.</string>
+    <string name="QOTD_accout_already_exists">A QOTD account with this email address already exists.</string>
+    <string name="verification_email_sent_message">Verification email sent.</string>
+    <string name="something_went_wrong_error_message">Something went wrong.Try again.</string>
+
 
 </resources>
