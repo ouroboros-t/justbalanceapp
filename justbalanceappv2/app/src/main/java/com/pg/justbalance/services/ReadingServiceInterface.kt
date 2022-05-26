@@ -1,4 +1,4 @@
-package com.pg.justbalance.firebase
+package com.pg.justbalance.services
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.models.BalanceModel

@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.DocumentReference
-import com.pg.justbalance.firebase.writingService
-import com.pg.justbalance.firebase.writingServiceInterface
+import com.pg.justbalance.services.writingService
+import com.pg.justbalance.services.writingServiceInterface
 import kotlinx.coroutines.launch
 import java.lang.Exception
 

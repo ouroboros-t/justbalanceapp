@@ -1,4 +1,4 @@
-package com.pg.justbalance.firebase
+package com.pg.justbalance.services
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference

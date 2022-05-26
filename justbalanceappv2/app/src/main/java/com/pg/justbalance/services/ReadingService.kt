@@ -1,4 +1,4 @@
-package com.pg.justbalance.firebase
+package com.pg.justbalance.services
 
 import android.util.Log
 import com.google.firebase.firestore.*

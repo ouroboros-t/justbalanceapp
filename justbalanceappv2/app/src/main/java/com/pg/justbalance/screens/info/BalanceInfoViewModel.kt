@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.decimalFormatDoubleCurrentBalance
-import com.pg.justbalance.firebase.deleteService
-import com.pg.justbalance.firebase.deleteServiceInterface
-import com.pg.justbalance.firebase.readingService
-import com.pg.justbalance.firebase.readingServiceInterface
+import com.pg.justbalance.services.deleteService
+import com.pg.justbalance.services.deleteServiceInterface
+import com.pg.justbalance.services.readingService
+import com.pg.justbalance.services.readingServiceInterface
 import com.pg.justbalance.models.BalanceModel
 import com.pg.justbalance.models.PaymentModel
 import kotlinx.coroutines.Job

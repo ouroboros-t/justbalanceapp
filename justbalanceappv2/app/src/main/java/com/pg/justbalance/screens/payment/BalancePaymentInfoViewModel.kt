@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pg.justbalance.firebase.deleteService
-import com.pg.justbalance.firebase.deleteServiceInterface
+import com.pg.justbalance.services.deleteService
+import com.pg.justbalance.services.deleteServiceInterface
 import com.pg.justbalance.models.PaymentModel
 
 class BalancePaymentInfoViewModel(

@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pg.justbalance.decimalFormatDouble
-import com.pg.justbalance.firebase.readingService
-import com.pg.justbalance.firebase.readingServiceInterface
+import com.pg.justbalance.services.readingService
+import com.pg.justbalance.services.readingServiceInterface
 import com.pg.justbalance.models.BalanceModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
 
 class BalanceViewModel(
     private val readingService: readingServiceInterface = readingService()
