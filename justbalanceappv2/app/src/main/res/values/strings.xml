@@ -43,4 +43,20 @@
     <!--___________ACTION BAR___________-->
     <string name="action_bar">Add a Balance</string>
 
+    <!--___________LOGIN SCREEN___________-->
+    <string name="JB_login_title">Just Balance Login</string>
+    <string name="email_address_required_text">Email Address (Required)</string>
+    <string name="enter_your_email_hint">Enter your email address</string>
+    <string name="password_required_text">Password (Required)</string>
+    <string name="enter_your_password_hint">Enter your password</string>
+    <string name="login_button">Log In</string>
+    <string name="invalid_email">Please use a valid email address.</string>
+    <string name="incorrect_email_or_password">Incorrect email address or password.</string>
+    <string name="too_many_attempts">Too many attempts. Wait before trying\nagain.</string>
+    <string name="forgot_password"><u>Forgot your password?</u></string>
+    <string name="create_jb_Account">Create Just Balance Account</string>
+    <string name="email_not_verified_error">Email must be verified to login.\n</string>
+    <string name="resend_email_verification_error">Resend verification email.</string>
+
+
 </resources>

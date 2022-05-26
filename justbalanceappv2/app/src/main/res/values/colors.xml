@@ -26,4 +26,7 @@
 
     <color name="slate_blue">#647e90</color>
     <color name="peach">#fcc4a4</color>
+
+    <color name="dark_gray">#444444</color>
+
 </resources>

@@ -5,6 +5,7 @@
     <attr name="metaTextColor" format="color"/>
     <attr name="bottomNavColor" format="color"/>
     <attr name="iconColor" format="color"/>
-    <attr name="buttonColor" format="color"/>.
+    <attr name="buttonColor" format="color"/>
+    <attr name="errorTextColor" format="color"/>
     <attr name="balanceTextColor" format="color"/>
 </resources>

@@ -82,4 +82,8 @@
             android:id="@+id/action_balanceRecordPaymentFragment_to_balanceFragment"
             app:destination="@id/balanceFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.pg.justbalance.screens.login.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>
