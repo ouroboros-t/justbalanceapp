@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -22,11 +23,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.BalanceInfoLayoutBinding
 import com.pg.justbalance.screens.payment.BalancePaymentAdapter
+import com.pg.justbalance.sharedViewModels.UserViewModel
 import kotlinx.coroutines.launch
 
 class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
     private lateinit var binding: BalanceInfoLayoutBinding
     private lateinit var balanceInfoViewModel: BalanceInfoViewModel
+    private val userViewModel: UserViewModel by activityViewModels()
     private var alertDialog: AlertDialog? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +62,10 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
             if (paymentList.isNotEmpty()) {
                 binding.youHavent.visibility = View.GONE
             }
-            balanceInfoViewModel.calculateCurrentBalance(paymentList, arguments.balanceId)
+            userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+                balanceInfoViewModel.calculateCurrentBalance(paymentList, arguments.balanceId, user?.uid!! )
+            })
+
             balanceInfoViewModel.currentBalanceString.observe(
                 viewLifecycleOwner,
                 Observer { string ->
@@ -129,7 +135,10 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
                     run {
                         // updates the documents date used
                         lifecycleScope.launch {
-                            balanceInfoViewModel.deleteFromDatabase(arguments.balanceId)
+                            userViewModel.user.observe(viewLifecycleOwner, Observer {
+                                balanceInfoViewModel.deleteFromDatabase(arguments.balanceId, it?.uid!!)
+                            })
+
                             findNavController().navigate(R.id.action_balanceInfoFragment_to_balanceFragment)
                             Toast.makeText(
                                 activity,

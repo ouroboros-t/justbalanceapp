@@ -3,6 +3,7 @@ package com.pg.justbalance.services
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pg.justbalance.models.User
 
 class writingService : writingServiceInterface {
     override var db = FirebaseFirestore.getInstance()
@@ -14,10 +15,20 @@ class writingService : writingServiceInterface {
 
     override fun recordPayment(
         payment: HashMap<String, Any?>,
-        balanceId: String?
+        balanceId: String?,
+        userId: String
     ): Task<DocumentReference> {
-        val task = db.collection("balances").document(balanceId!!)
+        return db.collection("users").document(userId).collection("balances").document(balanceId!!)
             .collection("payments").add(payment)
-        return task
+
     }
+
+    override fun addToUsersTable(user: User): Task<Void>{
+        val userToAdd = hashMapOf(
+            "email" to user.email
+        )
+
+        return db.collection("users").document(user.userID).set(userToAdd)
+    }
+
 }

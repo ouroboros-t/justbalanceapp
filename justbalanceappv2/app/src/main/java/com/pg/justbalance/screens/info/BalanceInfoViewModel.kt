@@ -4,12 +4,9 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.decimalFormatDoubleCurrentBalance
-import com.pg.justbalance.services.deleteService
-import com.pg.justbalance.services.deleteServiceInterface
-import com.pg.justbalance.services.readingService
-import com.pg.justbalance.services.readingServiceInterface
 import com.pg.justbalance.models.BalanceModel
 import com.pg.justbalance.models.PaymentModel
+import com.pg.justbalance.services.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -17,7 +14,8 @@ class BalanceInfoViewModel(
     private val balanceId: String = "",
     dataSource: FirebaseFirestore,
     private val readingService: readingServiceInterface = readingService(),
-    private val deleteService: deleteServiceInterface = deleteService()
+    private val deleteService: deleteServiceInterface = deleteService(),
+    private val authService: AuthServiceInterface = AuthService()
 ) : ViewModel() {
     var hasRan = false
 
@@ -39,7 +37,8 @@ class BalanceInfoViewModel(
     fun getBalance() = balanceModel
 
     init {
-        database.collection("balances").document(balanceId).addSnapshotListener { value, error ->
+        database.collection("users").document(authService.auth.currentUser!!.uid)
+            .collection("balances").document(balanceId).addSnapshotListener { value, error ->
             if (error != null) {
                 Log.e("Firestore error", error.message.toString())
             }
@@ -64,18 +63,17 @@ class BalanceInfoViewModel(
         }
     }
 
-    fun calculateCurrentBalance(list: MutableList<PaymentModel>, balanceId: String) {
-        var startingBalance = 0.0
+    fun calculateCurrentBalance(list: MutableList<PaymentModel>, balanceId: String, userId: String) {
         viewModelScope.launch {
-            startingBalance =
-                readingService.getStartingBalance(balanceId).toString().toDouble()
+           var startingBalance =
+                readingService.getStartingBalance(balanceId, userId).toString().toDouble()
             if(list.isEmpty()){
-                updateCurrentBalance(balanceId, startingBalance)
+                updateCurrentBalance(userId,balanceId, startingBalance)
             }else {
                 list.forEach { payment ->
                     startingBalance -= payment.paymentAmount
                     val currentBalance = startingBalance
-                    updateCurrentBalance(balanceId, currentBalance)
+                    updateCurrentBalance(userId,balanceId, currentBalance)
                     _currentBalanceString.value =
                         decimalFormatDoubleCurrentBalance(currentBalance.toBigDecimal())
                 }
@@ -83,8 +81,8 @@ class BalanceInfoViewModel(
         }
     }
 
-    fun updateCurrentBalance(balanceId: String, bal: Double) {
-        readingService.updateCurrentBalance(balanceId, bal)
+    fun updateCurrentBalance(userId: String,balanceId: String, bal: Double) {
+        readingService.updateCurrentBalance(userId, balanceId, bal)
     }
 
 
@@ -100,9 +98,9 @@ class BalanceInfoViewModel(
         _navigateToBalances.value = true
     }
 
-    fun deleteFromDatabase(balanceId: String) {
+    fun deleteFromDatabase(balanceId: String, userId: String) {
         viewModelScope.launch {
-            deleteService.deleteService(balanceId)
+            deleteService.deleteService(balanceId, userId)
         }
     }
 

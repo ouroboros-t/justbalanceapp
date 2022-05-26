@@ -1,11 +1,12 @@
 package com.pg.justbalance
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.WindowManager
 import android.view.WindowManager.LayoutParams
+import androidx.appcompat.app.AppCompatActivity
+import java.io.File
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

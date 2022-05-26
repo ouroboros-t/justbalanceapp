@@ -10,4 +10,5 @@ interface AuthServiceInterface {
     fun getCurrentUser():FirebaseUser?
     fun signInWithEmailAndPassword(email:String, password:String): Task<AuthResult?>
     fun signOut()
+    fun createAuthUser(email: String, password: String): Task<AuthResult>
 }

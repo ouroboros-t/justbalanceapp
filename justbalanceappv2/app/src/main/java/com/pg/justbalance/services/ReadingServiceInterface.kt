@@ -8,6 +8,6 @@ interface readingServiceInterface {
     val db: FirebaseFirestore
     suspend fun readBalances(userId: String): MutableList<BalanceModel>
     suspend fun readPayments(balanceId: String): MutableList<PaymentModel>
-    suspend fun getStartingBalance(balanceId: String): Any?
-    fun updateCurrentBalance(balanceId: String, bal: Double)
+    suspend fun getStartingBalance(balanceId: String, userId: String): Any?
+    fun updateCurrentBalance(userId: String,balanceId: String, bal: Double)
 }

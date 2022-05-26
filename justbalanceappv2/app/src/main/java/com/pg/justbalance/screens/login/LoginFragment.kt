@@ -76,7 +76,7 @@ class LoginFragment: Fragment(R.layout.login_layout) {
         loginViewModel.signInSuccess.observe(viewLifecycleOwner, Observer { result ->
             if(result != null){
                 savedStateHandle.set(LOGIN_SUCCESSFUL, true)
-                findNavController().popBackStack()
+                findNavController().navigate(R.id.action_loginFragment_to_balanceFragment)
             }else{
                 Toast.makeText(activity, "Something went wrong :(", Toast.LENGTH_LONG).show()
             }

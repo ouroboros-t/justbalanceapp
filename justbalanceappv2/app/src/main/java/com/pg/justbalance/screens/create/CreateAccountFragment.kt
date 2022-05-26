@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.CreateAccountLayoutBinding
@@ -17,6 +18,7 @@ import com.pg.justbalance.sharedViewModels.UserViewModel
 
 class CreateAccountFragment: Fragment(R.layout.create_account_layout) {
     private lateinit var binding: CreateAccountLayoutBinding
+    private lateinit var createAccountViewModel: CreateAccountViewModel
     private val userViewModel: UserViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +28,7 @@ class CreateAccountFragment: Fragment(R.layout.create_account_layout) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.getItemId()) {
             android.R.id.home ->
-                userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
-                    if(user != null){
-                        findNavController().navigate(R.id.balanceFragment)
-                    }else{
-                        findNavController().navigate(R.id.action_createAccountFragment_to_loginFragment)
-                    }
-                })
+                findNavController().navigate(R.id.action_createAccountFragment_to_loginFragment)
 
         }
         return true
@@ -47,11 +43,39 @@ class CreateAccountFragment: Fragment(R.layout.create_account_layout) {
             .inflate(inflater, R.layout.create_account_layout,
                 container, false)
 
+        userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+            if(user != null){
+                findNavController().navigate(R.id.action_createAccountFragment_to_balanceFragment)
+            }
+        })
+
+
         setupActionBar()
 
+        createAccountViewModel = ViewModelProvider(this).get(CreateAccountViewModel::class.java)
 
+        binding.createAccountViewModel = createAccountViewModel
+
+
+
+
+
+        binding.confirmCreateAccountButton.setOnClickListener {
+            val email = binding.enterEmailAddressBox.text.toString()
+            val password = binding.enterPasswordBox.text.toString()
+            createAccountViewModel.createUser(email, password)
+        }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        createAccountViewModel.successCreated.observe(viewLifecycleOwner, Observer {
+            if(it != null){
+                        findNavController().navigate(R.id.action_createAccountFragment_to_loginFragment)
+            }
+        })
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun setupActionBar() {

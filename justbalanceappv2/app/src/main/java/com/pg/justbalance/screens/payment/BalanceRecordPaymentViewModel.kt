@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.DocumentReference
+import com.pg.justbalance.services.AuthService
+import com.pg.justbalance.services.AuthServiceInterface
 import com.pg.justbalance.services.writingService
 import com.pg.justbalance.services.writingServiceInterface
 import kotlinx.coroutines.launch
@@ -13,7 +15,8 @@ import java.lang.Exception
 import java.util.*
 
 class BalanceRecordPaymentViewModel
-    (val service: writingServiceInterface = writingService(), )
+    (val service: writingServiceInterface = writingService(),
+     val authService: AuthServiceInterface = AuthService()       )
     : ViewModel() {
 
 
@@ -24,6 +27,7 @@ class BalanceRecordPaymentViewModel
 
 
     fun addPayment(paymentAmount: Double, balanceId: String){
+        val userId = authService.auth.currentUser?.uid
         val date = Date()
         viewModelScope.launch {
            val payment = hashMapOf<String, Any?>(
@@ -32,7 +36,7 @@ class BalanceRecordPaymentViewModel
                 "balanceId" to balanceId
            )
             Log.i("TAG", balanceId)
-            service.recordPayment(payment, balanceId)
+            service.recordPayment(payment, balanceId, userId!!)
                 .addOnSuccessListener {
                     _successData.postValue(it)
                     Log.i("successData", _successData.value.toString())

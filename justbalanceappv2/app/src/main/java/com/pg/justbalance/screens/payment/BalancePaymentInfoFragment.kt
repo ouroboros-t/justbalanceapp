@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -16,11 +17,13 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.BalancePaymentLayoutBinding
+import com.pg.justbalance.sharedViewModels.UserViewModel
 import kotlinx.coroutines.launch
 
 class BalancePaymentInfoFragment : Fragment(R.layout.balance_payment_layout) {
     private lateinit var binding: BalancePaymentLayoutBinding
     private lateinit var balancePaymentInfoViewModel: BalancePaymentInfoViewModel
+    private val userViewModel: UserViewModel by activityViewModels()
     private var alertDialog: AlertDialog? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,10 +81,14 @@ class BalancePaymentInfoFragment : Fragment(R.layout.balance_payment_layout) {
                 DialogInterface.OnClickListener { dialog, id ->
                     run {
                         lifecycleScope.launch {
-                            balancePaymentInfoViewModel.deleteFromDatabase(
-                                arguments.balanceId,
-                                arguments.paymentId
-                            )
+                            userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+                                balancePaymentInfoViewModel.deleteFromDatabase(
+                                    arguments.balanceId,
+                                    arguments.paymentId,
+                                    user?.uid!!
+                                )
+                            })
+
                             findNavController().navigate(
                                 BalancePaymentInfoFragmentDirections.actionBalancePaymentInfoFragmentToBalanceInfoFragment(
                                     arguments.balanceId

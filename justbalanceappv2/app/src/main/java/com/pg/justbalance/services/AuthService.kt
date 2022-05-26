@@ -18,4 +18,9 @@ class AuthService : AuthServiceInterface {
     override fun signOut() {
         auth.signOut()
     }
+
+    override fun createAuthUser(email: String, password: String): Task<AuthResult>{
+       return auth.createUserWithEmailAndPassword(email, password)
+    }
+
 }

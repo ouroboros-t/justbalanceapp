@@ -83,9 +83,10 @@ class readingService(
             })
         }
 
-    override suspend fun getStartingBalance(balanceId: String): Any? =
+    override suspend fun getStartingBalance(balanceId: String, userId: String): Any? =
         suspendCancellableCoroutine { continuation ->
-            var query = db.collection("balances")
+            var query = db.collection("users").document(userId)
+                .collection("balances")
             var startingBalance: Double? = 0.0
 
             listener = query.addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -110,9 +111,10 @@ class readingService(
 
         }
 
-    override fun updateCurrentBalance(balanceId: String, bal: Double) {
+    override fun updateCurrentBalance(userId: String,balanceId: String, bal: Double) {
         val currentBalanceToUpdateTo = bal
-        db.collection("balances").document(balanceId)
+        db.collection("users").document(userId)
+            .collection("balances").document(balanceId)
             .update("currentBalance", currentBalanceToUpdateTo)
     }
 
