@@ -9,4 +9,5 @@ interface AuthServiceInterface {
     val auth: FirebaseAuth
     fun getCurrentUser():FirebaseUser?
     fun signInWithEmailAndPassword(email:String, password:String): Task<AuthResult?>
+    fun signOut()
 }

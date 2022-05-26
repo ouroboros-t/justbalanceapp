@@ -19,14 +19,14 @@ class AddBalanceViewModel(
     private var _failure = MutableLiveData<Exception?>()
     val failure : LiveData<Exception?> = _failure
 
-    fun addBalance(balanceName: String, balanceAmount: Double) {
+    fun addBalance(userId: String,balanceName: String, balanceAmount: Double) {
         viewModelScope.launch {
             val balance = hashMapOf<String, Any?>(
                 "balanceName" to balanceName,
                 "startingBalance" to balanceAmount,
                 "currentBalance" to balanceAmount
             )
-            service.addBalanceToDatabase(balance)
+            service.addBalanceToDatabase(userId,balance)
                 .addOnSuccessListener {
                     _success.postValue(it)
                 }

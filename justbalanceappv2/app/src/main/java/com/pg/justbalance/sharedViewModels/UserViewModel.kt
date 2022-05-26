@@ -15,5 +15,9 @@ class UserViewModel(private val authService: AuthServiceInterface = AuthService(
     fun getUser(){
         _user.value = authService.getCurrentUser()
     }
+    fun signOut(){
+        authService.signOut()
+    }
+
 
 }

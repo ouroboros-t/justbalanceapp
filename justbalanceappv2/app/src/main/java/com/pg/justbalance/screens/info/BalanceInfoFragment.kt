@@ -65,11 +65,7 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
                 Observer { string ->
                     binding.BalanceInfoCurrentBalance.text = string
                 })
-            //todo: this doesn't work -> does not update
-//            balanceInfoViewModel.currentBalDouble.observe(viewLifecycleOwner, Observer {
-//                double ->
-//                balanceInfoViewModel.updateCurrentBalance(arguments.balanceId, double)
-//            })
+
             binding.paymentsList.adapter = BalancePaymentAdapter(
                 paymentList,
                 BalancePaymentAdapter.PaymentListener { paymentID ->

@@ -44,14 +44,14 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
         binding.lifecycleOwner = this
 
         setActionBarToBeEmpty()
-        balanceViewModel.runService()
+
 
 
         val navController = findNavController()
         userViewModel.getUser()
         userViewModel.user.observe(viewLifecycleOwner, Observer{ user ->
                 if(user != null){
-
+                    balanceViewModel.runService(user.uid)
                 }else{
                     navController.navigate(R.id.loginFragment)
                 }
@@ -87,6 +87,12 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
                 balanceViewModel.onBalanceItemInfoNavigated()
             }
         })
+
+        binding.logoutButton.setOnClickListener {
+            userViewModel.signOut()
+           navController.navigate(R.id.loginFragment)
+        }
+
 
         return binding.root
     }

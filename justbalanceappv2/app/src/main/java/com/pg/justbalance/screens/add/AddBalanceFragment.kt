@@ -13,15 +13,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.AddBalanceLayoutBinding
+import com.pg.justbalance.sharedViewModels.UserViewModel
 
 class AddBalanceFragment : Fragment() {
     private lateinit var addBalanceViewModel: AddBalanceViewModel
     private lateinit var binding: AddBalanceLayoutBinding
+    private val userViewModel: UserViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -56,12 +59,17 @@ class AddBalanceFragment : Fragment() {
         binding.enterBalanceAmount.setupClearButtonWithAction()
 
         enableAddBalanceButtonWhenInfoValid()
-
+        userViewModel.getUser()
         binding.addBalanceButton.setOnClickListener {
             var balanceName = binding.enterBalanceName.text.toString()
             var balanceAmount: Double = binding.enterBalanceAmount.text.parseToDouble()
 
-            addBalanceViewModel.addBalance(balanceName, balanceAmount)
+            userViewModel.user.observe(viewLifecycleOwner, Observer {user ->
+                if (user != null) {
+                    addBalanceViewModel.addBalance(user.uid,balanceName, balanceAmount)
+                }
+            })
+
             //this below is useful for when firestore isn't working, and balances don't add.
 //            findNavController().navigate(AddBalanceFragmentDirections.actionAddBalanceFragmentToBalanceFragment())
 //            val message = "Balance Sucessfully Added"

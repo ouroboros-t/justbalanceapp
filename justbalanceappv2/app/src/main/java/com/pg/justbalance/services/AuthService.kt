@@ -14,4 +14,8 @@ class AuthService : AuthServiceInterface {
     override fun signInWithEmailAndPassword(email: String, password: String): Task<AuthResult?> {
         return auth.signInWithEmailAndPassword(email, password)
     }
+
+    override fun signOut() {
+        auth.signOut()
+    }
 }

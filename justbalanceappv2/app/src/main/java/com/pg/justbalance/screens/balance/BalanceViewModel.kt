@@ -8,11 +8,14 @@ import com.pg.justbalance.decimalFormatDouble
 import com.pg.justbalance.services.readingService
 import com.pg.justbalance.services.readingServiceInterface
 import com.pg.justbalance.models.BalanceModel
+import com.pg.justbalance.services.AuthService
+import com.pg.justbalance.services.AuthServiceInterface
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class BalanceViewModel(
-    private val readingService: readingServiceInterface = readingService()
+    private val readingService: readingServiceInterface = readingService(),
+    private val authService: AuthServiceInterface = AuthService()
 ) : ViewModel() {
     private var hasRan = false
 
@@ -41,10 +44,10 @@ class BalanceViewModel(
         _navigateToBalanceInfo.value = null
     }
 
-    fun runService() {
+    fun runService(userId: String) {
         viewModelScope.launch {
             if (!hasRan) {
-                _balances.postValue(readingService.readBalances())
+                _balances.postValue(readingService.readBalances(userId))
             }
             hasRan = true
         }

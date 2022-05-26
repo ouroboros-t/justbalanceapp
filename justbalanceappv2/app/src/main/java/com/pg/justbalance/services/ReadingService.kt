@@ -3,6 +3,7 @@ package com.pg.justbalance.services
 import android.util.Log
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
+import com.google.rpc.context.AttributeContext
 import com.pg.justbalance.models.BalanceModel
 import com.pg.justbalance.models.PaymentModel
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -14,11 +15,12 @@ class readingService(
     var payment = PaymentModel()
 
     override val db = FirebaseFirestore.getInstance()
+    var service: AuthServiceInterface = AuthService()
 
-    override suspend fun readBalances(): MutableList<BalanceModel> =
+    override suspend fun readBalances(userId: String): MutableList<BalanceModel> =
         suspendCancellableCoroutine { continuation ->
             var listBalance = mutableListOf<BalanceModel>()
-            var query = db.collection("balances")
+            var query = db.collection("users").document(userId).collection("balances")
 
             listener = query.addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(
@@ -51,8 +53,9 @@ class readingService(
     override suspend fun readPayments(balanceId: String): MutableList<PaymentModel> =
         suspendCancellableCoroutine { continuation ->
             var listPayment = mutableListOf<PaymentModel>()
-            var query = db.collection("balances")
-                .document(balanceId).collection("payments")
+            var query = db.collection("users")
+                .document(service.getCurrentUser()?.uid!!)
+                .collection("balances").document(balanceId).collection("payments")
 
             listener = query.addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(
@@ -107,7 +110,6 @@ class readingService(
 
         }
 
-    //todo: this doesn't work..
     override fun updateCurrentBalance(balanceId: String, bal: Double) {
         val currentBalanceToUpdateTo = bal
         db.collection("balances").document(balanceId)
