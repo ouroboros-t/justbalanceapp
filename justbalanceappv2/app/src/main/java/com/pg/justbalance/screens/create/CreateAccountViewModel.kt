@@ -15,16 +15,34 @@ class CreateAccountViewModel(
     private val authService: AuthServiceInterface = AuthService()
 ) : ViewModel() {
     private var _successCreated = MutableLiveData<AuthResult>()
-            val successCreated : LiveData<AuthResult> = _successCreated
+    val successCreated: LiveData<AuthResult> = _successCreated
+    private var _failedToCreate = MutableLiveData<Exception>()
+    val failedToCreate: LiveData<Exception> = _failedToCreate
+    private var _successSentEmail = MutableLiveData<Boolean>()
+    val successSentEmail : LiveData<Boolean> = _successSentEmail
+    private var _failureSentEmail = MutableLiveData<Exception>()
+    val failureSentEmail : LiveData<Exception> = _failureSentEmail
 
-    fun createUser(email: String, password: String){
-        authService.createAuthUser(email, password).addOnSuccessListener {
-            val user = User(userID = authService.auth.currentUser!!.uid)
-            user.email = email
-            user.userID = authService.auth.currentUser!!.uid
-            _successCreated.value = it
-            writingService.addToUsersTable(user)
-        }
+
+    fun createUser(email: String, password: String) {
+        authService.createAuthUser(email, password)
+            .addOnSuccessListener {
+                val user = User(userID = authService.getUserId()!!)
+                user.email = email
+                user.userID = authService.getUserId()!!
+                _successCreated.value = it
+                writingService.addToUsersTable(user)
+                authService.sendVerificationEmail()
+                    ?.addOnSuccessListener {
+                            _successSentEmail.value = true
+                    }
+                    ?.addOnFailureListener { exception ->
+                            _failureSentEmail.value = exception
+                    }
+            }
+            .addOnFailureListener { exception ->
+                _failedToCreate.value = exception
+            }
 
 
     }

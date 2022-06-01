@@ -6,9 +6,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 interface AuthServiceInterface {
-    val auth: FirebaseAuth
     fun getCurrentUser():FirebaseUser?
     fun signInWithEmailAndPassword(email:String, password:String): Task<AuthResult?>
     fun signOut()
     fun createAuthUser(email: String, password: String): Task<AuthResult>
+    fun getUserId(): String?
+    fun sendVerificationEmail(): Task<Void>?
 }

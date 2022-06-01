@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class AuthService : AuthServiceInterface {
-    override val auth = FirebaseAuth.getInstance()
+    private val auth = FirebaseAuth.getInstance()
     override fun getCurrentUser(): FirebaseUser? {
         return auth.currentUser
     }
@@ -21,6 +21,13 @@ class AuthService : AuthServiceInterface {
 
     override fun createAuthUser(email: String, password: String): Task<AuthResult>{
        return auth.createUserWithEmailAndPassword(email, password)
+    }
+
+    override fun getUserId(): String? {
+        return auth.currentUser?.uid
+    }
+    override fun sendVerificationEmail(): Task<Void>? {
+        return auth.currentUser?.sendEmailVerification()
     }
 
 }
