@@ -20,7 +20,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.LoginLayoutBinding
 import com.pg.justbalance.sharedViewModels.UserViewModel
@@ -77,12 +79,24 @@ class LoginFragment: Fragment(R.layout.login_layout) {
             if(result != null){
                 savedStateHandle.set(LOGIN_SUCCESSFUL, true)
                 findNavController().navigate(R.id.action_loginFragment_to_balanceFragment)
-            }else{
-                Toast.makeText(activity, "Something went wrong :(", Toast.LENGTH_LONG).show()
+            }
+        })
+        loginViewModel.signInError.observe(viewLifecycleOwner, Observer { exception ->
+            if(exception is FirebaseAuthInvalidCredentialsException){
+                invalidEmailOrPasswordError()
+            }else if (exception is FirebaseTooManyRequestsException){
+                tooManyLoginAttempts()
+            }else {
+                invalidEmailOrPasswordError()
             }
         })
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onPause() {
+        loginViewModel.resetData()
+        super.onPause()
     }
 
     private fun setupActionBar() {
@@ -173,6 +187,10 @@ class LoginFragment: Fragment(R.layout.login_layout) {
     private fun invalidEmailOrPasswordError() {
         binding.passwordError.visibility = View.VISIBLE
         binding.passwordError.text = getString(R.string.incorrect_email_or_password)
+    }
+    private fun tooManyLoginAttempts() {
+        binding.passwordError.visibility = View.VISIBLE
+        binding.passwordError.text = getString(R.string.too_many_attempts)
     }
 
     private fun Button.enableLoginButton() {
