@@ -37,7 +37,7 @@ class BalanceInfoViewModel(
     fun getBalance() = balanceModel
 
     init {
-        database.collection("users").document(authService.auth.currentUser!!.uid)
+        database.collection("users").document(authService.getUserId()!!)
             .collection("balances").document(balanceId).addSnapshotListener { value, error ->
             if (error != null) {
                 Log.e("Firestore error", error.message.toString())

@@ -27,7 +27,7 @@ class BalanceRecordPaymentViewModel
 
 
     fun addPayment(paymentAmount: Double, balanceId: String){
-        val userId = authService.auth.currentUser?.uid
+        val userId = authService.getUserId()
         val date = Date()
         viewModelScope.launch {
            val payment = hashMapOf<String, Any?>(

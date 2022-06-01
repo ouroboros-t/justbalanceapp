@@ -25,7 +25,7 @@ class BalancePaymentInfoViewModel(
     fun getPayment() = paymentModel
 
     init {
-        database.collection("users").document(authService.auth.currentUser?.uid!!)
+        database.collection("users").document(authService.getUserId()!!)
             .collection("balances").document(balanceId)
             .collection("payments").document(paymentId)
             .addSnapshotListener { value, error ->
