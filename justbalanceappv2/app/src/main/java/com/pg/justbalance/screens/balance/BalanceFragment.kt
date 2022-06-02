@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -21,7 +23,7 @@ import com.pg.justbalance.sharedViewModels.UserViewModel
 
 
 class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) {
-    private lateinit var balanceViewModel: BalanceViewModel
+    private val balanceViewModel: BalanceViewModel by activityViewModels()
     private lateinit var binding: BalanceLayoutBinding
     private val userViewModel: UserViewModel by activityViewModels()
     override fun onCreateView(
@@ -34,7 +36,7 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
             R.layout.balance_layout, container, false
         )
 
-        balanceViewModel = ViewModelProvider(this).get(BalanceViewModel::class.java)
+       // balanceViewModel = ViewModelProvider(this).get(BalanceViewModel::class.java)
 
         //we can now directly update TextViews, Buttons, etc inside of the xml..
         //EXAMPLE INSIDE TEXT VIEW : android:text="@{@string/quote_format(gameViewModel.word)}"
@@ -46,12 +48,26 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
         setActionBarToBeEmpty()
 
 
+        val spinner: Spinner? = view?.findViewById(R.id.filter_spinner)
+        ArrayAdapter.createFromResource(
+            requireContext(), R.array.filter_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner?.adapter = adapter
+        }
+
+
 
         val navController = findNavController()
         userViewModel.getUser()
         userViewModel.user.observe(viewLifecycleOwner, Observer{ user ->
                 if(user != null){
-                    balanceViewModel.runService(user.uid)
+                    //filter here by name
+                    //make aware of sorting option -> returns to the default
+                    balanceViewModel.runService()
                 }else{
                     navController.navigate(R.id.loginFragment)
                 }
@@ -88,6 +104,10 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
             }
         })
 
+        binding.button3.setOnClickListener {
+            balanceViewModel.filterButtonPressed("Okay")
+        }
+
         binding.logoutButton.setOnClickListener {
             userViewModel.signOut()
            navController.navigate(R.id.loginFragment)
@@ -108,6 +128,19 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
                 )
             )
         )
+    }
+
+    override fun onResume() {
+        balanceViewModel.hasRan = false
+        balanceViewModel.runService()
+        super.onResume()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        balanceViewModel.sortingOption.observe(viewLifecycleOwner, Observer {
+
+        })
+        super.onViewCreated(view, savedInstanceState)
     }
 
 }

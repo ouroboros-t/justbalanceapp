@@ -4,12 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pg.justbalance.database.Balance
 import com.pg.justbalance.decimalFormatDouble
-import com.pg.justbalance.services.readingService
-import com.pg.justbalance.services.readingServiceInterface
 import com.pg.justbalance.models.BalanceModel
-import com.pg.justbalance.services.AuthService
-import com.pg.justbalance.services.AuthServiceInterface
+import com.pg.justbalance.services.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -17,8 +15,13 @@ class BalanceViewModel(
     private val readingService: readingServiceInterface = readingService(),
     private val authService: AuthServiceInterface = AuthService()
 ) : ViewModel() {
-    private var hasRan = false
+ var hasRan = false
 
+
+
+    private var _sortingOption = MutableLiveData<SortingOptions>()
+            val sortingOption: LiveData<SortingOptions> = _sortingOption
+    private var currentSortingOptions: SortingOptions = SortingOptions.StartingBalance_High_Low
     private val _balances = MutableLiveData<MutableList<BalanceModel>>()
     val balances: LiveData<MutableList<BalanceModel>> = _balances
 
@@ -44,12 +47,12 @@ class BalanceViewModel(
         _navigateToBalanceInfo.value = null
     }
 
-    fun runService(userId: String) {
+    fun runService() {
         viewModelScope.launch {
-            if (!hasRan) {
-                _balances.postValue(readingService.readBalances(userId))
+            if(!hasRan) {
+                updateBalancesPerSorting()
             }
-            hasRan = true
+           hasRan = true
         }
     }
 
@@ -67,4 +70,33 @@ class BalanceViewModel(
         totalBalance = total.toString()
         return totalFormatted
     }
+
+fun filterButtonPressed(option: String){
+  _sortingOption.value = when(option){
+        "Thing" ->  SortingOptions.Balance_Name
+        else -> SortingOptions.StartingBalance_High_Low
+    }
+    updateBalancesPerSorting()
+}
+
+ fun updateBalancesPerSorting() {
+     viewModelScope.launch {
+     when (_sortingOption.value ) {
+         SortingOptions.StartingBalance_High_Low -> {
+             _balances.postValue(
+                 readingService.readBalances(authService.getUserId()!!)
+                     .sortByStartingBalanceHighToLow()
+             )
+         }
+         SortingOptions.Balance_Name -> {
+             _balances.postValue(
+                 readingService.readBalances(authService.getUserId()!!).sortByBalanceName()
+             )
+         }
+         else ->  _balances.postValue(
+             readingService.readBalances(authService.getUserId()!!).sortByBalanceName()
+         )
+     }
+ }
+ }
 }

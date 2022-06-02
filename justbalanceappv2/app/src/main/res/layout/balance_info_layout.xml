@@ -192,6 +192,17 @@
             app:layout_constraintTop_toBottomOf="@+id/you_havent"
             app:layout_constraintVertical_bias="0.0" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/close_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/delete_button" />
+
         <!--        <ImageView-->
 <!--            android:id="@+id/imageView2"-->
 <!--            android:layout_width="81dp"-->

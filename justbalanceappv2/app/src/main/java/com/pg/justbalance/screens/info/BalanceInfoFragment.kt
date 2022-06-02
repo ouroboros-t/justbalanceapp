@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -24,6 +25,7 @@ import com.pg.justbalance.R
 import com.pg.justbalance.databinding.BalanceInfoLayoutBinding
 import com.pg.justbalance.screens.payment.BalancePaymentAdapter
 import com.pg.justbalance.sharedViewModels.UserViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
@@ -138,7 +140,8 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
                             userViewModel.user.observe(viewLifecycleOwner, Observer {
                                 balanceInfoViewModel.deleteFromDatabase(arguments.balanceId, it?.uid!!)
                             })
-
+                            displaySpinnerIcon()
+                            delay(3000)
                             findNavController().navigate(R.id.action_balanceInfoFragment_to_balanceFragment)
                             Toast.makeText(
                                 activity,
@@ -165,4 +168,9 @@ class BalanceInfoFragment : Fragment(R.layout.balance_info_layout) {
             )
         )
     }
+
+    fun displaySpinnerIcon(){
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
 }

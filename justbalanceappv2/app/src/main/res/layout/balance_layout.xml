@@ -52,26 +52,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Balances_Title" />
 
+
         <TextView
             android:id="@+id/your_balances_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:text="@string/your_balances"
             android:textColor="?attr/balanceTextColor"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button"
-           />
-
+            app:layout_constraintTop_toBottomOf="@+id/button" />
 
         <TextView
             android:id="@+id/total_balance_amount_textView"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:textColor="@color/blue"
             android:textSize="20sp"
@@ -81,12 +80,23 @@
             app:layout_constraintTop_toBottomOf="@+id/button"
             tools:text="Total Balance Amount" />
 
+        <Spinner
+            android:id="@+id/filter_spinner"
+            android:layout_width="110dp"
+            android:layout_height="23dp"
+            android:entries="@array/filter_array"
+            android:paddingLeft="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/total_balance_amount_textView" />
+
         <TextView
             android:id="@+id/you_havent"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
             android:text="No Balances Yet."
             android:textColor="?attr/metaTextColor"
             android:textSize="18dp"
@@ -144,6 +154,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.584"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balancesList" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="filter"
+            app:layout_constraintBottom_toTopOf="@+id/logout_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/balancesList" />
 

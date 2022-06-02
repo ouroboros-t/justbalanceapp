@@ -11,13 +11,6 @@ package com.pg.justbalance
 //alert dialog for changing an amount: "This will change the starting amount of your balance. Did you want to report a payment instead?"
         //report payment -> nav to report payment screen, no -> make starting amount editable
 
-//TODO: update reading service to take user id into consideration
-//TODO: update writing service to use user id
-//TODO: create account flow
-
-
-
-
 
 
 //---------------------------------DONE----------------------------------
