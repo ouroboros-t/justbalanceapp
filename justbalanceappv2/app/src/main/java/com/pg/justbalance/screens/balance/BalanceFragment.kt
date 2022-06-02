@@ -1,13 +1,12 @@
 package com.pg.justbalance.screens.balance
 
 
-import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.pg.justbalance.R
 import com.pg.justbalance.databinding.BalanceLayoutBinding
@@ -59,6 +57,15 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
             spinner?.adapter = adapter
         }
 
+        binding.filterSpinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(adapter: AdapterView<*>, v: View?, i: Int, lng: Long) {
+              val selecteditem = adapter.getItemAtPosition(i).toString()
+                //or this can be also right: selecteditem = level[i];
+                balanceViewModel.filterButtonPressed(selecteditem)
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {}
+        })
 
 
         val navController = findNavController()
@@ -103,10 +110,6 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
                 balanceViewModel.onBalanceItemInfoNavigated()
             }
         })
-
-        binding.button3.setOnClickListener {
-            balanceViewModel.filterButtonPressed("Okay")
-        }
 
         binding.logoutButton.setOnClickListener {
             userViewModel.signOut()

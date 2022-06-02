@@ -73,8 +73,10 @@ class BalanceViewModel(
 
 fun filterButtonPressed(option: String){
   _sortingOption.value = when(option){
-        "Thing" ->  SortingOptions.Balance_Name
-        else -> SortingOptions.StartingBalance_High_Low
+        "A-Z" ->  SortingOptions.Balance_Name
+        "$-$$" -> SortingOptions.StartingBalance_Low_High
+        "$$-$" -> SortingOptions.StartingBalance_High_Low
+        else -> SortingOptions.Balance_Name
     }
     updateBalancesPerSorting()
 }
@@ -87,6 +89,11 @@ fun filterButtonPressed(option: String){
                  readingService.readBalances(authService.getUserId()!!)
                      .sortByStartingBalanceHighToLow()
              )
+         }
+         SortingOptions.StartingBalance_Low_High -> {
+             _balances.postValue(
+                 readingService.readBalances(authService.getUserId()!!)
+                     .sortByStartingBalanceLowToHigh())
          }
          SortingOptions.Balance_Name -> {
              _balances.postValue(
