@@ -19,5 +19,10 @@ class UserViewModel(private val authService: AuthServiceInterface = AuthService(
         authService.signOut()
     }
 
+    fun getEmail():String?{
+        return _user.value?.email
+    }
+
+
 
 }

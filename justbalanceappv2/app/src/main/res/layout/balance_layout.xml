@@ -37,7 +37,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:height="48dp"
-            android:backgroundTint="@color/light_year_purple"
+            android:backgroundTint="@color/green_apple"
             android:fontFamily="@font/belleza"
             android:letterSpacing="0"
             android:paddingTop="10dp"
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:textColor="@color/blue"
             android:textSize="20sp"
@@ -82,18 +82,20 @@
 
         <Spinner
             android:id="@+id/filter_spinner"
-            android:layout_width="120dp"
-            android:layout_height="49dp"
-            android:layout_marginStart="189dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="116dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="279dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="94dp"
             android:entries="@array/filter_array"
             android:paddingLeft="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/balancesList"
-            app:layout_constraintEnd_toEndOf="@+id/total_balance_amount_textView"
-            app:layout_constraintStart_toEndOf="@+id/your_balances_text"
-            app:layout_constraintTop_toBottomOf="@+id/total_balance_amount_textView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balancesList"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/you_havent"
@@ -132,37 +134,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="87dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/logout_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/you_havent" />
-
-        <Button
-            android:id="@+id/logout_button"
-            android:layout_width="310dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            android:height="48dp"
-            android:backgroundTint="@color/light_year_purple"
-            android:fontFamily="@font/belleza"
-            android:letterSpacing="0"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="Log Out"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/buzz_blue"
-            android:textSize="20dp"
-            app:iconPadding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.584"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/balancesList" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

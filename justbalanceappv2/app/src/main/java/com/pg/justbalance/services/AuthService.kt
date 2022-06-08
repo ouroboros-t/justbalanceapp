@@ -30,4 +30,8 @@ class AuthService : AuthServiceInterface {
         return auth.currentUser?.sendEmailVerification()
     }
 
+    override fun getEmail(): String? {
+        return auth.currentUser?.email
+    }
+
 }

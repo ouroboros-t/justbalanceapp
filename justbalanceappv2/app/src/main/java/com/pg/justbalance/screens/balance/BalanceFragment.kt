@@ -111,10 +111,7 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
             }
         })
 
-        binding.logoutButton.setOnClickListener {
-            userViewModel.signOut()
-           navController.navigate(R.id.loginFragment)
-        }
+
 
 
         return binding.root

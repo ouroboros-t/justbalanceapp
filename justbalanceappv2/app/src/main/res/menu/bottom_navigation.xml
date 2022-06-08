@@ -5,4 +5,9 @@
         android:icon="@drawable/money"
         android:title="@string/balance_icon_title" >
     </item>
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/cogs"
+        android:title="Settings">
+    </item>
 </menu>

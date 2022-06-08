@@ -12,4 +12,5 @@ interface AuthServiceInterface {
     fun createAuthUser(email: String, password: String): Task<AuthResult>
     fun getUserId(): String?
     fun sendVerificationEmail(): Task<Void>?
+    fun getEmail():String?
 }

@@ -81,5 +81,8 @@
     <string name="verification_email_sent_error_message">Failed to send verification email.</string>
     <string name="something_went_wrong_error_message">Something went wrong.Try again.</string>
 
+    <!--SETTINGS-->
+    <string name="user_email_text">Email Address: %s</string>
+
 
 </resources>
