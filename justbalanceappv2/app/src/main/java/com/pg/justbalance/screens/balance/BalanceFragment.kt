@@ -111,7 +111,9 @@ class BalanceFragment : androidx.fragment.app.Fragment(R.layout.balance_layout) 
             }
         })
 
-
+        binding.btnTakePicture.setOnClickListener {
+            findNavController().navigate(BalanceFragmentDirections.actionBalanceFragmentToCameraFragment())
+        }
 
 
         return binding.root
