@@ -14,3 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "JustBalance"
 include ':app'
+include ':java'
+include ':opencv'
+include ':opencv'

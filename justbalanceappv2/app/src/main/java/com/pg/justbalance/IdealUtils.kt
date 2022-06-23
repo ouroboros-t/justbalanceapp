@@ -11,6 +11,10 @@ package com.pg.justbalance
 //alert dialog for changing an amount: "This will change the starting amount of your balance. Did you want to report a payment instead?"
         //report payment -> nav to report payment screen, no -> make starting amount editable
 
+//MLKIT -> reading receipt totals in order to capture total for payment record.
+//REALTIME DATABASE -> store receipts attached to a specific payment
+//CAMERA -> able to take photos of a receipt
+
 
 
 //---------------------------------DONE----------------------------------

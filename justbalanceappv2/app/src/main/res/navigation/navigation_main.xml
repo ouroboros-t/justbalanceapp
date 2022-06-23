@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_balanceFragment_to_balanceInfoFragment"
             app:destination="@id/balanceInfoFragment" />
+        <action
+            android:id="@+id/action_balanceFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBalanceFragment"
@@ -112,4 +115,8 @@
             android:id="@+id/action_settingsFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.pg.justbalance.screens.CameraFragment"
+        android:label="CameraFragment" />
 </navigation>
