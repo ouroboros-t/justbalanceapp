@@ -1,6 +1,7 @@
 package com.pg.justbalance.screens
 
 import android.Manifest
+import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
@@ -60,7 +61,7 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
 
 
     private var mImageMaxWidth: Int? = null
-    private var mImageMaxHeight:Int? = null
+    private var mImageMaxHeight: Int? = null
 
 
     private lateinit var safeContext: Context
@@ -118,8 +119,6 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
     private val intValues = IntArray(DIM_IMG_SIZE_X * DIM_IMG_SIZE_Y)
 
 
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         safeContext = context
@@ -137,7 +136,7 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
         cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
         imgCaptureExecutor = Executors.newSingleThreadExecutor()
         mGraphicOverlay = binding.graphicOverlay
-        cameraProviderResult.launch(android.Manifest.permission.CAMERA)
+        cameraProviderResult.launch(permission.CAMERA)
 
         binding.viewFinder.implementationMode = PreviewView.ImplementationMode.COMPATIBLE;
 
@@ -150,11 +149,12 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnTakePicture.setOnClickListener {
-            takePhoto()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-               // animateFlash()
-            }}
+                takePhoto()
+                binding.viewFinder.visibility = View.GONE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    animateFlash()
+                }
+        }
         binding.btnReadText.setOnClickListener {
             runTextRecognition()
         }
@@ -188,12 +188,12 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
         }, ContextCompat.getMainExecutor(safeContext))
     }
 
-    private fun takePhoto(){
-        imageCapture?.let{
+    private fun takePhoto() {
+        imageCapture?.let {
             //Create a storage location whose fileName is timestamped in milliseconds.
             val fileName = "JPEG_${System.currentTimeMillis()}"
 
-            val file = File(activity!!.externalMediaDirs[0],fileName)
+            val file = File(activity!!.externalMediaDirs[0], fileName)
 
             // Save the image in the above file
             val outputFileOptions = ImageCapture.OutputFileOptions.Builder(file).build()
@@ -203,19 +203,27 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
 
             it.takePicture(
                 outputFileOptions,
-                imgCaptureExecutor,
+                Executors.newSingleThreadExecutor(),
                 object : ImageCapture.OnImageSavedCallback {
-                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults){
-                        Log.i(TAG,"The image has been saved in ${file.toUri()}")
+                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                        Log.i(TAG, "The image has been saved in ${file.toUri()}")
 
+                        val matrix = Matrix()
+                        matrix.setRotate(90f)
 
+                        val bitmap: Bitmap = BitmapFactory.decodeFile(file.path)
+
+                        val bitmapToUse = Bitmap.createBitmap(
+                            bitmap,
+                            0,
+                            0,
+                            bitmap.width,
+                            bitmap.height,
+                            matrix,
+                            true
+                        )
                         activity!!.runOnUiThread {
-                            val matrix = Matrix()
-                            matrix.setRotate(90f)
 
-                            val bitmap: Bitmap = BitmapFactory.decodeFile(file.path)
-
-                            val bitmapToUse = Bitmap.createBitmap(bitmap,0, 0, bitmap.width, bitmap.height, matrix, true)
                             binding.imageView2.setImageBitmap(bitmapToUse)
                             mSelectedImage = bitmapToUse
                         }
@@ -328,7 +336,7 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
         val TAG = "CameraFragment"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         internal const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private val REQUIRED_PERMISSIONS = arrayOf(permission.CAMERA)
         var isOffline = false
     }
 
@@ -350,6 +358,7 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
         }
 
     }
+
     //MLKIT Functions
     private fun runTextRecognition() {
         mTextButton = binding.btnReadText
@@ -379,12 +388,14 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
             for (j in lines.indices) {
                 val elements = lines[j].elements
                 for (k in elements.indices) {
-                    val textGraphic: GraphicOverlay.Graphic = TextGraphic(mGraphicOverlay, elements[k])
+                    val textGraphic: GraphicOverlay.Graphic =
+                        TextGraphic(mGraphicOverlay, elements[k])
                     mGraphicOverlay.add(textGraphic)
                 }
             }
         }
     }
+
     private fun showToast(message: String) {
         Toast.makeText(safeContext, message, Toast.LENGTH_SHORT).show()
     }
@@ -474,8 +485,6 @@ class CameraFragment : Fragment(R.layout.camera_layout) {
         }
         return bitmap
     }
-
-
 
 
 }
